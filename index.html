@@ -12,7 +12,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Alef:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
     <!-- אייקונים אלגנטיים של FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <link rel="icon" type="image/png" href="CLOSE.png">
+
     <script>
         tailwind.config = {
             theme: {
@@ -28,18 +29,16 @@
                             600: '#8E6955',
                             700: '#725141',
                             800: '#583D31',
+                            850: '#483228',
                             900: '#3D2A21',
+                            950: '#2A1C16',
                         },
                         cream: {
                             100: '#FBF9F6',
                             200: '#F4EFEA',
                             300: '#ECE3DB',
                         },
-                        accentRose: '#E1B2B6',
-                        accentMint: '#CBE4DE',
-                        mintLeaf: '#9FD3C7',
-                        mintDeep: '#6FAE9F',
-                        darkGreen: '#2C4A3E'
+                        accentRose: '#E1B2B6'
                     },
                     fontFamily: {
                         sans: ['Alef', 'sans-serif'],
@@ -60,17 +59,17 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        
+
         /* אפקטים וצללים מעודנים */
-        .mint-touch { 
-            box-shadow: 0 0 0 1px rgba(203,228,222,.35), 0 16px 32px rgba(44,74,62,.04); 
+        .package-touch {
+            box-shadow: 0 0 0 1px rgba(225,178,182,.32), 0 16px 32px rgba(61,42,33,.06);
         }
         .thin-icon { color: #8E6955; }
-        @keyframes iconFloat { 
-            0%, 100% { transform: translateY(0); } 
-            50% { transform: translateY(-4px); } 
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
         }
-        
+
         .section-divider-svg { width: 100%; height: 14px; display: block; margin-top: 2.5rem; }
         .section-divider-path {
             fill: none;
@@ -82,7 +81,7 @@
             transition: stroke-dashoffset 2.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .divider-line.in-view .section-divider-path { stroke-dashoffset: 0; }
-        
+
         /* סליידר רקע הירו חלק */
         .hero-slide {
             position: absolute;
@@ -92,8 +91,8 @@
             opacity: 0;
             transition: opacity 1.5s ease-in-out;
         }
-        .hero-slide.active { opacity: 0.18; }
-        
+        .hero-slide.active { opacity: 0.28; }
+
         /* אנימציות גלריה חלקות */
         .gallery-item {
             transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.9s ease;
@@ -104,7 +103,7 @@
             opacity: 1;
             transform: translate(0,0) rotate(0deg);
         }
-        
+
         /* אפקט הניגודיות לטקסט - חשיפה הדרגתית תו אחר תו */
         .char-span {
             display: inline;
@@ -128,21 +127,23 @@
         .draw-svg-icon.in-view path, .draw-svg-icon.in-view circle, .draw-svg-icon.in-view line, .draw-svg-icon.in-view polyline, .draw-svg-icon.in-view rect {
             stroke-dashoffset: 0;
         }
-        /* --- עיצוב לוגו צמצם מונפש רב-שימושי --- */
+        /* --- עיצוב לוגו צמצם מונפש רב-שימושי מתוך LOGO.svg --- */
         .aperture-logo-wrapper {
-          width: 200px;
-          height: 200px;
+          --aperture-progress: 0;
+          width: 180px;
+          height: 180px;
           position: relative;
           display: inline-block;
           vertical-align: middle;
         }
 
         .aperture-logo-wrapper svg.aperture-animated-svg {
-          width: 200px;
-          height: 200px;
+          width: 180px;
+          height: 180px;
           position: absolute;
-          top: -12px;
-          left: -14px;
+          top: 0;
+          left: 0;
+          overflow: visible;
         }
 
         .aperture-logo-container {
@@ -154,58 +155,114 @@
           border-radius: 100px;
           overflow: hidden;
           border: 4px solid #E1B2B6;
+          background: rgba(255,255,255,.18);
         }
 
-        .aperture-logo-wrapper .blade-1 { transform-origin: 210.02px 43.57px; -webkit-transform-origin: 210.02px 43.57px; }
-        .aperture-logo-wrapper .blade-2 { transform-origin: 150.47px -14.15px; -webkit-transform-origin: 150.47px -14.15px; }
-        .aperture-logo-wrapper .blade-3 { transform-origin: 67.1px -19.55px; -webkit-transform-origin: 67.1px -19.55px; }
-        .aperture-logo-wrapper .blade-4 { transform-origin: -0.23px 29.9px; -webkit-transform-origin: -0.23px 29.9px; }
-        .aperture-logo-wrapper .blade-5 { transform-origin: -20.02px 111.07px; -webkit-transform-origin: -20.02px 111.07px; }
-        .aperture-logo-wrapper .blade-6 { transform-origin: 16.99px 185.96px; -webkit-transform-origin: 16.99px 185.96px; }
-        .aperture-logo-wrapper .blade-7 { transform-origin: 93.48px 219.55px; -webkit-transform-origin: 93.48px 219.55px; }
-        .aperture-logo-wrapper .blade-8 { transform-origin: 173.66px 196.11px; -webkit-transform-origin: 173.66px 196.11px; }
-        .aperture-logo-wrapper .blade-9 { transform-origin: 220.02px 126.61px; -webkit-transform-origin: 220.02px 126.61px; }
+        .aperture-logo-wrapper .aperture-blades {
+          clip-path: circle(42.333% at 50% 50%);
+        }
 
         .aperture-logo-wrapper svg.aperture-animated-svg path {
-          fill: #9FD3C7;
-          stroke: #2C4A3E;
+          fill: #E1B2B6;
+          stroke: #583D31;
+          stroke-width: 1.1;
           stroke-miterlimit: 10;
-          animation: apertureLoop 2.2s linear infinite;
-          -webkit-animation: apertureLoop 2.2s linear infinite;
+          transform-box: fill-box;
+          transform-origin: center;
+          transform: translate(
+            calc(var(--blade-close-x, 0px) * var(--aperture-progress)),
+            calc(var(--blade-close-y, 0px) * var(--aperture-progress))
+          ) rotate(var(--blade-base-rot, 0deg));
+          transition: transform .28s linear;
+          will-change: transform;
         }
 
-        @keyframes apertureLoop {
-          0% { transform: rotate(-20deg); }
-          20% { transform: rotate(-20deg); }
-          30% { transform: rotate(15deg); }
-          70% { transform: rotate(15deg); }
-          80% { transform: rotate(-20deg); }
-          100% { transform: rotate(-20deg); }
+        .aperture-logo-wrapper .blade-1 { --blade-close-x: 98.1158px; --blade-close-y: -43.512px; }
+        .aperture-logo-wrapper .blade-2 { --blade-close-x: 11.7026px; --blade-close-y: -107.893px; }
+        .aperture-logo-wrapper .blade-3 { --blade-close-x: -86.1779px; --blade-close-y: -65.4103px; }
+        .aperture-logo-wrapper .blade-4 { --blade-close-x: -96.1874px; --blade-close-y: 43.4619px; }
+        .aperture-logo-wrapper .blade-5 { --blade-close-x: -11.5425px; --blade-close-y: 107.5147px; }
+        .aperture-logo-wrapper .blade-6 { --blade-close-x: 90.4833px; --blade-close-y: 66.3953px; --blade-base-rot: -0.467909deg; }
+
+        @keyframes apertureDoubleCloseOpen {
+          0%, 38%, 100% { --aperture-progress: 0; }
+          14%, 58% { --aperture-progress: 1; }
+          24%, 72% { --aperture-progress: 0; }
         }
 
-        @-webkit-keyframes apertureLoop {
-          0% { -webkit-transform: rotate(-20deg); }
-          20% { -webkit-transform: rotate(-20deg); }
-          30% { -webkit-transform: rotate(15deg); }
-          70% { -webkit-transform: rotate(15deg); }
-          80% { -webkit-transform: rotate(-20deg); }
-          100% { -webkit-transform: rotate(-20deg); }
+        @property --aperture-progress {
+          syntax: '<number>';
+          inherits: true;
+          initial-value: 0;
         }
-        
+
         .aperture-logo-wrapper.aperture-nav svg.aperture-animated-svg path {
-          animation: none;
-          -webkit-animation: none;
-          transform: rotate(var(--aperture-rot, -20deg));
-          transition: transform .35s ease;
+          transition: transform .08s linear;
         }
-        .aperture-logo-wrapper.aperture-trigger svg.aperture-animated-svg path {
-          animation-play-state: paused;
-          -webkit-animation-play-state: paused;
+        .aperture-logo-wrapper.aperture-trigger.aperture-active,
+        .aperture-logo-wrapper.aperture-trigger:hover {
+          animation: apertureDoubleCloseOpen 2.2s linear 1;
         }
-        .aperture-logo-wrapper.aperture-trigger.aperture-active svg.aperture-animated-svg path,
-        .aperture-logo-wrapper.aperture-trigger:hover svg.aperture-animated-svg path {
-          animation-play-state: running;
-          -webkit-animation-play-state: running;
+
+        .loading-screen {
+          position: fixed;
+          inset: 0;
+          z-index: 200;
+          display: grid;
+          place-items: center;
+          background:
+            radial-gradient(circle at 50% 36%, rgba(225,178,182,.24), transparent 28%),
+            linear-gradient(145deg, #FBF9F6 0%, #F4EFEA 58%, #E8D8CE 100%);
+          color: #3D2A21;
+          transition: opacity .55s ease, visibility .55s ease;
+        }
+        .loading-screen.is-hidden {
+          opacity: 0;
+          visibility: hidden;
+          pointer-events: none;
+        }
+        body.is-loading {
+          overflow: hidden;
+        }
+        .loading-screen__card {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 1rem;
+          text-align: center;
+          padding: 2rem;
+        }
+        .loading-screen .aperture-logo-wrapper {
+          animation: apertureDoubleCloseOpen 1.65s linear infinite;
+          transform: scale(1.35);
+          margin: 1.5rem;
+        }
+        .sound-toggle {
+          position: fixed;
+          left: 1rem;
+          bottom: 1rem;
+          z-index: 90;
+          width: 2.6rem;
+          height: 2.6rem;
+          border-radius: 9999px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          border: 1px solid rgba(142,105,85,.24);
+          background: rgba(251,249,246,.86);
+          color: #583D31;
+          box-shadow: 0 12px 28px rgba(61,42,33,.14);
+          backdrop-filter: blur(12px);
+          transition: transform .25s ease, background .25s ease, color .25s ease;
+        }
+        .sound-toggle:hover {
+          transform: translateY(-2px) scale(1.04);
+          background: #3D2A21;
+          color: #FBF9F6;
+        }
+        .sound-toggle.is-muted {
+          background: #E8D8CE;
+          color: #725141;
         }
 
 
@@ -229,7 +286,7 @@
           width: 100%;
           height: 100%;
           object-fit: cover;
-          filter: grayscale(100%) sepia(22%) hue-rotate(95deg) saturate(170%) brightness(0.92) contrast(0.95);
+          filter: grayscale(45%) sepia(18%) saturate(108%) brightness(0.97) contrast(0.98);
           transition: filter 500ms cubic-bezier(.76,.16,.33,.99);
         }
         .gallery-container .box:hover .content img { filter: grayscale(0%) sepia(0%) hue-rotate(0deg) saturate(100%) brightness(1); }
@@ -273,7 +330,7 @@
             padding: clamp(1rem, 2.5vw, 2rem);
             background:
                 radial-gradient(circle at 18% 12%, rgba(225,178,182,.22), transparent 32%),
-                radial-gradient(circle at 82% 85%, rgba(159,211,199,.20), transparent 30%),
+                radial-gradient(circle at 82% 85%, rgba(216,193,179,.22), transparent 30%),
                 rgba(61,42,33,.88);
             backdrop-filter: blur(18px);
             opacity: 0;
@@ -336,7 +393,7 @@
             overflow: hidden;
             border-radius: 1.45rem;
             background:
-                linear-gradient(135deg, rgba(61,42,33,.08), rgba(159,211,199,.12)),
+                linear-gradient(135deg, rgba(61,42,33,.08), rgba(216,193,179,.14)),
                 #F4EFEA;
         }
         .image-lightbox__image {
@@ -352,6 +409,13 @@
         .image-lightbox__image.is-switching {
             opacity: 0;
             transform: scale(.985) translateY(8px);
+        }
+        .image-lightbox__caption {
+            color: #725141;
+            font-size: .82rem;
+            text-align: center;
+            min-height: 1.4rem;
+            letter-spacing: .04em;
         }
         .image-lightbox__controls {
             display: flex;
@@ -385,7 +449,7 @@
         }
         .image-lightbox__dot.is-active {
             width: 1.8rem;
-            background: linear-gradient(90deg, #E1B2B6, #9FD3C7);
+            background: linear-gradient(90deg, #E1B2B6, #8E6955);
             transform: translateY(-1px);
         }
         .image-lightbox__thumbs {
@@ -480,7 +544,7 @@
         .onestyle-visual:hover {
             transform: scale(1.02);
         }
-        
+
         html {
             scroll-behavior: smooth;
         }
@@ -523,7 +587,29 @@
         }
     </style>
 </head>
-<body class="overflow-x-hidden antialiased">
+<body class="overflow-x-hidden antialiased is-loading">
+    <div id="loading-screen" class="loading-screen" role="status" aria-live="polite" aria-label="טוען את האתר">
+        <div class="loading-screen__card">
+            <div class="aperture-logo-wrapper">
+                <div class="aperture-logo-container"><svg version="1.1" class="aperture-animated-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" aria-hidden="true" focusable="false">
+                    <g class="aperture-blades">
+                        <path class="blade-1" d="M177.273,377.945L83.4902,352.099C135.371,278.71,155.069,177.512,149.287,150.603c25.833-6.199,113.783,83.461,126.508,154.625l-98.522,72.717Z" clip-rule="evenodd" fill-rule="evenodd"/>
+                        <path class="blade-2" d="M360.631,240.226l-69.275,68.295C253.74,226.897,175.949,159.239,149.754,150.792c7.548-25.472,129.171-56.8088,197.164-32.247l13.713,121.681Z" clip-rule="evenodd" fill-rule="evenodd"/>
+                        <path class="blade-3" d="M332.608,12.2818l24.508,94.1412c-89.497-8.2353-186.986,25.305-207.399,43.766-18.285-19.272,15.388-140.26943,70.656-186.8714L332.608,12.2818Z" clip-rule="evenodd" fill-rule="evenodd"/>
+                        <path class="blade-4" d="M121.227,-77.9436L215.01,-52.098c-51.881,73.3891-71.579,174.587-65.797,201.496-25.833,6.2-113.7831-83.4611-126.5078-154.6252l98.5218-72.7164Z" clip-rule="evenodd" fill-rule="evenodd"/>
+                        <path class="blade-5" d="M-62.2607,59.6473L7.01366,-8.64815C44.6302,72.9761,122.421,140.634,148.616,149.082c-7.548,25.471-129.1711,56.808-197.1634,32.246L-62.2607,59.6473Z" clip-rule="evenodd" fill-rule="evenodd"/>
+                        <path class="blade-6" d="M-34.2377,286.591L-58.7461,192.45c89.4969,8.236,186.9861-25.304,207.3991-43.766c18.285,19.273-15.388,140.27-70.6555,186.872L-34.2377,286.591Z" clip-rule="evenodd" fill-rule="evenodd"/>
+                    </g>
+                </svg></div>
+            </div>
+            <div class="font-serif text-3xl tracking-widest">TAMAR ELYASHIV</div>
+            <div class="text-xs tracking-[0.35em] text-mocha-700">טוען תמונות ונתונים</div>
+        </div>
+    </div>
+    <button type="button" id="sound-toggle" class="sound-toggle" aria-label="השתק צלילי אתר" aria-pressed="false" title="השתק צלילים">
+        <i class="fa-solid fa-volume-high" aria-hidden="true"></i>
+    </button>
+
 
     <!-- סרגל ניווט עליון -->
     <nav class="sticky top-0 z-50 bg-cream-100/40 backdrop-blur-xl border-b border-mocha-100/80 py-0.9 px-3 md:py-0 md:px-4 transition-all duration-300">
@@ -533,17 +619,16 @@
             <div class="scale-[0.34] origin-center -my-11 -mx-10 flex-shrink-0">
     <div class="aperture-logo-wrapper aperture-nav">
         <div class="aperture-logo-container">
-            <svg version="1.1" class="aperture-animated-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 200 200" enable-background="new 0 0 200 200" xml:space="preserve">
-                <path class="blade-1" d="M107.033-25.482c7.357-2.104,68.443,10.182,103.83,69.055 C140.083,27.43,74.477,57.36,48.427,85.156C42.474,57.738,72.809-15.694,107.033-25.482z"/>
-                <path class="blade-2" d="M26.545-0.31c4.283-6.339,58.974-36.194,123.926-13.841 C85.873,18.98,54.855,84.081,52.767,122.117C30.582,104.939,6.619,29.188,26.545-0.31z"/>
-                <path class="blade-3" d="M-18.933,70.712c-0.794-7.609,21.912-65.635,86.036-90.261 C38.915,47.354,57,117.161,79.848,147.64C51.813,148.742-15.236,106.116-18.933,70.712z"/>
-                <path class="blade-4" d="M-8.118,154.349c-5.5-5.319-25.404-64.363,7.888-124.445 c21.412,69.369,80.137,111.221,117.232,119.881C96.233,168.648,17.472,179.095-8.118,154.349z"/>
-                <path class="blade-5" d="M53.927,211.467c-7.632-0.54-60.833-32.976-73.95-100.4 c60.992,39.376,132.879,33.688,166.864,16.479C143.058,155.346,89.438,213.976,53.927,211.467z"/>
-                <path class="blade-6" d="M138.171,215.341c-6.193,4.492-67.797,13.842-121.185-29.378 c72.033-9.042,123.446-59.604,138.417-94.633C170.374,115.058,166.985,194.437,138.171,215.341z"/>
-                <path class="blade-7" d="M205.193,164.158c-1.855,7.422-43.037,54.184-111.715,55.391 c49.37-53.228,56.252-125.009,45.204-161.465C165.404,66.639,213.83,129.623,205.193,164.158z"/>
-                <path class="blade-8" d="M223.641,81.866c3.346,6.88,1.857,69.171-49.977,114.243 c3.605-72.51-37.262-131.922-69.159-152.748C130.473,32.738,208.059,49.859,223.641,81.866z"/>
-                <path class="blade-9" d="M184.873,6.973c6.986,3.116,45.885,51.793,35.15,119.639 C176.176,68.748,106.681,49.504,68.86,54.053C81.923,29.225,152.363-7.531,184.873,6.973z"/>
-            </svg>
+            <svg version="1.1" class="aperture-animated-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" aria-hidden="true" focusable="false">
+                    <g class="aperture-blades">
+                        <path class="blade-1" d="M177.273,377.945L83.4902,352.099C135.371,278.71,155.069,177.512,149.287,150.603c25.833-6.199,113.783,83.461,126.508,154.625l-98.522,72.717Z" clip-rule="evenodd" fill-rule="evenodd"/>
+                        <path class="blade-2" d="M360.631,240.226l-69.275,68.295C253.74,226.897,175.949,159.239,149.754,150.792c7.548-25.472,129.171-56.8088,197.164-32.247l13.713,121.681Z" clip-rule="evenodd" fill-rule="evenodd"/>
+                        <path class="blade-3" d="M332.608,12.2818l24.508,94.1412c-89.497-8.2353-186.986,25.305-207.399,43.766-18.285-19.272,15.388-140.26943,70.656-186.8714L332.608,12.2818Z" clip-rule="evenodd" fill-rule="evenodd"/>
+                        <path class="blade-4" d="M121.227,-77.9436L215.01,-52.098c-51.881,73.3891-71.579,174.587-65.797,201.496-25.833,6.2-113.7831-83.4611-126.5078-154.6252l98.5218-72.7164Z" clip-rule="evenodd" fill-rule="evenodd"/>
+                        <path class="blade-5" d="M-62.2607,59.6473L7.01366,-8.64815C44.6302,72.9761,122.421,140.634,148.616,149.082c-7.548,25.471-129.1711,56.808-197.1634,32.246L-62.2607,59.6473Z" clip-rule="evenodd" fill-rule="evenodd"/>
+                        <path class="blade-6" d="M-34.2377,286.591L-58.7461,192.45c89.4969,8.236,186.9861-25.304,207.3991-43.766c18.285,19.273-15.388,140.27-70.6555,186.872L-34.2377,286.591Z" clip-rule="evenodd" fill-rule="evenodd"/>
+                    </g>
+                </svg>
         </div>
     </div>
 </div>                <span class="flex flex-col items-start">
@@ -551,7 +636,7 @@
                 <span class="text-xs uppercase tracking-[0.2em] text-mocha-500 font-medium">צילום אמנותי</span>
                 </span>
             </a>
-            
+
             <!-- קישורים למסכים גדולים -->
             <div class="hidden md:flex items-center space-x-reverse space-x-8 text-sm font-medium text-mocha-800">
                 <a href="#about" class="hover:text-accentRose transition-colors duration-200">קצת עלי</a>
@@ -585,16 +670,25 @@
     </nav>
 
     <!-- מסך פתיחה ראשי - הירו -->
-    <header class="relative min-h-[88vh] flex items-center justify-center overflow-hidden px-6 mint-touch">
+    <header class="relative min-h-[88vh] flex items-center justify-center overflow-hidden px-6 package-touch">
         <div id="hero-slides" aria-hidden="true" class="absolute inset-0 pointer-events-none"></div>
-        <div class="absolute inset-0 bg-mocha-950/60"></div>
+        <div class="absolute inset-0 bg-mocha-950/45"></div>
 
         <div class="relative z-10 max-w-4xl mx-auto text-center py-12">
             <div class="mx-auto max-w-6xl bg-mocha-950 border border-mocha-700 rounded-3xl px-8 py-16 shadow-2xl">
                 <div class="flex justify-center mb-5">
-                    <div class="scale-[0.70] origin-center -my-8 -mx-8"><div class="aperture-logo-wrapper aperture-trigger"><div class="aperture-logo-container" style="border-color:#9FD3C7"><svg version="1.1" class="aperture-animated-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><path class="blade-1" d="M107.033-25.482c7.357-2.104,68.443,10.182,103.83,69.055 C140.083,27.43,74.477,57.36,48.427,85.156C42.474,57.738,72.809-15.694,107.033-25.482z"/><path class="blade-2" d="M26.545-0.31c4.283-6.339,58.974-36.194,123.926-13.841 C85.873,18.98,54.855,84.081,52.767,122.117C30.582,104.939,6.619,29.188,26.545-0.31z"/><path class="blade-3" d="M-18.933,70.712c-0.794-7.609,21.912-65.635,86.036-90.261 C38.915,47.354,57,117.161,79.848,147.64C51.813,148.742-15.236,106.116-18.933,70.712z"/><path class="blade-4" d="M-8.118,154.349c-5.5-5.319-25.404-64.363,7.888-124.445 c21.412,69.369,80.137,111.221,117.232,119.881C96.233,168.648,17.472,179.095-8.118,154.349z"/><path class="blade-5" d="M53.927,211.467c-7.632-0.54-60.833-32.976-73.95-100.4 c60.992,39.376,132.879,33.688,166.864,16.479C143.058,155.346,89.438,213.976,53.927,211.467z"/><path class="blade-6" d="M138.171,215.341c-6.193,4.492-67.797,13.842-121.185-29.378 c72.033-9.042,123.446-59.604,138.417-94.633C170.374,115.058,166.985,194.437,138.171,215.341z"/><path class="blade-7" d="M205.193,164.158c-1.855,7.422-43.037,54.184-111.715,55.391 c49.37-53.228,56.252-125.009,45.204-161.465C165.404,66.639,213.83,129.623,205.193,164.158z"/><path class="blade-8" d="M223.641,81.866c3.346,6.88,1.857,69.171-49.977,114.243 c3.605-72.51-37.262-131.922-69.159-152.748C130.473,32.738,208.059,49.859,223.641,81.866z"/><path class="blade-9" d="M184.873,6.973c6.986,3.116,45.885,51.793,35.15,119.639 C176.176,68.748,106.681,49.504,68.86,54.053C81.923,29.225,152.363-7.531,184.873,6.973z"/></svg></div></div></div>
+                    <div class="scale-[0.70] origin-center -my-8 -mx-8"><div class="aperture-logo-wrapper aperture-trigger"><div class="aperture-logo-container" style="border-color:#E1B2B6"><svg version="1.1" class="aperture-animated-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" aria-hidden="true" focusable="false">
+                    <g class="aperture-blades">
+                        <path class="blade-1" d="M177.273,377.945L83.4902,352.099C135.371,278.71,155.069,177.512,149.287,150.603c25.833-6.199,113.783,83.461,126.508,154.625l-98.522,72.717Z" clip-rule="evenodd" fill-rule="evenodd"/>
+                        <path class="blade-2" d="M360.631,240.226l-69.275,68.295C253.74,226.897,175.949,159.239,149.754,150.792c7.548-25.472,129.171-56.8088,197.164-32.247l13.713,121.681Z" clip-rule="evenodd" fill-rule="evenodd"/>
+                        <path class="blade-3" d="M332.608,12.2818l24.508,94.1412c-89.497-8.2353-186.986,25.305-207.399,43.766-18.285-19.272,15.388-140.26943,70.656-186.8714L332.608,12.2818Z" clip-rule="evenodd" fill-rule="evenodd"/>
+                        <path class="blade-4" d="M121.227,-77.9436L215.01,-52.098c-51.881,73.3891-71.579,174.587-65.797,201.496-25.833,6.2-113.7831-83.4611-126.5078-154.6252l98.5218-72.7164Z" clip-rule="evenodd" fill-rule="evenodd"/>
+                        <path class="blade-5" d="M-62.2607,59.6473L7.01366,-8.64815C44.6302,72.9761,122.421,140.634,148.616,149.082c-7.548,25.471-129.1711,56.808-197.1634,32.246L-62.2607,59.6473Z" clip-rule="evenodd" fill-rule="evenodd"/>
+                        <path class="blade-6" d="M-34.2377,286.591L-58.7461,192.45c89.4969,8.236,186.9861-25.304,207.3991-43.766c18.285,19.273-15.388,140.27-70.6555,186.872L-34.2377,286.591Z" clip-rule="evenodd" fill-rule="evenodd"/>
+                    </g>
+                </svg></div></div></div>
                 </div>
-                <h1 class="font-serif text-4xl sm:text-4xl tracking-widest font-light text-cream-900">TAMAR ELYASHIV</h1>
+                <h1 class="font-serif text-4xl sm:text-4xl tracking-widest font-light text-cream-200">TAMAR ELYASHIV</h1>
                 <p class="mt-4 text-base sm:text-lg text-mocha-500 font-medium">ניו בורן • משפחה • ONE STYLE</p>
             </div>
         </div>
@@ -621,10 +715,10 @@
     <section id="gallery" class="divider-line py-24 bg-mocha-800">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center max-w-2xl mx-auto mb-10 text-cream-100">
-                <span class="text-xs uppercase tracking-[0.25em] text-mintLeaf font-bold block mb-2">תיק עבודות</span>
-                <h2 class="text-3xl sm:text-4xl font-serif font-light text-cream-100">גלריית עבודות נבחרות</h2>
+                <span class="text-xs uppercase tracking-[0.25em] text-accentRose font-bold block mb-2">גלריה</span>
+                <h2 class="text-3xl sm:text-4xl font-serif font-light text-cream-100">צפו בתוצרים שלי</h2>
                 <div class="flex justify-center flex-wrap gap-2 mt-6">
-                    <button onclick="filterGallery('all')" id="tab-all" class="gallery-tab active-tab px-6 py-2.5 rounded-full text-xs font-semibold transition-all duration-300 bg-mintDeep text-mocha-950 shadow-sm">הכל</button>
+                    <button onclick="filterGallery('all')" id="tab-all" class="gallery-tab active-tab px-6 py-2.5 rounded-full text-xs font-semibold transition-all duration-300 bg-accentRose text-mocha-950 shadow-sm">הכל</button>
                     <button onclick="filterGallery('newborn')" id="tab-newborn" class="gallery-tab px-6 py-2.5 rounded-full text-xs font-medium transition-all duration-300 bg-white text-mocha-800 hover:bg-mocha-50 border border-mocha-200">ניו בורן</button>
                     <button onclick="filterGallery('outdoor')" id="tab-outdoor" class="gallery-tab px-6 py-2.5 rounded-full text-xs font-medium transition-all duration-300 bg-white text-mocha-800 hover:bg-mocha-50 border border-mocha-200">צילומי חוץ</button>
                 </div>
@@ -642,11 +736,20 @@
     <section id="onestyle" class="divider-line py-24 bg-white border-b border-mocha-100 relative">
         <div class="absolute top-0 right-0 w-64 h-64 bg-mocha-100/30 rounded-full blur-2xl pointer-events-none"></div>
         <div class="max-w-6xl mx-auto px-6 relative z-10">
-            <div class="bg-cream-100/95 rounded-3xl p-8 border border-mocha-200 shadow-sm ring-1 ring-mintLeaf/30 space-y-10">
+            <div class="bg-cream-100/95 rounded-3xl p-8 border border-mocha-200 shadow-sm ring-1 ring-accentRose/30 space-y-10">
                 <div class="text-right">
                     <span class="text-xs uppercase tracking-[0.3em] text-accentRose font-bold block mb-2">קונספט בלעדי</span>
-                    <h2 class="text-3xl sm:text-5xl font-serif font-light text-mocha-900 inline-flex items-center gap-3">הכירו את <span class="font-semibold text-mocha-700 font-display">ONE STYLE</span><div class="scale-[0.22] origin-center -my-20 -mx-20"><div class="aperture-logo-wrapper aperture-trigger"><div class="aperture-logo-container"><svg version="1.1" class="aperture-animated-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><path class="blade-1" d="M107.033-25.482c7.357-2.104,68.443,10.182,103.83,69.055 C140.083,27.43,74.477,57.36,48.427,85.156C42.474,57.738,72.809-15.694,107.033-25.482z"/><path class="blade-2" d="M26.545-0.31c4.283-6.339,58.974-36.194,123.926-13.841 C85.873,18.98,54.855,84.081,52.767,122.117C30.582,104.939,6.619,29.188,26.545-0.31z"/><path class="blade-3" d="M-18.933,70.712c-0.794-7.609,21.912-65.635,86.036-90.261 C38.915,47.354,57,117.161,79.848,147.64C51.813,148.742-15.236,106.116-18.933,70.712z"/><path class="blade-4" d="M-8.118,154.349c-5.5-5.319-25.404-64.363,7.888-124.445 c21.412,69.369,80.137,111.221,117.232,119.881C96.233,168.648,17.472,179.095-8.118,154.349z"/><path class="blade-5" d="M53.927,211.467c-7.632-0.54-60.833-32.976-73.95-100.4 c60.992,39.376,132.879,33.688,166.864,16.479C143.058,155.346,89.438,213.976,53.927,211.467z"/><path class="blade-6" d="M138.171,215.341c-6.193,4.492-67.797,13.842-121.185-29.378 c72.033-9.042,123.446-59.604,138.417-94.633C170.374,115.058,166.985,194.437,138.171,215.341z"/><path class="blade-7" d="M205.193,164.158c-1.855,7.422-43.037,54.184-111.715,55.391 c49.37-53.228,56.252-125.009,45.204-161.465C165.404,66.639,213.83,129.623,205.193,164.158z"/><path class="blade-8" d="M223.641,81.866c3.346,6.88,1.857,69.171-49.977,114.243 c3.605-72.51-37.262-131.922-69.159-152.748C130.473,32.738,208.059,49.859,223.641,81.866z"/><path class="blade-9" d="M184.873,6.973c6.986,3.116,45.885,51.793,35.15,119.639 C176.176,68.748,106.681,49.504,68.86,54.053C81.923,29.225,152.363-7.531,184.873,6.973z"/></svg></div></div></div></h2>
-                    <p class="text-mocha-600 text-lg font-light italic mt-3">"רגעים אמיתיים בסטייל אחיד והרמוני."</p>
+                    <h2 class="text-3xl sm:text-5xl font-serif font-light text-mocha-900 inline-flex items-center gap-3">הכירו את <span class="font-semibold text-mocha-700 font-display">ONE STYLE</span><div class="scale-[0.22] origin-center -my-20 -mx-20"><div class="aperture-logo-wrapper aperture-trigger"><div class="aperture-logo-container"><svg version="1.1" class="aperture-animated-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" aria-hidden="true" focusable="false">
+                    <g class="aperture-blades">
+                        <path class="blade-1" d="M177.273,377.945L83.4902,352.099C135.371,278.71,155.069,177.512,149.287,150.603c25.833-6.199,113.783,83.461,126.508,154.625l-98.522,72.717Z" clip-rule="evenodd" fill-rule="evenodd"/>
+                        <path class="blade-2" d="M360.631,240.226l-69.275,68.295C253.74,226.897,175.949,159.239,149.754,150.792c7.548-25.472,129.171-56.8088,197.164-32.247l13.713,121.681Z" clip-rule="evenodd" fill-rule="evenodd"/>
+                        <path class="blade-3" d="M332.608,12.2818l24.508,94.1412c-89.497-8.2353-186.986,25.305-207.399,43.766-18.285-19.272,15.388-140.26943,70.656-186.8714L332.608,12.2818Z" clip-rule="evenodd" fill-rule="evenodd"/>
+                        <path class="blade-4" d="M121.227,-77.9436L215.01,-52.098c-51.881,73.3891-71.579,174.587-65.797,201.496-25.833,6.2-113.7831-83.4611-126.5078-154.6252l98.5218-72.7164Z" clip-rule="evenodd" fill-rule="evenodd"/>
+                        <path class="blade-5" d="M-62.2607,59.6473L7.01366,-8.64815C44.6302,72.9761,122.421,140.634,148.616,149.082c-7.548,25.471-129.1711,56.808-197.1634,32.246L-62.2607,59.6473Z" clip-rule="evenodd" fill-rule="evenodd"/>
+                        <path class="blade-6" d="M-34.2377,286.591L-58.7461,192.45c89.4969,8.236,186.9861-25.304,207.3991-43.766c18.285,19.273-15.388,140.27-70.6555,186.872L-34.2377,286.591Z" clip-rule="evenodd" fill-rule="evenodd"/>
+                    </g>
+                </svg></div></div></div></h2>
+                    <p class="text-mocha-600 text-lg font-light italic mt-3">רגעים אמיתיים בסטייל אחיד והרמוני.</p>
                 </div>
 
                 <div class="space-y-6 text-right overflow-hidden">
@@ -656,19 +759,19 @@
                     <p class="contrast-reveal text-mocha-700 leading-relaxed">• חוויה רגועה וללא לחץ — בלי מעבר מתיש בין בגדים ורקעים.</P>
                     <p class="contrast-reveal text-mocha-700 leading-relaxed">• אסתטיקה יוקרתית — הרמוניה צבעונית שמייצרת מראה נקי ברמה גבוהה.</P>
                     <p class="contrast-reveal text-mocha-700 leading-relaxed">• אלבום על־זמני — קו חזותי אחיד שמשתלב נהדר עם עיצוב הבית.</P>
-                    
+
                 </div>
 
                 <div>
                     <div class="text-center mb-8">
-                        <h4 class="text-lg font-bold text-mocha-900 tracking-wider">ONE STYLE: גלריית השראות לבניית שפה אישית</h4>
-                        <p class="text-xs text-mocha-500 mt-1">הקולקציות הבאות הן דוגמאות השראה לאווירה, צבע ולוקיישן — לא אפשרויות סגורות לבחירה. בסשן עצמו נרכיב יחד כיוון מותאם למשפחה שלכם.</p>
+                        <h4 class="text-lg font-bold text-mocha-900 tracking-wider">ONE STYLE: גלריית השראות </h4>
+                        <p class="text-xs text-mocha-500 mt-1">קולקציות אווירה והשראה לקונספט ONE STYLE צפו בסטים אחודים, נקיים, ומדוייקים.</p>
                     </div>
                     <div id="collection-tabs" class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                        <div class="col-span-2 md:col-span-4 text-center text-xs text-mocha-500 bg-white/70 border border-mocha-100 rounded-2xl p-5">טוען השראות ONE STYLE מגוגל שיטס...</div>
+                        <div class="col-span-2 md:col-span-4 text-center text-xs text-mocha-500 bg-white/70 border border-mocha-100 rounded-2xl p-5">טוען השראות ONE STYLE ...</div>
                     </div>
                     <div id="collection-preview-card" class="bg-white p-6 sm:p-8 rounded-2xl border border-mocha-100 transition-all duration-700">
-                        <div class="text-center text-xs text-mocha-500">הקולקציות יוצגו כאן לאחר טעינה מהגיליון.</div>
+                        <div class="text-center text-xs text-mocha-500">הקולקציות יוצגו כאן לאחר טעינה.</div>
                     </div>
                 </div>
 
@@ -684,7 +787,7 @@
     <!-- סעיף מחירון וחבילות -->
     <section id="pricing" class="divider-line py-24 bg-cream-200">
         <div class="max-w-6xl mx-auto px-6">
-            
+
             <div class="text-center max-w-2xl mx-auto mb-16">
                 <span class="text-xs uppercase tracking-[0.25em] text-mocha-600 font-bold block mb-2">שקיפות והתאמה</span>
                 <h2 class="text-3xl sm:text-4xl font-serif font-light text-mocha-900 inline-flex items-center gap-3">
@@ -704,7 +807,7 @@
                     <div>
                         <label class="block text-xs font-bold text-mocha-800 mb-2">סוג הסשן המבוקש:</label>
                         <select id="estimator-type" onchange="calculateEstimate()" class="w-full text-xs bg-cream-100 border border-mocha-200 p-3 rounded-xl focus:outline-none focus:border-accentRose">
-                            <option value="0" selected>טוען חבילות מגוגל שיטס...</option>
+                            <option value="0" selected>טוען חבילות ...</option>
                         </select>
                     </div>
                     <div>
@@ -730,7 +833,7 @@
 
             <!-- כרטיסי חבילות דינמיות משיטס -->
             <div id="packages-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
-                <div class="md:col-span-3 bg-white/70 border border-mocha-100 rounded-3xl p-8 text-center text-sm text-mocha-600">טוען חבילות מגוגל שיטס...</div>
+                <div class="md:col-span-3 bg-white/70 border border-mocha-100 rounded-3xl p-8 text-center text-sm text-mocha-600">טוען חבילות ...</div>
             </div>
             <svg class="section-divider-svg" viewBox="0 0 1000 14" preserveAspectRatio="none" aria-hidden="true">
                 <path class="section-divider-path" d="M2 8 Q 500 2 998 8"></path>
@@ -788,7 +891,7 @@
 
                     <div class="text-center pt-2">
                         <button type="submit" class="w-full sm:w-auto bg-mocha-800 hover:bg-mocha-700 text-cream-100 font-bold px-12 py-4 rounded-full text-xs tracking-wider uppercase shadow hover:shadow-md transition-all duration-300">
-                            שלחו פנייה לתמר
+                            שלחו אליי פנייה
                         </button>
                     </div>
                 </form>
@@ -801,7 +904,16 @@
         <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
             <!-- עמודה 1 -->
             <div class="space-y-4 text-right">
-                <span class="font-serif text-xl tracking-widest text-white flex items-center gap-2"><div class="scale-[0.18] origin-center -my-20 -mx-20"><div class="aperture-logo-wrapper aperture-trigger"><div class="aperture-logo-container"><svg version="1.1" class="aperture-animated-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 200 200" enable-background="new 0 0 200 200" xml:space="preserve"><path class="blade-1" d="M107.033-25.482c7.357-2.104,68.443,10.182,103.83,69.055 C140.083,27.43,74.477,57.36,48.427,85.156C42.474,57.738,72.809-15.694,107.033-25.482z"/><path class="blade-2" d="M26.545-0.31c4.283-6.339,58.974-36.194,123.926-13.841 C85.873,18.98,54.855,84.081,52.767,122.117C30.582,104.939,6.619,29.188,26.545-0.31z"/><path class="blade-3" d="M-18.933,70.712c-0.794-7.609,21.912-65.635,86.036-90.261 C38.915,47.354,57,117.161,79.848,147.64C51.813,148.742-15.236,106.116-18.933,70.712z"/><path class="blade-4" d="M-8.118,154.349c-5.5-5.319-25.404-64.363,7.888-124.445 c21.412,69.369,80.137,111.221,117.232,119.881C96.233,168.648,17.472,179.095-8.118,154.349z"/><path class="blade-5" d="M53.927,211.467c-7.632-0.54-60.833-32.976-73.95-100.4 c60.992,39.376,132.879,33.688,166.864,16.479C143.058,155.346,89.438,213.976,53.927,211.467z"/><path class="blade-6" d="M138.171,215.341c-6.193,4.492-67.797,13.842-121.185-29.378 c72.033-9.042,123.446-59.604,138.417-94.633C170.374,115.058,166.985,194.437,138.171,215.341z"/><path class="blade-7" d="M205.193,164.158c-1.855,7.422-43.037,54.184-111.715,55.391 c49.37-53.228,56.252-125.009,45.204-161.465C165.404,66.639,213.83,129.623,205.193,164.158z"/><path class="blade-8" d="M223.641,81.866c3.346,6.88,1.857,69.171-49.977,114.243 c3.605-72.51-37.262-131.922-69.159-152.748C130.473,32.738,208.059,49.859,223.641,81.866z"/><path class="blade-9" d="M184.873,6.973c6.986,3.116,45.885,51.793,35.15,119.639 C176.176,68.748,106.681,49.504,68.86,54.053C81.923,29.225,152.363-7.531,184.873,6.973z"/></svg></div></div></div>TAMAR ELYASHIV</span>
+                <span class="font-serif text-xl tracking-widest text-white flex items-center gap-2"><div class="scale-[0.18] origin-center -my-20 -mx-20"><div class="aperture-logo-wrapper aperture-trigger"><div class="aperture-logo-container"><svg version="1.1" class="aperture-animated-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" aria-hidden="true" focusable="false">
+                    <g class="aperture-blades">
+                        <path class="blade-1" d="M177.273,377.945L83.4902,352.099C135.371,278.71,155.069,177.512,149.287,150.603c25.833-6.199,113.783,83.461,126.508,154.625l-98.522,72.717Z" clip-rule="evenodd" fill-rule="evenodd"/>
+                        <path class="blade-2" d="M360.631,240.226l-69.275,68.295C253.74,226.897,175.949,159.239,149.754,150.792c7.548-25.472,129.171-56.8088,197.164-32.247l13.713,121.681Z" clip-rule="evenodd" fill-rule="evenodd"/>
+                        <path class="blade-3" d="M332.608,12.2818l24.508,94.1412c-89.497-8.2353-186.986,25.305-207.399,43.766-18.285-19.272,15.388-140.26943,70.656-186.8714L332.608,12.2818Z" clip-rule="evenodd" fill-rule="evenodd"/>
+                        <path class="blade-4" d="M121.227,-77.9436L215.01,-52.098c-51.881,73.3891-71.579,174.587-65.797,201.496-25.833,6.2-113.7831-83.4611-126.5078-154.6252l98.5218-72.7164Z" clip-rule="evenodd" fill-rule="evenodd"/>
+                        <path class="blade-5" d="M-62.2607,59.6473L7.01366,-8.64815C44.6302,72.9761,122.421,140.634,148.616,149.082c-7.548,25.471-129.1711,56.808-197.1634,32.246L-62.2607,59.6473Z" clip-rule="evenodd" fill-rule="evenodd"/>
+                        <path class="blade-6" d="M-34.2377,286.591L-58.7461,192.45c89.4969,8.236,186.9861-25.304,207.3991-43.766c18.285,19.273-15.388,140.27-70.6555,186.872L-34.2377,286.591Z" clip-rule="evenodd" fill-rule="evenodd"/>
+                    </g>
+                </svg></div></div></div>TAMAR ELYASHIV</span>
                 <p class="text-xs text-mocha-300 leading-relaxed">סטודיו לצילום פורטרטים, ניו בורן, ומשפחה. אסתטיקה נקייה ועל-זמנית בקו עדין ואמנותי.</p>
                 <div class="flex space-x-reverse space-x-3 pt-2">
                     <a href="#" class="w-9 h-9 rounded-full bg-mocha-800 hover:bg-accentRose flex items-center justify-center text-cream-100 hover:text-mocha-950 transition-colors icon-hover-effect" aria-label="וואטסאפ"><i class="fa-brands fa-whatsapp"></i></a>
@@ -833,7 +945,7 @@
         </div>
 
         <div class="max-w-6xl mx-auto px-6 pt-8 border-t border-mocha-800/60 text-center text-[10px] text-mocha-400">
-            <p>© 2026 תמר אלישיב | כל הזכויות שמורות. עיצוב ופיתוח פרימיום נקי ומעודן.</p>
+            <p>© 2026 תמר אלישיב | כל הזכויות שמורות.</p>
         </div>
     </footer>
 
@@ -851,6 +963,7 @@
             <div class="image-lightbox__stage">
                 <img id="lightbox-image" class="image-lightbox__image" src="" alt="תמונה מוגדלת מהגלריה">
             </div>
+            <div id="lightbox-caption" class="image-lightbox__caption">תמונה מתוך הגלריה</div>
             <div class="image-lightbox__controls" aria-label="ניווט בין תמונות">
                 <button type="button" id="lightbox-next" class="image-lightbox__nav" aria-label="לתמונה הבאה">
                     <i class="fa-solid fa-chevron-right"></i>
@@ -868,8 +981,9 @@
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const timers = new Map();
         const APPS_SCRIPT_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyT_A5OTY7jkaY4Etd46EV4ZPpMDHkK0MBw4-OCy5Tn8GvugSrRARqlDFlgcsPHTn2x5w/exec';
-        const SHEETY_IMAGES_API_URL = 'https://api.sheety.co/cdd75bc0fa7678901fbb128ca12ae370/%D7%90%D7%AA%D7%A8%20%D7%AA%D7%9E%D7%A8%20%D7%90%D7%9C%D7%99%D7%A9%D7%99%D7%91/siteImages';
-        const SHEETY_PACKAGES_API_URL = 'https://api.sheety.co/cdd75bc0fa7678901fbb128ca12ae370/%D7%90%D7%AA%D7%A8%20%D7%AA%D7%9E%D7%A8%20%D7%90%D7%9C%D7%99%D7%A9%D7%99%D7%91/packages';
+        
+        const SHEETY_IMAGES_API_URL = 'https://plain-frost-bb26.l055673085.workers.dev/siteImages';
+        const SHEETY_PACKAGES_API_URL = 'https://plain-frost-bb26.l055673085.workers.dev/packages';
         window.collectionImageSets = {};
         window.inspirationCollections = [];
         window.availablePackages = [];
@@ -882,8 +996,27 @@
             audio.preload = 'auto';
             audio.volume = 0.38;
         });
+        let isSiteMuted = localStorage.getItem('tamarSiteMuted') === 'true';
+
+        function updateSoundToggle() {
+            const button = document.getElementById('sound-toggle');
+            if (!button) return;
+            button.classList.toggle('is-muted', isSiteMuted);
+            button.setAttribute('aria-pressed', isSiteMuted ? 'true' : 'false');
+            button.setAttribute('aria-label', isSiteMuted ? 'הפעל צלילי אתר' : 'השתק צלילי אתר');
+            button.title = isSiteMuted ? 'הפעל צלילים' : 'השתק צלילים';
+            button.innerHTML = `<i class="fa-solid ${isSiteMuted ? 'fa-volume-xmark' : 'fa-volume-high'}" aria-hidden="true"></i>`;
+        }
+
+        function toggleSiteMute() {
+            isSiteMuted = !isSiteMuted;
+            localStorage.setItem('tamarSiteMuted', isSiteMuted ? 'true' : 'false');
+            Object.values(siteAudio).forEach(audio => { audio.muted = isSiteMuted; });
+            updateSoundToggle();
+        }
 
         function playSiteSound(type = 'click') {
+            if (isSiteMuted) return;
             const audio = siteAudio[type] || siteAudio.click;
             if (!audio) return;
             audio.currentTime = 0;
@@ -896,8 +1029,12 @@
         }
 
         function initializeSiteSounds() {
+            Object.values(siteAudio).forEach(audio => { audio.muted = isSiteMuted; });
+            updateSoundToggle();
+            document.getElementById('sound-toggle')?.addEventListener('click', toggleSiteMute);
             document.addEventListener('click', (event) => {
                 const target = event.target;
+                if (target.closest('#sound-toggle')) return;
                 if (target.closest('#lead-form button[type="submit"]')) return;
                 if (!target.closest('a, button, input[type="checkbox"], select, .gallery-container .box, .onestyle-visual.has-lightbox, [role="button"]')) return;
                 playSiteSound(isMeaningfulClickTarget(target) ? 'shutter' : 'click');
@@ -906,6 +1043,8 @@
 
         const lightboxState = {
             images: [],
+            labels: [],
+            context: 'הגלריה',
             index: 0
         };
 
@@ -914,14 +1053,24 @@
                 modal: document.getElementById('image-lightbox'),
                 image: document.getElementById('lightbox-image'),
                 counter: document.getElementById('lightbox-counter'),
+                caption: document.getElementById('lightbox-caption'),
                 dots: document.getElementById('lightbox-dots'),
                 thumbs: document.getElementById('lightbox-thumbs'),
                 close: document.getElementById('lightbox-close')
             };
         }
 
-        function uniqueImageSources(images) {
-            return [...new Set((images || []).filter(Boolean))];
+        function normalizeLightboxItems(images) {
+            const seen = new Set();
+            return (images || []).map((item, index) => {
+                const src = typeof item === 'string' ? item : item?.src;
+                const label = typeof item === 'string' ? `תמונה ${index + 1}` : (item?.label || `תמונה ${index + 1}`);
+                return src ? { src, label } : null;
+            }).filter(item => {
+                if (!item || seen.has(item.src)) return false;
+                seen.add(item.src);
+                return true;
+            });
         }
 
         function renderLightboxNavigation() {
@@ -938,8 +1087,10 @@
         }
 
         function syncLightboxActiveControls() {
-            const { counter, dots, thumbs } = getLightboxElements();
-            if (counter) counter.textContent = `תמונה ${lightboxState.index + 1} מתוך ${lightboxState.images.length}`;
+            const { counter, caption, dots, thumbs } = getLightboxElements();
+            const positionText = `תמונה ${lightboxState.index + 1} מתוך ${lightboxState.images.length}`;
+            if (counter) counter.textContent = `${positionText} · ${lightboxState.context}`;
+            if (caption) caption.textContent = `${positionText} — ${lightboxState.labels[lightboxState.index] || lightboxState.context}`;
             dots?.querySelectorAll('.image-lightbox__dot').forEach((dot, index) => dot.classList.toggle('is-active', index === lightboxState.index));
             thumbs?.querySelectorAll('.image-lightbox__thumb').forEach((thumb, index) => {
                 thumb.classList.toggle('is-active', index === lightboxState.index);
@@ -955,7 +1106,7 @@
             image.classList.add('is-switching');
             window.setTimeout(() => {
                 image.src = lightboxState.images[lightboxState.index];
-                image.alt = `תמונה מוגדלת ${lightboxState.index + 1}`;
+                image.alt = lightboxState.labels[lightboxState.index] || `תמונה מוגדלת ${lightboxState.index + 1}`;
                 image.classList.remove('is-switching');
                 syncLightboxActiveControls();
             }, prefersReducedMotion ? 0 : 150);
@@ -965,14 +1116,16 @@
             setLightboxImage(lightboxState.index + step);
         }
 
-        function openLightboxForSources(images, startIndex = 0) {
+        function openLightboxForSources(images, startIndex = 0, context = 'הגלריה') {
             const { modal, image, close } = getLightboxElements();
-            const sources = uniqueImageSources(images);
-            if (!modal || !image || !sources.length) return;
-            lightboxState.images = sources;
-            lightboxState.index = Math.max(0, Math.min(startIndex, sources.length - 1));
-            image.src = sources[lightboxState.index];
-            image.alt = `תמונה מוגדלת ${lightboxState.index + 1}`;
+            const items = normalizeLightboxItems(images);
+            if (!modal || !image || !items.length) return;
+            lightboxState.images = items.map(item => item.src);
+            lightboxState.labels = items.map(item => item.label);
+            lightboxState.context = context;
+            lightboxState.index = Math.max(0, Math.min(startIndex, items.length - 1));
+            image.src = lightboxState.images[lightboxState.index];
+            image.alt = lightboxState.labels[lightboxState.index] || `תמונה מוגדלת ${lightboxState.index + 1}`;
             renderLightboxNavigation();
             syncLightboxActiveControls();
             modal.classList.add('is-open');
@@ -992,7 +1145,10 @@
         function getVisibleGalleryImages() {
             return [...document.querySelectorAll('#gallery-grid .gallery-item')]
                 .filter(item => item.style.display !== 'none')
-                .map(item => item.querySelector('img')?.src)
+                .map(item => {
+                    const image = item.querySelector('img');
+                    return image?.src ? { src: image.src, label: item.dataset.lightboxLabel || image.alt } : null;
+                })
                 .filter(Boolean);
         }
 
@@ -1034,10 +1190,10 @@
                 paragraphs.forEach((el) => {
                 // מניעת הרצה כפולה אם כבר אותחל
                 if (el.dataset.charInitialized) return;
-                
+
                 const originalText = el.textContent.trim();
                 el.innerHTML = '';
-                
+
                 // פירוק הטקסט לתווים ועטיפת כל תו ב-span ייעודי
                 const fragment = document.createDocumentFragment();
                 let charIndex = 0;
@@ -1066,7 +1222,7 @@
         // תפריט המובייל הדינמי
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
-        
+
         mobileMenuBtn.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
         });
@@ -1082,7 +1238,7 @@
         function filterGallery(category) {
             const items = document.querySelectorAll('.gallery-item');
             const tabs = document.querySelectorAll('.gallery-tab');
-            
+
             // עדכון מחלקות העיצוב של הכפתור הפעיל
             tabs.forEach(tab => {
                 tab.classList.remove('bg-mocha-800', 'text-cream-100', 'shadow-sm');
@@ -1147,6 +1303,7 @@
             content.className = 'content';
             image.src = src;
             image.alt = `${category === 'newborn' ? 'צילום ניו בורן' : 'צילום חוץ'} ${index + 1}`;
+            item.dataset.lightboxLabel = image.alt;
             image.loading = 'lazy';
             image.decoding = 'async';
             item.setAttribute('role', 'button');
@@ -1154,8 +1311,8 @@
             item.setAttribute('aria-label', `פתח תמונה מוגדלת של ${image.alt}`);
             item.addEventListener('click', () => {
                 const visibleImages = getVisibleGalleryImages();
-                const startIndex = Math.max(0, visibleImages.indexOf(image.src));
-                openLightboxForSources(visibleImages.length ? visibleImages : [image.src], startIndex);
+                const startIndex = Math.max(0, visibleImages.findIndex(item => item.src === image.src));
+                openLightboxForSources(visibleImages.length ? visibleImages : [{ src: image.src, label: image.alt }], startIndex, 'גלריית עבודות');
             });
             item.addEventListener('keydown', (event) => {
                 if (event.key === 'Enter' || event.key === ' ') {
@@ -1217,6 +1374,24 @@
             }
         }
 
+        function preloadImages(srcs) {
+            const uniqueSrcs = [...new Set((srcs || []).filter(Boolean))];
+            if (!uniqueSrcs.length) return Promise.resolve();
+            return Promise.allSettled(uniqueSrcs.map(src => new Promise(resolve => {
+                const image = new Image();
+                image.onload = image.onerror = resolve;
+                image.src = src;
+            })));
+        }
+
+        function hideLoadingScreen() {
+            const loader = document.getElementById('loading-screen');
+            updateNavApertureByScroll();
+            loader?.classList.add('is-hidden');
+            document.body.classList.remove('is-loading');
+            window.setTimeout(() => loader?.setAttribute('aria-hidden', 'true'), 600);
+        }
+
         async function loadSiteImages() {
             try {
                 const response = await fetch(SHEETY_IMAGES_API_URL);
@@ -1232,7 +1407,9 @@
                     return acc;
                 }, {});
 
-                renderHeroImages(byLocation.hero || []);
+                const heroImages = byLocation.hero || [];
+                await preloadImages(heroImages.slice(0, 3));
+                renderHeroImages(heroImages);
                 renderGalleryImages(byLocation.gallery_newborn || [], byLocation.gallery_outdoor || []);
                 const collectionImageSets = Object.keys(byLocation).reduce((sets, location) => {
                     if (['hero', 'gallery_newborn', 'gallery_outdoor'].includes(location)) return sets;
@@ -1281,13 +1458,18 @@
             return (collection[field] || collection[field.toLowerCase()] || collection[field.toUpperCase()] || fallback || '').toString().trim();
         }
 
+        const packagePaletteColors = ['#E1B2B6', '#D9C1B3', '#C2A391', '#A8846F', '#8E6955', '#725141'];
+        function packagePaletteColor(index = 0) {
+            return packagePaletteColors[Math.abs(index) % packagePaletteColors.length];
+        }
+
         function collectionButtonId(code) {
             return `col-btn-${encodeURIComponent(code)}`;
         }
 
-        function normalizeCollection(row) {
+        function normalizeCollection(row, index = 0) {
             const pkg = normalizePackage(row);
-            const color = getCollectionField(row, 'color', '#E1B2B6');
+            const color = packagePaletteColor(index);
             const hashtags = getCollectionField(row, 'hashtags', '').split(',').map(tag => tag.trim()).filter(Boolean);
             return {
                 ...pkg,
@@ -1353,7 +1535,8 @@
                 const visual = document.getElementById('onestyle-visual');
                 const collectionImages = getCollectionImages(collection.code);
                 if (visual && collectionImages.length) {
-                    const openCollectionLightbox = () => openLightboxForSources(collectionImages, styleImageIdx);
+                    const collectionLightboxItems = collectionImages.map((src, index) => ({ src, label: `${collection.name} — תמונה ${index + 1}` }));
+                    const openCollectionLightbox = () => openLightboxForSources(collectionLightboxItems, styleImageIdx, `השראת ${collection.name}`);
                     visual.addEventListener('click', openCollectionLightbox);
                     visual.addEventListener('keydown', (event) => {
                         if (event.key === 'Enter' || event.key === ' ') {
@@ -1402,7 +1585,7 @@
             const baseValue = parseInt(document.getElementById('estimator-type').value) || 0;
             const addAlbum = document.getElementById('add-album').checked ? parseInt(document.getElementById('add-album').value) : 0;
             const addPrints = document.getElementById('add-prints').checked ? parseInt(document.getElementById('add-prints').value) : 0;
-            
+
             const total = baseValue + addAlbum + addPrints;
             document.getElementById('estimated-total').innerText = total.toLocaleString() + " ₪";
         }
@@ -1494,7 +1677,7 @@
                 if (!response.ok) throw new Error(`Sheety packages returned ${response.status}`);
                 const data = await response.json();
                 const rows = getPackageRows(data);
-                renderOneStyleCollections(rows.filter(isInspirationStatus).map(normalizeCollection).filter(item => item.code && item.name));
+                renderOneStyleCollections(rows.filter(isInspirationStatus).map((row, index) => normalizeCollection(row, index)).filter(item => item.code && item.name));
                 renderPackages(rows.filter(isSaleStatus));
             } catch (error) {
                 console.error('Failed to load packages from Sheety:', error);
@@ -1534,9 +1717,9 @@
 
         function setFormFeedback(type, message) {
             const feedback = document.getElementById('form-feedback');
-            feedback.classList.remove('hidden', 'bg-green-50', 'text-green-800', 'border-green-200', 'bg-red-50', 'text-red-800', 'border-red-200');
+            feedback.classList.remove('hidden', 'bg-cream-100', 'text-mocha-800', 'border-mocha-200', 'bg-accentRose', 'text-mocha-950', 'border-mocha-300');
             const isSuccess = type === 'success';
-            feedback.classList.add(isSuccess ? 'bg-green-50' : 'bg-red-50', isSuccess ? 'text-green-800' : 'text-red-800', 'border', isSuccess ? 'border-green-200' : 'border-red-200');
+            feedback.classList.add(isSuccess ? 'bg-cream-100' : 'bg-accentRose', isSuccess ? 'text-mocha-800' : 'text-mocha-950', 'border', isSuccess ? 'border-mocha-200' : 'border-mocha-300');
             feedback.innerHTML = message;
             const icon = feedback.querySelector('.icon-spin-appear');
             if (icon) observer.observe(icon);
@@ -1618,33 +1801,34 @@
             });
         }, { threshold: 0.18 });
 
-        
+
 
         // אנימציית צמצם: מופעי תוכן - בהופעה ראשונית ובריחוף
         const apertureTriggers = document.querySelectorAll('.aperture-logo-wrapper.aperture-trigger');
-        const apertureOnceObserver = new IntersectionObserver((entries, obs) => {
+        function triggerApertureAnimation(element) {
+            element.classList.remove('aperture-active');
+            void element.offsetWidth;
+            element.classList.add('aperture-active');
+            window.setTimeout(() => element.classList.remove('aperture-active'), 2300);
+        }
+        const apertureOnceObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('aperture-active');
-                    setTimeout(() => entry.target.classList.remove('aperture-active'), 4100);
-                    obs.unobserve(entry.target);
-                }
+                if (entry.isIntersecting) triggerApertureAnimation(entry.target);
             });
         }, { threshold: 0.2 });
         apertureTriggers.forEach(el => apertureOnceObserver.observe(el));
 
-        // אנימציית צמצם בסרגל עליון לפי כיוון גלילה
+        // אנימציית צמצם בסרגל עליון: פתיחה ליניארית לפי התקדמות הגלילה בעמוד כולו
         const navAperture = document.querySelector('.aperture-logo-wrapper.aperture-nav');
         let navScrollFrame = null;
         function updateNavApertureByScroll() {
             navScrollFrame = null;
             if (!navAperture) return;
-            const y = window.scrollY;
             const doc = document.documentElement;
             const maxScroll = Math.max(1, doc.scrollHeight - window.innerHeight);
-            const progress = Math.min(1, Math.max(0, y / maxScroll));
-            const angle = -20 + (35 * progress);
-            navAperture.style.setProperty('--aperture-rot', `${angle.toFixed(2)}deg`);
+            const pageProgress = Math.min(1, Math.max(0, window.scrollY / maxScroll));
+            const apertureProgress = 1 - pageProgress;
+            navAperture.style.setProperty('--aperture-progress', apertureProgress.toFixed(4));
         }
         function scheduleNavApertureUpdate() {
             if (navScrollFrame !== null || prefersReducedMotion) return;
@@ -1712,7 +1896,7 @@
                 item.style.setProperty('--entry-r', `${(Math.random()*28-14).toFixed(1)}deg`);
                 setTimeout(() => item.classList.remove('deck-enter'), 250 + (idx * 180));
             });
-            
+
             // רישום אלמנטים למעקב גלילה
             document.querySelectorAll('.divider-line, .gallery-item, .contrast-reveal, .icon-spin-appear, .draw-svg-icon').forEach(el => {
                 observer.observe(el);
@@ -1721,8 +1905,7 @@
             initializeSiteSounds();
             initializeImageLightbox();
             document.getElementById('lead-form')?.addEventListener('submit', handleFormSubmit);
-            loadSiteImages();
-            loadPackages();
+            Promise.allSettled([loadSiteImages(), loadPackages()]).finally(() => hideLoadingScreen());
         });
 
         window.onload = function() {
