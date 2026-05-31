@@ -128,84 +128,46 @@
         .draw-svg-icon.in-view path, .draw-svg-icon.in-view circle, .draw-svg-icon.in-view line, .draw-svg-icon.in-view polyline, .draw-svg-icon.in-view rect {
             stroke-dashoffset: 0;
         }
-        /* --- עיצוב לוגו צמצם מונפש רב-שימושי --- */
+        /* --- לוגו SVGator החדש רב-שימושי --- */
         .aperture-logo-wrapper {
           width: 200px;
           height: 200px;
           position: relative;
-          display: inline-block;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
           vertical-align: middle;
-        }
-
-        .aperture-logo-wrapper svg.aperture-animated-svg {
-          width: 200px;
-          height: 200px;
-          position: absolute;
-          top: -12px;
-          left: -14px;
-        }
-
-        .aperture-logo-container {
-          width: 180px;
-          height: 180px;
-          position: absolute;
-          top: 0;
-          left: 0;
-          border-radius: 100px;
+          border-radius: 9999px;
           overflow: hidden;
-          border: 4px solid #E1B2B6;
+          background: #fff;
+          box-shadow: 0 16px 34px rgba(44,74,62,.12), 0 0 0 1px rgba(101,254,185,.28) inset;
+          transform: rotate(var(--aperture-rot, 0deg));
+          transition: transform .35s ease, box-shadow .35s ease;
         }
 
-        .aperture-logo-wrapper .blade-1 { transform-origin: 210.02px 43.57px; -webkit-transform-origin: 210.02px 43.57px; }
-        .aperture-logo-wrapper .blade-2 { transform-origin: 150.47px -14.15px; -webkit-transform-origin: 150.47px -14.15px; }
-        .aperture-logo-wrapper .blade-3 { transform-origin: 67.1px -19.55px; -webkit-transform-origin: 67.1px -19.55px; }
-        .aperture-logo-wrapper .blade-4 { transform-origin: -0.23px 29.9px; -webkit-transform-origin: -0.23px 29.9px; }
-        .aperture-logo-wrapper .blade-5 { transform-origin: -20.02px 111.07px; -webkit-transform-origin: -20.02px 111.07px; }
-        .aperture-logo-wrapper .blade-6 { transform-origin: 16.99px 185.96px; -webkit-transform-origin: 16.99px 185.96px; }
-        .aperture-logo-wrapper .blade-7 { transform-origin: 93.48px 219.55px; -webkit-transform-origin: 93.48px 219.55px; }
-        .aperture-logo-wrapper .blade-8 { transform-origin: 173.66px 196.11px; -webkit-transform-origin: 173.66px 196.11px; }
-        .aperture-logo-wrapper .blade-9 { transform-origin: 220.02px 126.61px; -webkit-transform-origin: 220.02px 126.61px; }
-
-        .aperture-logo-wrapper svg.aperture-animated-svg path {
-          fill: #9FD3C7;
-          stroke: #2C4A3E;
-          stroke-miterlimit: 10;
-          animation: apertureLoop 2.2s linear infinite;
-          -webkit-animation: apertureLoop 2.2s linear infinite;
+        .aperture-logo-wrapper::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          border-radius: inherit;
+          border: 4px solid rgba(225,178,182,.9);
+          pointer-events: none;
         }
 
-        @keyframes apertureLoop {
-          0% { transform: rotate(-20deg); }
-          20% { transform: rotate(-20deg); }
-          30% { transform: rotate(15deg); }
-          70% { transform: rotate(15deg); }
-          80% { transform: rotate(-20deg); }
-          100% { transform: rotate(-20deg); }
+        .aperture-logo-wrapper img.aperture-animated-svg {
+          width: 100%;
+          height: 100%;
+          display: block;
         }
 
-        @-webkit-keyframes apertureLoop {
-          0% { -webkit-transform: rotate(-20deg); }
-          20% { -webkit-transform: rotate(-20deg); }
-          30% { -webkit-transform: rotate(15deg); }
-          70% { -webkit-transform: rotate(15deg); }
-          80% { -webkit-transform: rotate(-20deg); }
-          100% { -webkit-transform: rotate(-20deg); }
+        .aperture-logo-wrapper.aperture-nav {
+          --aperture-rot: -20deg;
         }
-        
-        .aperture-logo-wrapper.aperture-nav svg.aperture-animated-svg path {
-          animation: none;
-          -webkit-animation: none;
-          transform: rotate(var(--aperture-rot, -20deg));
-          transition: transform .35s ease;
-        }
-        .aperture-logo-wrapper.aperture-trigger svg.aperture-animated-svg path {
-          animation-play-state: paused;
-          -webkit-animation-play-state: paused;
-        }
-        .aperture-logo-wrapper.aperture-trigger.aperture-active svg.aperture-animated-svg path,
-        .aperture-logo-wrapper.aperture-trigger:hover svg.aperture-animated-svg path {
-          animation-play-state: running;
-          -webkit-animation-play-state: running;
+
+        .aperture-logo-wrapper.aperture-trigger.aperture-active,
+        .aperture-logo-wrapper.aperture-trigger:hover {
+          transform: rotate(var(--aperture-rot, 0deg)) scale(1.04);
+          box-shadow: 0 20px 44px rgba(44,74,62,.18), 0 0 0 1px rgba(101,254,185,.42) inset;
         }
 
 
@@ -531,22 +493,11 @@
             <!-- לוגו האתר -->
             <a href="#" class="flex items-center gap-3 group">
             <div class="scale-[0.34] origin-center -my-11 -mx-10 flex-shrink-0">
-    <div class="aperture-logo-wrapper aperture-nav">
-        <div class="aperture-logo-container">
-            <svg version="1.1" class="aperture-animated-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 200 200" enable-background="new 0 0 200 200" xml:space="preserve">
-                <path class="blade-1" d="M107.033-25.482c7.357-2.104,68.443,10.182,103.83,69.055 C140.083,27.43,74.477,57.36,48.427,85.156C42.474,57.738,72.809-15.694,107.033-25.482z"/>
-                <path class="blade-2" d="M26.545-0.31c4.283-6.339,58.974-36.194,123.926-13.841 C85.873,18.98,54.855,84.081,52.767,122.117C30.582,104.939,6.619,29.188,26.545-0.31z"/>
-                <path class="blade-3" d="M-18.933,70.712c-0.794-7.609,21.912-65.635,86.036-90.261 C38.915,47.354,57,117.161,79.848,147.64C51.813,148.742-15.236,106.116-18.933,70.712z"/>
-                <path class="blade-4" d="M-8.118,154.349c-5.5-5.319-25.404-64.363,7.888-124.445 c21.412,69.369,80.137,111.221,117.232,119.881C96.233,168.648,17.472,179.095-8.118,154.349z"/>
-                <path class="blade-5" d="M53.927,211.467c-7.632-0.54-60.833-32.976-73.95-100.4 c60.992,39.376,132.879,33.688,166.864,16.479C143.058,155.346,89.438,213.976,53.927,211.467z"/>
-                <path class="blade-6" d="M138.171,215.341c-6.193,4.492-67.797,13.842-121.185-29.378 c72.033-9.042,123.446-59.604,138.417-94.633C170.374,115.058,166.985,194.437,138.171,215.341z"/>
-                <path class="blade-7" d="M205.193,164.158c-1.855,7.422-43.037,54.184-111.715,55.391 c49.37-53.228,56.252-125.009,45.204-161.465C165.404,66.639,213.83,129.623,205.193,164.158z"/>
-                <path class="blade-8" d="M223.641,81.866c3.346,6.88,1.857,69.171-49.977,114.243 c3.605-72.51-37.262-131.922-69.159-152.748C130.473,32.738,208.059,49.859,223.641,81.866z"/>
-                <path class="blade-9" d="M184.873,6.973c6.986,3.116,45.885,51.793,35.15,119.639 C176.176,68.748,106.681,49.504,68.86,54.053C81.923,29.225,152.363-7.531,184.873,6.973z"/>
-            </svg>
-        </div>
-    </div>
-</div>                <span class="flex flex-col items-start">
+                <div class="aperture-logo-wrapper aperture-nav" aria-hidden="true">
+                    <img class="aperture-animated-svg" src="assets/tamar-logo.svg" alt="">
+                </div>
+            </div>
+                <span class="flex flex-col items-start">
                 <span class="font-serif text-2xl tracking-widest font-light text-mocha-900 group-hover:text-mocha-600 transition-colors duration-300">TAMAR ELYASHIV</span>
                 <span class="text-xs uppercase tracking-[0.2em] text-mocha-500 font-medium">צילום אמנותי</span>
                 </span>
@@ -592,7 +543,11 @@
         <div class="relative z-10 max-w-4xl mx-auto text-center py-12">
             <div class="mx-auto max-w-6xl bg-mocha-950 border border-mocha-700 rounded-3xl px-8 py-16 shadow-2xl">
                 <div class="flex justify-center mb-5">
-                    <div class="scale-[0.70] origin-center -my-8 -mx-8"><div class="aperture-logo-wrapper aperture-trigger"><div class="aperture-logo-container" style="border-color:#9FD3C7"><svg version="1.1" class="aperture-animated-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><path class="blade-1" d="M107.033-25.482c7.357-2.104,68.443,10.182,103.83,69.055 C140.083,27.43,74.477,57.36,48.427,85.156C42.474,57.738,72.809-15.694,107.033-25.482z"/><path class="blade-2" d="M26.545-0.31c4.283-6.339,58.974-36.194,123.926-13.841 C85.873,18.98,54.855,84.081,52.767,122.117C30.582,104.939,6.619,29.188,26.545-0.31z"/><path class="blade-3" d="M-18.933,70.712c-0.794-7.609,21.912-65.635,86.036-90.261 C38.915,47.354,57,117.161,79.848,147.64C51.813,148.742-15.236,106.116-18.933,70.712z"/><path class="blade-4" d="M-8.118,154.349c-5.5-5.319-25.404-64.363,7.888-124.445 c21.412,69.369,80.137,111.221,117.232,119.881C96.233,168.648,17.472,179.095-8.118,154.349z"/><path class="blade-5" d="M53.927,211.467c-7.632-0.54-60.833-32.976-73.95-100.4 c60.992,39.376,132.879,33.688,166.864,16.479C143.058,155.346,89.438,213.976,53.927,211.467z"/><path class="blade-6" d="M138.171,215.341c-6.193,4.492-67.797,13.842-121.185-29.378 c72.033-9.042,123.446-59.604,138.417-94.633C170.374,115.058,166.985,194.437,138.171,215.341z"/><path class="blade-7" d="M205.193,164.158c-1.855,7.422-43.037,54.184-111.715,55.391 c49.37-53.228,56.252-125.009,45.204-161.465C165.404,66.639,213.83,129.623,205.193,164.158z"/><path class="blade-8" d="M223.641,81.866c3.346,6.88,1.857,69.171-49.977,114.243 c3.605-72.51-37.262-131.922-69.159-152.748C130.473,32.738,208.059,49.859,223.641,81.866z"/><path class="blade-9" d="M184.873,6.973c6.986,3.116,45.885,51.793,35.15,119.639 C176.176,68.748,106.681,49.504,68.86,54.053C81.923,29.225,152.363-7.531,184.873,6.973z"/></svg></div></div></div>
+                    <div class="scale-[0.70] origin-center -my-8 -mx-8">
+                        <div class="aperture-logo-wrapper aperture-trigger" aria-label="לוגו תמר אלישיב">
+                            <img class="aperture-animated-svg" src="assets/tamar-logo.svg" alt="">
+                        </div>
+                    </div>
                 </div>
                 <h1 class="font-serif text-4xl sm:text-4xl tracking-widest font-light text-cream-900">TAMAR ELYASHIV</h1>
                 <p class="mt-4 text-base sm:text-lg text-mocha-500 font-medium">ניו בורן • משפחה • ONE STYLE</p>
@@ -645,7 +600,7 @@
             <div class="bg-cream-100/95 rounded-3xl p-8 border border-mocha-200 shadow-sm ring-1 ring-mintLeaf/30 space-y-10">
                 <div class="text-right">
                     <span class="text-xs uppercase tracking-[0.3em] text-accentRose font-bold block mb-2">קונספט בלעדי</span>
-                    <h2 class="text-3xl sm:text-5xl font-serif font-light text-mocha-900 inline-flex items-center gap-3">הכירו את <span class="font-semibold text-mocha-700 font-display">ONE STYLE</span><div class="scale-[0.22] origin-center -my-20 -mx-20"><div class="aperture-logo-wrapper aperture-trigger"><div class="aperture-logo-container"><svg version="1.1" class="aperture-animated-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><path class="blade-1" d="M107.033-25.482c7.357-2.104,68.443,10.182,103.83,69.055 C140.083,27.43,74.477,57.36,48.427,85.156C42.474,57.738,72.809-15.694,107.033-25.482z"/><path class="blade-2" d="M26.545-0.31c4.283-6.339,58.974-36.194,123.926-13.841 C85.873,18.98,54.855,84.081,52.767,122.117C30.582,104.939,6.619,29.188,26.545-0.31z"/><path class="blade-3" d="M-18.933,70.712c-0.794-7.609,21.912-65.635,86.036-90.261 C38.915,47.354,57,117.161,79.848,147.64C51.813,148.742-15.236,106.116-18.933,70.712z"/><path class="blade-4" d="M-8.118,154.349c-5.5-5.319-25.404-64.363,7.888-124.445 c21.412,69.369,80.137,111.221,117.232,119.881C96.233,168.648,17.472,179.095-8.118,154.349z"/><path class="blade-5" d="M53.927,211.467c-7.632-0.54-60.833-32.976-73.95-100.4 c60.992,39.376,132.879,33.688,166.864,16.479C143.058,155.346,89.438,213.976,53.927,211.467z"/><path class="blade-6" d="M138.171,215.341c-6.193,4.492-67.797,13.842-121.185-29.378 c72.033-9.042,123.446-59.604,138.417-94.633C170.374,115.058,166.985,194.437,138.171,215.341z"/><path class="blade-7" d="M205.193,164.158c-1.855,7.422-43.037,54.184-111.715,55.391 c49.37-53.228,56.252-125.009,45.204-161.465C165.404,66.639,213.83,129.623,205.193,164.158z"/><path class="blade-8" d="M223.641,81.866c3.346,6.88,1.857,69.171-49.977,114.243 c3.605-72.51-37.262-131.922-69.159-152.748C130.473,32.738,208.059,49.859,223.641,81.866z"/><path class="blade-9" d="M184.873,6.973c6.986,3.116,45.885,51.793,35.15,119.639 C176.176,68.748,106.681,49.504,68.86,54.053C81.923,29.225,152.363-7.531,184.873,6.973z"/></svg></div></div></div></h2>
+                    <h2 class="text-3xl sm:text-5xl font-serif font-light text-mocha-900 inline-flex items-center gap-3">הכירו את <span class="font-semibold text-mocha-700 font-display">ONE STYLE</span><span class="scale-[0.22] origin-center -my-20 -mx-20" aria-hidden="true"><span class="aperture-logo-wrapper aperture-trigger"><img class="aperture-animated-svg" src="assets/tamar-logo.svg" alt=""></span></span></h2>
                     <p class="text-mocha-600 text-lg font-light italic mt-3">"רגעים אמיתיים בסטייל אחיד והרמוני."</p>
                 </div>
 
@@ -801,7 +756,14 @@
         <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
             <!-- עמודה 1 -->
             <div class="space-y-4 text-right">
-                <span class="font-serif text-xl tracking-widest text-white flex items-center gap-2"><div class="scale-[0.18] origin-center -my-20 -mx-20"><div class="aperture-logo-wrapper aperture-trigger"><div class="aperture-logo-container"><svg version="1.1" class="aperture-animated-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 200 200" enable-background="new 0 0 200 200" xml:space="preserve"><path class="blade-1" d="M107.033-25.482c7.357-2.104,68.443,10.182,103.83,69.055 C140.083,27.43,74.477,57.36,48.427,85.156C42.474,57.738,72.809-15.694,107.033-25.482z"/><path class="blade-2" d="M26.545-0.31c4.283-6.339,58.974-36.194,123.926-13.841 C85.873,18.98,54.855,84.081,52.767,122.117C30.582,104.939,6.619,29.188,26.545-0.31z"/><path class="blade-3" d="M-18.933,70.712c-0.794-7.609,21.912-65.635,86.036-90.261 C38.915,47.354,57,117.161,79.848,147.64C51.813,148.742-15.236,106.116-18.933,70.712z"/><path class="blade-4" d="M-8.118,154.349c-5.5-5.319-25.404-64.363,7.888-124.445 c21.412,69.369,80.137,111.221,117.232,119.881C96.233,168.648,17.472,179.095-8.118,154.349z"/><path class="blade-5" d="M53.927,211.467c-7.632-0.54-60.833-32.976-73.95-100.4 c60.992,39.376,132.879,33.688,166.864,16.479C143.058,155.346,89.438,213.976,53.927,211.467z"/><path class="blade-6" d="M138.171,215.341c-6.193,4.492-67.797,13.842-121.185-29.378 c72.033-9.042,123.446-59.604,138.417-94.633C170.374,115.058,166.985,194.437,138.171,215.341z"/><path class="blade-7" d="M205.193,164.158c-1.855,7.422-43.037,54.184-111.715,55.391 c49.37-53.228,56.252-125.009,45.204-161.465C165.404,66.639,213.83,129.623,205.193,164.158z"/><path class="blade-8" d="M223.641,81.866c3.346,6.88,1.857,69.171-49.977,114.243 c3.605-72.51-37.262-131.922-69.159-152.748C130.473,32.738,208.059,49.859,223.641,81.866z"/><path class="blade-9" d="M184.873,6.973c6.986,3.116,45.885,51.793,35.15,119.639 C176.176,68.748,106.681,49.504,68.86,54.053C81.923,29.225,152.363-7.531,184.873,6.973z"/></svg></div></div></div>TAMAR ELYASHIV</span>
+                <span class="font-serif text-xl tracking-widest text-white flex items-center gap-2">
+                    <span class="scale-[0.18] origin-center -my-20 -mx-20" aria-hidden="true">
+                        <span class="aperture-logo-wrapper aperture-trigger">
+                            <img class="aperture-animated-svg" src="assets/tamar-logo.svg" alt="">
+                        </span>
+                    </span>
+                    TAMAR ELYASHIV
+                </span>
                 <p class="text-xs text-mocha-300 leading-relaxed">סטודיו לצילום פורטרטים, ניו בורן, ומשפחה. אסתטיקה נקייה ועל-זמנית בקו עדין ואמנותי.</p>
                 <div class="flex space-x-reverse space-x-3 pt-2">
                     <a href="#" class="w-9 h-9 rounded-full bg-mocha-800 hover:bg-accentRose flex items-center justify-center text-cream-100 hover:text-mocha-950 transition-colors icon-hover-effect" aria-label="וואטסאפ"><i class="fa-brands fa-whatsapp"></i></a>
