@@ -1,0 +1,60 @@
+<svg id="ePy0QmOJuUw1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" project-id="3d2d0d3b8a4043569013693089ffc486" export-id="312e4661c91f4ce2a833841e4c2c314b" cached="false">
+  <style>
+    #ePy0QmOJuUw12,
+    #ePy0QmOJuUw13,
+    #ePy0QmOJuUw14,
+    #ePy0QmOJuUw15,
+    #ePy0QmOJuUw16,
+    #ePy0QmOJuUw17 {
+      transform-box: view-box;
+      animation-duration: 3s;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      animation-direction: alternate;
+    }
+    #ePy0QmOJuUw12 { animation-name: ePy0QmOJuUw12_o; }
+    #ePy0QmOJuUw13 { animation-name: ePy0QmOJuUw13_o; }
+    #ePy0QmOJuUw14 { animation-name: ePy0QmOJuUw14_o; }
+    #ePy0QmOJuUw15 { animation-name: ePy0QmOJuUw15_o; }
+    #ePy0QmOJuUw16 { animation-name: ePy0QmOJuUw16_o; }
+    #ePy0QmOJuUw17 { animation-name: ePy0QmOJuUw17_o; }
+    @keyframes ePy0QmOJuUw12_o { from { transform: translate(0, 0); } to { transform: translate(98.1158px, -43.512px); } }
+    @keyframes ePy0QmOJuUw13_o { from { transform: translate(0, 0); } to { transform: translate(11.702593px, -107.892954px); } }
+    @keyframes ePy0QmOJuUw14_o { from { transform: translate(0, 0); } to { transform: translate(-86.177908px, -65.410251px); } }
+    @keyframes ePy0QmOJuUw15_o { from { transform: translate(0, 0); } to { transform: translate(-96.187422px, 43.701854px); } }
+    @keyframes ePy0QmOJuUw16_o { from { transform: translate(0, 0); } to { transform: translate(-11.54249px, 107.514738px); } }
+    @keyframes ePy0QmOJuUw17_o { from { transform: matrix(0.999967, -0.008166, 0.008166, 0.999967, -1.975681, 0.395624); } to { transform: matrix(0.999967, -0.008166, 0.008166, 0.999967, 88.507608, 66.790918); } }
+    @media (prefers-reduced-motion: reduce) {
+      #ePy0QmOJuUw12,
+      #ePy0QmOJuUw13,
+      #ePy0QmOJuUw14,
+      #ePy0QmOJuUw15,
+      #ePy0QmOJuUw16,
+      #ePy0QmOJuUw17 { animation-duration: .001ms; animation-iteration-count: 1; }
+    }
+  </style>
+  <g transform="translate(0.74984 0.563584)">
+    <rect width="300" height="300" rx="0" ry="0" fill="#fff"/>
+    <g mask="url(#ePy0QmOJuUw6)">
+      <mask id="ePy0QmOJuUw6" mask-type="alpha" x="-150%" y="-150%" height="400%" width="400%">
+        <circle r="127" transform="translate(150 150)" fill="#d9d9d9"/>
+      </mask>
+    </g>
+  </g>
+  <g transform="translate(1.564679 -0.000701)">
+    <rect width="300" height="300" rx="0" ry="0" fill="#fff"/>
+    <g mask="url(#ePy0QmOJuUw24)">
+      <g>
+        <path id="ePy0QmOJuUw12" d="M177.273,377.945L83.4902,352.099C135.371,278.71,155.069,177.512,149.287,150.603c25.833-6.199,113.783,83.461,126.508,154.625l-98.522,72.717Z" clip-rule="evenodd" fill="#ffa683" fill-rule="evenodd" stroke="#65feb9"/>
+        <path id="ePy0QmOJuUw13" d="M360.631,240.226l-69.275,68.295C253.74,226.897,175.949,159.239,149.754,150.792c7.548-25.472,129.171-56.8088,197.164-32.247l13.713,121.681Z" clip-rule="evenodd" fill="#ffa683" fill-rule="evenodd" stroke="#65feb9"/>
+        <path id="ePy0QmOJuUw14" d="M332.608,12.2818l24.508,94.1412c-89.497-8.2353-186.986,25.305-207.399,43.766-18.285-19.272,15.388-140.26943,70.656-186.8714L332.608,12.2818Z" clip-rule="evenodd" fill="#ffa683" fill-rule="evenodd" stroke="#65feb9"/>
+        <path id="ePy0QmOJuUw15" d="M121.227,-77.9436L215.01,-52.098c-51.881,73.3891-71.579,174.587-65.797,201.496-25.833,6.2-113.7831-83.4611-126.5078-154.6252l98.5218-72.7164Z" clip-rule="evenodd" fill="#ffa683" fill-rule="evenodd" stroke="#65feb9"/>
+        <path id="ePy0QmOJuUw16" d="M-62.2607,59.6473L7.01366,-8.64815C44.6302,72.9761,122.421,140.634,148.616,149.082c-7.548,25.471-129.1711,56.808-197.1634,32.246L-62.2607,59.6473Z" clip-rule="evenodd" fill="#ffa683" fill-rule="evenodd" stroke="#65feb9"/>
+        <path id="ePy0QmOJuUw17" d="M-34.2377,286.591L-58.7461,192.45c89.4969,8.236,186.9861-25.304,207.3991-43.766c18.285,19.273-15.388,140.27-70.6555,186.872L-34.2377,286.591Z" transform="matrix(0.999967 -0.008166 0.008166 0.999967 -1.975681 0.395624)" clip-rule="evenodd" fill="#ffa683" fill-rule="evenodd" stroke="#65feb9"/>
+      </g>
+      <mask id="ePy0QmOJuUw24" mask-type="alpha" x="-150%" y="-150%" height="400%" width="400%">
+        <circle r="127" transform="translate(150 150)" fill="#d9d9d9"/>
+      </mask>
+    </g>
+  </g>
+</svg>
