@@ -128,7 +128,7 @@
         .draw-svg-icon.in-view path, .draw-svg-icon.in-view circle, .draw-svg-icon.in-view line, .draw-svg-icon.in-view polyline, .draw-svg-icon.in-view rect {
             stroke-dashoffset: 0;
         }
-        /* --- לוגו SVGator החדש רב-שימושי --- */
+        /* --- הלוגו החדש רב-שימושי --- */
         .aperture-logo-wrapper {
           width: 200px;
           height: 200px;
@@ -137,21 +137,8 @@
           align-items: center;
           justify-content: center;
           vertical-align: middle;
-          border-radius: 9999px;
-          overflow: hidden;
-          background: #fff;
-          box-shadow: 0 16px 34px rgba(44,74,62,.12), 0 0 0 1px rgba(101,254,185,.28) inset;
           transform: rotate(var(--aperture-rot, 0deg));
-          transition: transform .35s ease, box-shadow .35s ease;
-        }
-
-        .aperture-logo-wrapper::after {
-          content: "";
-          position: absolute;
-          inset: 0;
-          border-radius: inherit;
-          border: 4px solid rgba(225,178,182,.9);
-          pointer-events: none;
+          transition: transform .35s ease;
         }
 
         .aperture-logo-wrapper img.aperture-animated-svg {
@@ -162,12 +149,6 @@
 
         .aperture-logo-wrapper.aperture-nav {
           --aperture-rot: -20deg;
-        }
-
-        .aperture-logo-wrapper.aperture-trigger.aperture-active,
-        .aperture-logo-wrapper.aperture-trigger:hover {
-          transform: rotate(var(--aperture-rot, 0deg)) scale(1.04);
-          box-shadow: 0 20px 44px rgba(44,74,62,.18), 0 0 0 1px rgba(101,254,185,.42) inset;
         }
 
 
