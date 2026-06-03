@@ -778,10 +778,8 @@
             <div class="text-center max-w-2xl mx-auto mb-10 text-cream-100">
                 <span class="text-xs uppercase tracking-[0.25em] text-accentRose font-bold block mb-2">גלריה</span>
                 <h2 class="text-3xl sm:text-4xl font-serif font-light text-cream-100">צפו בתוצרים שלי</h2>
-                <div class="flex justify-center flex-wrap gap-2 mt-6">
-                    <button onclick="filterGallery('all')" id="tab-all" class="gallery-tab active-tab px-6 py-2.5 rounded-full text-xs font-semibold transition-all duration-300 bg-accentRose text-mocha-950 shadow-sm">הכל</button>
-                    <button onclick="filterGallery('newborn')" id="tab-newborn" class="gallery-tab px-6 py-2.5 rounded-full text-xs font-medium transition-all duration-300 bg-white text-mocha-800 hover:bg-mocha-50 border border-mocha-200">ניו בורן</button>
-                    <button onclick="filterGallery('outdoor')" id="tab-outdoor" class="gallery-tab px-6 py-2.5 rounded-full text-xs font-medium transition-all duration-300 bg-white text-mocha-800 hover:bg-mocha-50 border border-mocha-200">צילומי חוץ</button>
+                <div id="gallery-tabs" class="flex justify-center flex-wrap gap-2 mt-6">
+                    <div class="text-xs text-mocha-200/80">טוען קטגוריות גלריה...</div>
                 </div>
             </div>
 
@@ -1344,7 +1342,7 @@
                 tab.classList.add('bg-white', 'text-mocha-800', 'hover:bg-mocha-50', 'border', 'border-mocha-200');
             });
 
-            const activeTab = document.getElementById(`tab-${category}`);
+            const activeTab = document.getElementById(galleryTabId(category));
             if (activeTab) {
                 activeTab.classList.remove('bg-white', 'text-mocha-800', 'hover:bg-mocha-50', 'border', 'border-mocha-200');
                 activeTab.classList.add('bg-mocha-800', 'text-cream-100', 'shadow-sm');
@@ -1356,7 +1354,7 @@
                 item.style.setProperty('--entry-x', `${(Math.random()*120-60).toFixed(0)}px`);
                 item.style.setProperty('--entry-y', `${(Math.random()*120-60).toFixed(0)}px`);
                 item.style.setProperty('--entry-r', `${(Math.random()*24-12).toFixed(1)}deg`);
-                if (category === 'all' || item.classList.contains(category)) {
+                if (category === 'all' || item.dataset.category === category) {
                     item.style.display = 'block';
                     item.classList.remove('in-view');
                     item.classList.add('deck-enter');
@@ -1398,7 +1396,8 @@
             const item = document.createElement('div');
             const content = document.createElement('div');
             const image = document.createElement('img');
-            item.className = `box gallery-item ${category} deck-enter`;
+            item.className = 'box gallery-item deck-enter';
+            item.dataset.category = category;
             content.className = 'content';
             image.src = src;
             image.alt = `${categoryLabel || category} ${index + 1}`;
@@ -1442,24 +1441,44 @@
             updateHeroRotation();
         }
 
+        function getObjectFieldValue(item, ...keys) {
+            if (!item) return '';
+            const lowerKeyMap = Object.keys(item).reduce((map, key) => {
+                map[key.toLowerCase()] = key;
+                return map;
+            }, {});
+            for (const key of keys) {
+                if (Object.prototype.hasOwnProperty.call(item, key) && item[key] != null) return item[key];
+                const actualKey = lowerKeyMap[key.toLowerCase()];
+                if (actualKey && item[actualKey] != null) return item[actualKey];
+            }
+            return '';
+        }
+
         function getCategoryRows(data) {
             if (Array.isArray(data)) return data;
             return data?.gallerycategories || data?.galleryCategories || data?.Gallerycategories || data?.GalleryCategories || data?.gallerycategory || data?.galleryCategory || data?.categories || [];
         }
 
-        function normalizeGalleryCategory(row, index = 0) {
-            const fallbackLocation = `gallery_${index + 1}`;
-            const rawLocation = (row.location || row.Location || row.code || row.Code || row.key || row.Key || '').toString().trim();
-            const name = (row.name || row.Name || row.title || row.Title || rawLocation || `קטגוריה ${index + 1}`).toString().trim();
-            const location = (rawLocation || name.toLowerCase().replace(/\s+/g, '_') || fallbackLocation).toString().trim().toLowerCase();
-            return { id: row.id || row.rowId || '', name, location };
+        function normalizeGalleryCategory(row) {
+            const name = getObjectFieldValue(row, 'Display name', 'display name').toString().trim();
+            const location = getObjectFieldValue(row, 'Image ID name', 'image id name').toString().trim().toLowerCase();
+            return { id: getObjectFieldValue(row, 'id', 'rowId'), name, location };
+        }
+
+        function galleryTabId(location) {
+            return `tab-${encodeURIComponent(location)}`;
         }
 
         function renderGalleryTabs(categories = window.galleryCategories) {
             const tabsContainer = document.getElementById('gallery-tabs');
             if (!tabsContainer) return;
+            if (!categories.length) {
+                tabsContainer.innerHTML = '<div class="text-xs text-mocha-200/80">לא נמצאו קטגוריות בגליון gallerycategories.</div>';
+                return;
+            }
             const categoryButtons = categories.map(category => `
-                <button onclick="filterGallery('${escapeJsString(category.location)}')" id="tab-${escapeHtml(category.location)}" class="gallery-tab px-6 py-2.5 rounded-full text-xs font-medium transition-all duration-300 bg-white text-mocha-800 hover:bg-mocha-50 border border-mocha-200">${escapeHtml(category.name)}</button>
+                <button onclick="filterGallery('${escapeJsString(category.location)}')" id="${galleryTabId(category.location)}" class="gallery-tab px-6 py-2.5 rounded-full text-xs font-medium transition-all duration-300 bg-white text-mocha-800 hover:bg-mocha-50 border border-mocha-200">${escapeHtml(category.name)}</button>
             `).join('');
             tabsContainer.innerHTML = `<button onclick="filterGallery('all')" id="tab-all" class="gallery-tab active-tab px-6 py-2.5 rounded-full text-xs font-semibold transition-all duration-300 bg-accentRose text-mocha-950 shadow-sm">הכל</button>${categoryButtons}`;
         }
@@ -1479,10 +1498,7 @@
                 renderGalleryTabs();
             } catch (error) {
                 console.error('Failed to load gallery categories from Sheety:', error);
-                window.galleryCategories = [
-                    { name: 'ניו בורן', location: 'gallery_newborn' },
-                    { name: 'צילומי חוץ', location: 'gallery_outdoor' }
-                ];
+                window.galleryCategories = [];
                 renderGalleryTabs();
             }
         }
@@ -1491,11 +1507,13 @@
             const galleryGrid = document.getElementById('gallery-grid');
             if (!galleryGrid) return;
 
-            const categories = window.galleryCategories.length
-                ? window.galleryCategories
-                : Object.keys(imagesByLocation).filter(location => location.startsWith('gallery_')).map((location, index) => normalizeGalleryCategory({ location, name: location.replace(/^gallery_/, '').replace(/_/g, ' ') }, index));
+            const categories = window.galleryCategories;
 
             galleryGrid.innerHTML = '';
+            if (!categories.length) {
+                galleryGrid.innerHTML = '<div class="col-span-full text-center text-xs text-cream-100/80 bg-white/10 border border-white/10 rounded-2xl p-5">הגלריה תוצג לאחר הגדרת קטגוריות בגליון gallerycategories.</div>';
+                return;
+            }
             const fragment = document.createDocumentFragment();
             categories.forEach(category => {
                 (imagesByLocation[category.location] || []).forEach((src, index) => {
@@ -1568,8 +1586,9 @@
             renderHeroImages(heroImages);
             window.galleryImageRowsByLocation = byLocation;
             renderGalleryImages(byLocation);
+            const galleryLocationSet = new Set((window.galleryCategories || []).map(category => category.location));
             const collectionImageSets = Object.keys(byLocation).reduce((sets, location) => {
-                if (['hero', 'gallery_newborn', 'gallery_outdoor'].includes(location)) return sets;
+                if (location === 'hero' || galleryLocationSet.has(location)) return sets;
                 const key = location.replace(/^onestyle_/, '');
                 sets[key] = [...(sets[key] || []), ...byLocation[location]];
                 return sets;
@@ -1929,10 +1948,10 @@
         function normalizeRecommendation(row) {
             return {
                 id: row.id || row.rowId || '',
-                name: (row.name || row.Name || row.client || row.Client || row.author || row.Author || '').toString().trim(),
-                title: (row.title || row.Title || row.subject || row.Subject || '').toString().trim(),
-                text: (row.text || row.Text || row.content || row.Content || row.recommendation || row.Recommendation || '').toString().trim(),
-                date: (row.date || row.Date || '').toString().trim()
+                name: getObjectFieldValue(row, 'name').toString().trim(),
+                title: getObjectFieldValue(row, 'title').toString().trim(),
+                text: getObjectFieldValue(row, 'content').toString().trim(),
+                period: getObjectFieldValue(row, 'period').toString().trim()
             };
         }
 
@@ -1950,7 +1969,7 @@
                             <h4 class="font-bold text-mocha-900">${escapeHtml(item.name || 'לקוחה יקרה')}</h4>
                             ${item.title ? `<p class="text-[11px] text-accentRose font-bold mt-1">${escapeHtml(item.title)}</p>` : ''}
                         </div>
-                        ${item.date ? `<span class="text-[10px] text-mocha-500 bg-cream-200 px-3 py-1 rounded-full">${escapeHtml(item.date)}</span>` : ''}
+                        ${item.period ? `<span class="text-[10px] text-mocha-500 bg-cream-200 px-3 py-1 rounded-full">${escapeHtml(item.period)}</span>` : ''}
                     </div>
                     <p class="text-xs sm:text-sm text-mocha-700 leading-relaxed whitespace-pre-line">${escapeHtml(item.text)}</p>
                 </article>

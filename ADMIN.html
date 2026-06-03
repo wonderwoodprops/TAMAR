@@ -65,45 +65,23 @@
                 </div>
         </section>
 
-        <section class="mb-12 bg-white p-6 rounded-2xl shadow-sm border border-stone-200" aria-labelledby="gallery-admin-title">
-            <div class="flex justify-between items-center mb-4 border-b pb-2">
-                <h2 id="gallery-admin-title" class="text-xl font-bold text-stone-700"><i class="fa-solid fa-images ml-2"></i> גלריית עבודות ראשית (ניו-בורן וחוץ)</h2>
-                <div class="flex gap-2">
-                    <button type="button" onclick="triggerAddNew('gallery_newborn')" class="bg-stone-800 text-white px-4 py-2 rounded-xl text-sm hover:bg-stone-700 transition cursor-pointer"><i class="fa-solid fa-plus ml-1"></i> הוסף לניו-בורן</button>
-                    <button type="button" onclick="triggerAddNew('gallery_outdoor')" class="bg-stone-800 text-white px-4 py-2 rounded-xl text-sm hover:bg-stone-700 transition cursor-pointer"><i class="fa-solid fa-plus ml-1"></i> הוסף לצילומי חוץ</button>
-                </div>
-            </div>
-            
-            <div class="mb-6">
-                <h3 class="text-md font-semibold text-stone-600 mb-3">👶 צילומי סטודיו וניו-בורן (gallery_newborn)</h3>
-                <div id="admin-gallery-newborn" class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    </div>
-            </div>
-
-            <div>
-                <h3 class="text-md font-semibold text-stone-600 mb-3">🌳 צילומי חוץ וטבע (gallery_outdoor)</h3>
-                <div id="admin-gallery-outdoor" class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    </div>
-            </div>
-        </section>
-
         <section class="mb-12 bg-white p-6 rounded-2xl shadow-sm border border-stone-200" aria-labelledby="categories-admin-title">
             <div class="flex justify-between items-center mb-4 border-b pb-2">
                 <div>
                     <h2 id="categories-admin-title" class="text-xl font-bold text-stone-700"><i class="fa-solid fa-tags ml-2"></i> ניהול קטגוריות גלריה</h2>
-                    <p class="text-sm text-stone-500 mt-1">השמות נטענים מגליון <code class="bg-stone-100 px-1 rounded">gallerycategories</code>. שינוי שם יעדכן גם את עמודת <code class="bg-stone-100 px-1 rounded">location</code> בתמונות הרלוונטיות בגיליון SiteImages.</p>
+                    <p class="text-sm text-stone-500 mt-1">השמות נטענים מגליון <code class="bg-stone-100 px-1 rounded">gallerycategories</code>. שינוי <code class="bg-stone-100 px-1 rounded">Image ID name</code> יעדכן גם את עמודת <code class="bg-stone-100 px-1 rounded">location</code> בתמונות הרלוונטיות בגיליון SiteImages.</p>
                 </div>
             </div>
             <form id="gallery-category-form" class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6 bg-sky-50/70 border border-sky-100 rounded-2xl p-4">
                 <input type="hidden" id="gallery-category-row-id">
                 <input type="hidden" id="gallery-category-original-location">
                 <div class="md:col-span-2">
-                    <label for="gallery-category-name" class="block text-xs font-bold text-stone-600 mb-1">שם קטגוריה</label>
+                    <label for="gallery-category-name" class="block text-xs font-bold text-stone-600 mb-1">Display name — שם תצוגה</label>
                     <input id="gallery-category-name" required class="w-full border border-stone-200 rounded-xl px-3 py-2 text-sm" placeholder="ניו בורן / משפחה / חוץ">
                 </div>
                 <div>
-                    <label for="gallery-category-location" class="block text-xs font-bold text-stone-600 mb-1">location לשיוך תמונות</label>
-                    <input id="gallery-category-location" class="w-full border border-stone-200 rounded-xl px-3 py-2 text-sm ltr:text-left" placeholder="אופציונלי — אם ריק, יישמר שם הקטגוריה">
+                    <label for="gallery-category-location" class="block text-xs font-bold text-stone-600 mb-1">Image ID name — מזהה לשיוך תמונות</label>
+                    <input id="gallery-category-location" required class="w-full border border-stone-200 rounded-xl px-3 py-2 text-sm ltr:text-left" placeholder="למשל newborn_family או outdoor">
                 </div>
                 <div class="flex items-end gap-2">
                     <button type="submit" class="flex-1 bg-sky-700 text-white px-4 py-3 rounded-xl text-sm hover:bg-sky-800 transition"><i class="fa-solid fa-floppy-disk ml-1"></i> שמור</button>
@@ -132,15 +110,15 @@
                     <input id="recommendation-title" class="w-full border border-stone-200 rounded-xl px-3 py-2 text-sm" placeholder="חוויה רגועה ומרגשת">
                 </div>
                 <div>
-                    <label for="recommendation-date" class="block text-xs font-bold text-stone-600 mb-1">תאריך / תקופה</label>
-                    <input id="recommendation-date" class="w-full border border-stone-200 rounded-xl px-3 py-2 text-sm" placeholder="2026">
+                    <label for="recommendation-period" class="block text-xs font-bold text-stone-600 mb-1">period — תקופה</label>
+                    <input id="recommendation-period" class="w-full border border-stone-200 rounded-xl px-3 py-2 text-sm" placeholder="2026">
                 </div>
                 <div class="flex items-end">
                     <button type="submit" class="w-full bg-rose-700 text-white px-4 py-3 rounded-xl text-sm hover:bg-rose-800 transition"><i class="fa-solid fa-floppy-disk ml-1"></i> שמור המלצה</button>
                 </div>
                 <div class="md:col-span-4">
-                    <label for="recommendation-text" class="block text-xs font-bold text-stone-600 mb-1">טקסט ההמלצה</label>
-                    <textarea id="recommendation-text" rows="4" required class="w-full border border-stone-200 rounded-xl px-3 py-2 text-sm" placeholder="כתבו כאן את תוכן ההמלצה"></textarea>
+                    <label for="recommendation-content" class="block text-xs font-bold text-stone-600 mb-1">content — טקסט ההמלצה</label>
+                    <textarea id="recommendation-content" rows="4" required class="w-full border border-stone-200 rounded-xl px-3 py-2 text-sm" placeholder="כתבו כאן את תוכן ההמלצה"></textarea>
                 </div>
             </form>
             <div id="admin-recommendations-list" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
@@ -270,8 +248,6 @@
         let isUpdateMode = true;
 
         const heroGrid = document.getElementById('admin-hero-grid');
-        const galleryNewborn = document.getElementById('admin-gallery-newborn');
-        const galleryOutdoor = document.getElementById('admin-gallery-outdoor');
         const onestyleCollections = document.getElementById('admin-onestyle-collections');
         const packagesList = document.getElementById('admin-packages-list');
         const galleryCategoriesList = document.getElementById('admin-gallery-categories');
@@ -447,14 +423,14 @@
 
         function getCategoryRows(data) {
             if (Array.isArray(data)) return data;
-            const rows = getFieldValue(data, 'gallerycategories', 'galleryCategories', 'Gallerycategories', 'GalleryCategories', 'categories');
+            const rows = getFieldValue(data, 'gallerycategories', 'galleryCategories', 'Gallerycategories', 'GalleryCategories');
             if (Array.isArray(rows)) return rows;
             return rows ? [rows] : [];
         }
 
         function normalizeGalleryCategory(row) {
-            const name = getFieldValue(row, 'name', 'title').toString().trim();
-            const location = (getFieldValue(row, 'location', 'code', 'key') || name).toString().trim();
+            const name = getFieldValue(row, 'Display name', 'display name').toString().trim();
+            const location = getFieldValue(row, 'Image ID name', 'image id name').toString().trim();
             return { row, id: getRowId(row), name, location };
         }
 
@@ -589,10 +565,10 @@
             return {
                 row,
                 id: getRowId(row),
-                name: getFieldValue(row, 'name', 'client', 'author'),
-                title: getFieldValue(row, 'title', 'subject'),
-                date: getFieldValue(row, 'date'),
-                text: getFieldValue(row, 'text', 'content', 'recommendation')
+                name: getFieldValue(row, 'name'),
+                title: getFieldValue(row, 'title'),
+                period: getFieldValue(row, 'period'),
+                content: getFieldValue(row, 'content')
             };
         }
 
@@ -600,8 +576,8 @@
             setInputValue('recommendation-row-id', '');
             setInputValue('recommendation-name', '');
             setInputValue('recommendation-title', '');
-            setInputValue('recommendation-date', '');
-            setInputValue('recommendation-text', '');
+            setInputValue('recommendation-period', '');
+            setInputValue('recommendation-content', '');
         }
 
         function findRecommendationById(id) {
@@ -614,8 +590,8 @@
             setInputValue('recommendation-row-id', item.id);
             setInputValue('recommendation-name', item.name);
             setInputValue('recommendation-title', item.title);
-            setInputValue('recommendation-date', item.date);
-            setInputValue('recommendation-text', item.text);
+            setInputValue('recommendation-period', item.period);
+            setInputValue('recommendation-content', item.content);
             recommendationForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
             document.getElementById('recommendation-name')?.focus();
         }
@@ -660,13 +636,14 @@
                             <div class="font-mono text-[11px] text-stone-500">ID: ${escapeHtml(item.id || '')}</div>
                             <h3 class="font-bold text-stone-800">${escapeHtml(item.name || 'ללא שם')}</h3>
                             ${item.title ? `<p class="text-xs font-bold text-rose-700">${escapeHtml(item.title)}</p>` : ''}
+                            ${item.period ? `<p class="text-[11px] text-stone-500">${escapeHtml(item.period)}</p>` : ''}
                         </div>
                         <div class="flex gap-2">
                             <button type="button" onclick="editRecommendation('${escapeJsAttrString(item.id)}')" class="text-xs bg-white border border-rose-200 text-rose-800 px-3 py-1 rounded-lg hover:bg-rose-100">ערוך</button>
                             <button type="button" onclick="deleteRecommendation('${escapeJsAttrString(item.id)}', '${escapeJsAttrString(item.name)}')" class="text-xs bg-red-50 border border-red-200 text-red-700 px-3 py-1 rounded-lg hover:bg-red-100">מחק</button>
                         </div>
                     </div>
-                    <p class="text-xs text-stone-600 whitespace-pre-line">${escapeHtml(item.text || '')}</p>
+                    <p class="text-xs text-stone-600 whitespace-pre-line">${escapeHtml(item.content || '')}</p>
                 </article>
             `).join('') || '<div class="md:col-span-2 text-center text-stone-500 bg-stone-50 border border-stone-200 rounded-2xl p-6">אין עדיין המלצות בגיליון.</div>';
         }
@@ -694,8 +671,6 @@
                 adminImageRows = rows;
 
                 heroGrid.innerHTML = '';
-                galleryNewborn.innerHTML = '';
-                galleryOutdoor.innerHTML = '';
                 adminImagesByLocation = {};
 
                 rows.forEach(img => {
@@ -705,13 +680,10 @@
                     if (!finalUrl || !normalizedLocation) return;
 
                     const itemHtml = createImageItemHtml(img, finalUrl, finalLocation);
+                    const dynamicGalleryLocations = new Set(adminGalleryCategories.map(category => category.location.toLowerCase()));
                     if (normalizedLocation === 'hero') {
                         heroGrid.insertAdjacentHTML('beforeend', itemHtml);
-                    } else if (normalizedLocation === 'gallery_newborn') {
-                        galleryNewborn.insertAdjacentHTML('beforeend', itemHtml);
-                    } else if (normalizedLocation === 'gallery_outdoor') {
-                        galleryOutdoor.insertAdjacentHTML('beforeend', itemHtml);
-                    } else {
+                    } else if (!dynamicGalleryLocations.has(normalizedLocation)) {
                         const key = normalizedLocation.replace(/^onestyle_/, '');
                         if (!adminImagesByLocation[key]) adminImagesByLocation[key] = [];
                         if (!adminImagesByLocation[normalizedLocation]) adminImagesByLocation[normalizedLocation] = [];
@@ -743,14 +715,80 @@
             fileInput.click();
         }
 
+        function findImageRowById(rowId) {
+            return adminImageRows.find(img => getRowId(img).toString() === (rowId || '').toString());
+        }
+
+        function getCloudinaryPublicIdFromUrl(url) {
+            if (!url || !url.includes('res.cloudinary.com') || !url.includes('/image/upload/')) return '';
+            try {
+                const path = new URL(url).pathname;
+                const uploadIndex = path.indexOf('/image/upload/');
+                if (uploadIndex === -1) return '';
+                let parts = path.slice(uploadIndex + '/image/upload/'.length).split('/').filter(Boolean);
+                while (parts.length && (parts[0].includes(',') || /^(?:c|w|h|q|f|g|e|dpr|ar|x|y|r|a|b|co|l|u|fl)_/.test(parts[0]))) {
+                    parts.shift();
+                }
+                if (parts.length && /^v\d+$/.test(parts[0])) parts.shift();
+                const publicPath = parts.join('/');
+                return decodeURIComponent(publicPath.replace(/\.[^.\/]+$/, ''));
+            } catch (error) {
+                return '';
+            }
+        }
+
+        function getCloudinaryPublicIdForImage(img) {
+            return getFieldValue(img, 'publicId', 'public_id', 'cloudinaryPublicId', 'Cloudinary Public ID') || getCloudinaryPublicIdFromUrl(getFieldValue(img, 'url'));
+        }
+
+        async function deleteCloudinaryAssetForImage(img) {
+            const url = getFieldValue(img, 'url');
+            if (!url || !url.includes('res.cloudinary.com')) return false;
+
+            const deleteToken = getFieldValue(img, 'deleteToken', 'delete_token', 'cloudinaryDeleteToken');
+            if (deleteToken) {
+                const tokenResponse = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/delete_by_token`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: new URLSearchParams({ token: deleteToken })
+                });
+                if (tokenResponse.ok) return true;
+            }
+
+            const workerBaseUrl = SHEETY_API_URL.replace(/\/siteImages\/?$/, '');
+            const publicId = getCloudinaryPublicIdForImage(img);
+            const payload = { publicId, url };
+            const endpointOptions = [
+                `${workerBaseUrl}/cloudinary/delete`,
+                `${workerBaseUrl}/cloudinaryDelete`,
+                `${SHEETY_API_URL}/${getRowId(img)}/cloudinary`
+            ];
+            for (const endpoint of endpointOptions) {
+                try {
+                    const response = await fetch(endpoint, {
+                        method: 'POST',
+                        headers: getAdminHeaders(),
+                        body: JSON.stringify(payload)
+                    });
+                    ensureAuthorizedResponse(response);
+                    if (response.ok) return true;
+                } catch (error) {
+                    if (error instanceof UnauthorizedAdminError) throw error;
+                }
+            }
+            throw new Error('Cloudinary deletion failed. Ensure the worker exposes a signed Cloudinary delete endpoint or rows include deleteToken.');
+        }
+
         async function deleteImageRow(rowId) {
             if (!rowId) {
                 showStatus('לא נמצא מזהה תמונה למחיקה.', true);
                 return;
             }
-            if (!confirm('האם להסיר את התמונה מהאתר ומהגיליון? הפעולה לא מוחקת את הקובץ מ-Cloudinary.')) return;
-            showStatus('מסיר תמונה מהגיליון...');
+            if (!confirm('האם להסיר את התמונה מהאתר, מהגיליון ומ-Cloudinary?')) return;
+            showStatus('מסיר תמונה מ-Cloudinary ומהגיליון...');
             try {
+                const imageRow = findImageRowById(rowId);
+                if (imageRow) await deleteCloudinaryAssetForImage(imageRow);
                 const response = await fetch(`${SHEETY_API_URL}/${rowId}`, {
                     method: 'DELETE',
                     headers: getAdminHeaders()
@@ -759,14 +797,14 @@
                 if (!response.ok) throw new Error(`Image DELETE failed: ${response.status}`);
                 if (currentTargetId?.toString() === rowId.toString()) currentTargetId = null;
                 await fetchAndRenderData();
-                showStatus('התמונה הוסרה בהצלחה מהאתר.', false);
+                showStatus('התמונה הוסרה בהצלחה מהאתר ומ-Cloudinary.', false);
             } catch (error) {
                 if (error instanceof UnauthorizedAdminError) {
                     handleUnauthorizedAdmin();
                     return;
                 }
                 console.error('Error deleting image row:', error);
-                showStatus('שגיאה במחיקת התמונה. נסו שוב או בדקו הרשאות.', true);
+                showStatus('שגיאה במחיקת התמונה מ-Cloudinary או מהגיליון. בדקו הרשאות Worker/Cloudinary.', true);
             }
         }
 
@@ -810,6 +848,7 @@
                 const formData = new FormData();
                 formData.append('file', file);
                 formData.append('upload_preset', CLOUDINARY_PRESET);
+                formData.append('return_delete_token', 'true');
 
                 const cloudinaryResponse = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`, {
                     method: 'POST',
@@ -836,9 +875,10 @@
                     showStatus("מעדכן את שורת הנתונים בגוגל שיטס...");
                     
                     // מנגנון הגנה דינמי ל-PUT: שולח את כל הוריאציות של המפתח העטיפתי
-                    const putBody1 = { siteImage: { "url": optimizedUrl } };
-                    const putBody2 = { siteimage: { "url": optimizedUrl } };
-                    const putBody3 = { siteImages: { "url": optimizedUrl } };
+                    const imagePayload = { "url": optimizedUrl, "publicId": cloudinaryData.public_id || '', "deleteToken": cloudinaryData.delete_token || '' };
+                    const putBody1 = { siteImage: imagePayload };
+                    const putBody2 = { siteimage: imagePayload };
+                    const putBody3 = { siteImages: imagePayload };
 
                     let res = await fetch(`${SHEETY_API_URL}/${currentTargetId}`, {
                         method: 'PUT',
@@ -863,9 +903,9 @@
                     
                     // הגנה חכמה ל-POST: אנחנו מכינים 3 גרסאות שונות של מבנה ה-JSON
                     const bodyOptions = [
-                        { siteImage: { "location": currentTargetLocation, "url": optimizedUrl, "description": `תמונה חדשה` } },
-                        { siteimage: { "location": currentTargetLocation, "url": optimizedUrl, "description": `תמונה חדשה` } },
-                        { siteImages: { "location": currentTargetLocation, "url": optimizedUrl, "description": `תמונה חדשה` } }
+                        { siteImage: { "location": currentTargetLocation, "url": optimizedUrl, "description": `תמונה חדשה`, "publicId": cloudinaryData.public_id || '', "deleteToken": cloudinaryData.delete_token || '' } },
+                        { siteimage: { "location": currentTargetLocation, "url": optimizedUrl, "description": `תמונה חדשה`, "publicId": cloudinaryData.public_id || '', "deleteToken": cloudinaryData.delete_token || '' } },
+                        { siteImages: { "location": currentTargetLocation, "url": optimizedUrl, "description": `תמונה חדשה`, "publicId": cloudinaryData.public_id || '', "deleteToken": cloudinaryData.delete_token || '' } }
                     ];
 
                     let success = false;
@@ -1158,11 +1198,11 @@
             const rowId = getInputValue('gallery-category-row-id');
             const oldLocation = getInputValue('gallery-category-original-location');
             const name = getInputValue('gallery-category-name');
-            const location = getInputValue('gallery-category-location') || name;
-            if (!name || !location) return showStatus('יש להזין שם ו-location לקטגוריה.', true);
+            const location = getInputValue('gallery-category-location');
+            if (!name || !location) return showStatus('יש להזין Display name ו-Image ID name לקטגוריה.', true);
             showStatus(rowId ? 'מעדכן קטגוריה ותמונות משויכות...' : 'מוסיף קטגוריה חדשה...');
             try {
-                await saveCategoryRow(rowId, { name, location });
+                await saveCategoryRow(rowId, { 'Display name': name, 'Image ID name': location });
                 const updatedImages = await renameCategoryImageLocations(oldLocation, location);
                 resetGalleryCategoryForm();
                 await fetchAndRenderData();
@@ -1181,8 +1221,8 @@
             const payload = {
                 name: getInputValue('recommendation-name'),
                 title: getInputValue('recommendation-title'),
-                date: getInputValue('recommendation-date'),
-                text: getInputValue('recommendation-text')
+                period: getInputValue('recommendation-period'),
+                content: getInputValue('recommendation-content')
             };
             showStatus(rowId ? 'מעדכן המלצה...' : 'מוסיף המלצה חדשה...');
             try {
@@ -1211,9 +1251,9 @@
             await savePackageRow(rowId, payload, rowId ? "חבילת המכירה עודכנה בהצלחה!" : "חבילת המכירה נשמרה בהצלחה!", resetSalePackageForm);
         });
 
-        document.addEventListener('DOMContentLoaded', () => {
-            fetchAndRenderData();
-            fetchAndRenderGalleryCategories();
+        document.addEventListener('DOMContentLoaded', async () => {
+            await fetchAndRenderGalleryCategories();
+            await fetchAndRenderData();
             fetchAndRenderPackages();
             fetchAndRenderRecommendations();
         });
