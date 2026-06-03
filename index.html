@@ -622,6 +622,30 @@
             opacity: 0;
             transform: translate(var(--entry-x, 0), var(--entry-y, 42px)) rotate(var(--entry-r,0deg)) scale(0.92);
         }
+
+        @keyframes recommendationPulse {
+            0%, 100% { transform: translateY(0); box-shadow: 0 12px 28px rgba(61,42,33,.08); }
+            50% { transform: translateY(-3px); box-shadow: 0 18px 36px rgba(61,42,33,.14); }
+        }
+        .recommendations-link {
+            animation: recommendationPulse 3.8s ease-in-out infinite;
+        }
+        .recommendations-modal {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .28s ease;
+        }
+        .recommendations-modal.is-open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .recommendations-modal__panel {
+            transform: translateY(18px) scale(.98);
+            transition: transform .28s ease;
+        }
+        .recommendations-modal.is-open .recommendations-modal__panel {
+            transform: translateY(0) scale(1);
+        }
     </style>
 </head>
 <body class="overflow-x-hidden antialiased is-loading">
@@ -821,6 +845,15 @@
         </div>
     </section>
 
+    <!-- המלצות לקוחות דינמיות -->
+    <div class="bg-white py-8 border-b border-mocha-100">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <button type="button" id="recommendations-open" class="recommendations-link inline-flex items-center justify-center gap-2 bg-cream-200 hover:bg-accentRose text-mocha-900 font-bold text-xs sm:text-sm px-7 py-3 rounded-full border border-mocha-200 transition-colors">
+                <i class="fa-solid fa-heart text-accentRose"></i> קראו מה משפחות מספרות אחרי החוויה
+            </button>
+        </div>
+    </div>
+
     <!-- סעיף מחירון וחבילות -->
     <section id="pricing" class="divider-line py-24 bg-cream-200">
         <div class="max-w-6xl mx-auto px-6">
@@ -850,9 +883,16 @@
                     <div>
                         <label class="block text-xs font-bold text-mocha-800 mb-2">תוספות ושדרוגים:</label>
                         <div class="space-y-3">
-                            <label class="flex items-center text-xs text-mocha-800 cursor-pointer">
-                                <input type="checkbox" id="add-album" value="450" onchange="calculateEstimate()" class="ml-2 accent-accentRose">
-                                אלבום דיגיטלי יוקרתי ומעוצב (+450 ₪)
+                            <label class="block text-xs text-mocha-800 cursor-pointer">
+                                <span class="block mb-1">הוספת עיבוד של 5 תמונות בנוסף לכמות שכלולה בחבילה (+100 ₪ לכל יחידה)</span>
+                                <select id="add-extra-edits" onchange="calculateEstimate()" class="w-full bg-cream-100 border border-mocha-200 p-2 rounded-xl focus:outline-none focus:border-accentRose">
+                                    <option value="0" selected>ללא תוספת</option>
+                                    <option value="1">יחידה אחת — 5 תמונות (+100 ₪)</option>
+                                    <option value="2">2 יחידות — 10 תמונות (+200 ₪)</option>
+                                    <option value="3">3 יחידות — 15 תמונות (+300 ₪)</option>
+                                    <option value="4">4 יחידות — 20 תמונות (+400 ₪)</option>
+                                    <option value="5">5 יחידות — 25 תמונות (+500 ₪)</option>
+                                </select>
                             </label>
                             <label class="flex items-center text-xs text-mocha-800 cursor-pointer">
                                 <input type="checkbox" id="add-prints" value="150" onchange="calculateEstimate()" class="ml-2 accent-accentRose">
@@ -1015,6 +1055,21 @@
         </div>
     </div>
 
+    <div id="recommendations-modal" class="recommendations-modal fixed inset-0 z-[70] bg-mocha-950/70 backdrop-blur-sm flex items-center justify-center p-4" aria-hidden="true" role="dialog" aria-labelledby="recommendations-title">
+        <div class="recommendations-modal__panel bg-cream-100 rounded-3xl shadow-2xl max-w-3xl w-full max-h-[82vh] overflow-hidden border border-mocha-200">
+            <div class="flex items-center justify-between gap-4 p-5 border-b border-mocha-200 bg-white/75">
+                <div>
+                    <h3 id="recommendations-title" class="font-serif text-2xl text-mocha-900">המלצות וחוויות לקוחות</h3>
+                    <p class="text-xs text-mocha-600 mt-1">נטען דינמית מתוך גליון recommendations</p>
+                </div>
+                <button type="button" id="recommendations-close" class="w-10 h-10 rounded-full bg-mocha-900 text-cream-100 hover:bg-accentRose hover:text-mocha-950 transition-colors" aria-label="סגירת המלצות"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="recommendations-list" class="p-5 sm:p-7 space-y-4 overflow-y-auto max-h-[64vh]">
+                <div class="text-center text-xs text-mocha-500 bg-white/70 border border-mocha-100 rounded-2xl p-5">טוען המלצות...</div>
+            </div>
+        </div>
+    </div>
+
     <script>
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const timers = new Map();
@@ -1023,9 +1078,14 @@
         
         const SHEETY_IMAGES_API_URL = 'https://plain-frost-bb26.l055673085.workers.dev/siteImages';
         const SHEETY_PACKAGES_API_URL = 'https://plain-frost-bb26.l055673085.workers.dev/packages';
+        const SHEETY_GALLERY_CATEGORIES_API_URL = 'https://plain-frost-bb26.l055673085.workers.dev/gallerycategories';
+        const SHEETY_RECOMMENDATIONS_API_URL = 'https://plain-frost-bb26.l055673085.workers.dev/recommendations';
         window.collectionImageSets = {};
         window.inspirationCollections = [];
         window.availablePackages = [];
+        window.galleryCategories = [];
+        window.galleryImageRowsByLocation = {};
+        window.recommendations = [];
 
         const siteAudio = {
             click: new Audio('CLICK.mp3'),
@@ -1280,7 +1340,7 @@
 
             // עדכון מחלקות העיצוב של הכפתור הפעיל
             tabs.forEach(tab => {
-                tab.classList.remove('bg-mocha-800', 'text-cream-100', 'shadow-sm');
+                tab.classList.remove('bg-mocha-800', 'bg-accentRose', 'text-cream-100', 'text-mocha-950', 'shadow-sm');
                 tab.classList.add('bg-white', 'text-mocha-800', 'hover:bg-mocha-50', 'border', 'border-mocha-200');
             });
 
@@ -1334,14 +1394,14 @@
             return optimizeCloudinaryUrl(getSheetImageUrl(row).toString().trim());
         }
 
-        function createGalleryItem(src, category, index) {
+        function createGalleryItem(src, category, index, categoryLabel = '') {
             const item = document.createElement('div');
             const content = document.createElement('div');
             const image = document.createElement('img');
             item.className = `box gallery-item ${category} deck-enter`;
             content.className = 'content';
             image.src = src;
-            image.alt = `${category === 'newborn' ? 'צילום ניו בורן' : 'צילום חוץ'} ${index + 1}`;
+            image.alt = `${categoryLabel || category} ${index + 1}`;
             item.dataset.lightboxLabel = image.alt;
             image.loading = 'lazy';
             image.decoding = 'async';
@@ -1382,17 +1442,69 @@
             updateHeroRotation();
         }
 
-        function renderGalleryImages(newbornImages, outdoorImages) {
+        function getCategoryRows(data) {
+            if (Array.isArray(data)) return data;
+            return data?.gallerycategories || data?.galleryCategories || data?.Gallerycategories || data?.GalleryCategories || data?.gallerycategory || data?.galleryCategory || data?.categories || [];
+        }
+
+        function normalizeGalleryCategory(row, index = 0) {
+            const fallbackLocation = `gallery_${index + 1}`;
+            const rawLocation = (row.location || row.Location || row.code || row.Code || row.key || row.Key || '').toString().trim();
+            const name = (row.name || row.Name || row.title || row.Title || rawLocation || `קטגוריה ${index + 1}`).toString().trim();
+            const location = (rawLocation || name.toLowerCase().replace(/\s+/g, '_') || fallbackLocation).toString().trim().toLowerCase();
+            return { id: row.id || row.rowId || '', name, location };
+        }
+
+        function renderGalleryTabs(categories = window.galleryCategories) {
+            const tabsContainer = document.getElementById('gallery-tabs');
+            if (!tabsContainer) return;
+            const categoryButtons = categories.map(category => `
+                <button onclick="filterGallery('${escapeJsString(category.location)}')" id="tab-${escapeHtml(category.location)}" class="gallery-tab px-6 py-2.5 rounded-full text-xs font-medium transition-all duration-300 bg-white text-mocha-800 hover:bg-mocha-50 border border-mocha-200">${escapeHtml(category.name)}</button>
+            `).join('');
+            tabsContainer.innerHTML = `<button onclick="filterGallery('all')" id="tab-all" class="gallery-tab active-tab px-6 py-2.5 rounded-full text-xs font-semibold transition-all duration-300 bg-accentRose text-mocha-950 shadow-sm">הכל</button>${categoryButtons}`;
+        }
+
+        async function loadGalleryCategories() {
+            const initialCategories = getInitialDataValue('gallerycategories') ?? getInitialDataValue('galleryCategories');
+            if (initialCategories != null) {
+                window.galleryCategories = getCategoryRows(initialCategories).map(normalizeGalleryCategory).filter(item => item.location && item.name);
+                renderGalleryTabs();
+                return;
+            }
+            try {
+                const response = await fetch(SHEETY_GALLERY_CATEGORIES_API_URL);
+                if (!response.ok) throw new Error(`Gallery categories returned ${response.status}`);
+                const data = await response.json();
+                window.galleryCategories = getCategoryRows(data).map(normalizeGalleryCategory).filter(item => item.location && item.name);
+                renderGalleryTabs();
+            } catch (error) {
+                console.error('Failed to load gallery categories from Sheety:', error);
+                window.galleryCategories = [
+                    { name: 'ניו בורן', location: 'gallery_newborn' },
+                    { name: 'צילומי חוץ', location: 'gallery_outdoor' }
+                ];
+                renderGalleryTabs();
+            }
+        }
+
+        function renderGalleryImages(imagesByLocation = window.galleryImageRowsByLocation) {
             const galleryGrid = document.getElementById('gallery-grid');
             if (!galleryGrid) return;
 
+            const categories = window.galleryCategories.length
+                ? window.galleryCategories
+                : Object.keys(imagesByLocation).filter(location => location.startsWith('gallery_')).map((location, index) => normalizeGalleryCategory({ location, name: location.replace(/^gallery_/, '').replace(/_/g, ' ') }, index));
+
             galleryGrid.innerHTML = '';
             const fragment = document.createDocumentFragment();
-            newbornImages.forEach((src, index) => fragment.appendChild(createGalleryItem(src, 'newborn', index)));
-            outdoorImages.forEach((src, index) => fragment.appendChild(createGalleryItem(src, 'outdoor', index)));
+            categories.forEach(category => {
+                (imagesByLocation[category.location] || []).forEach((src, index) => {
+                    fragment.appendChild(createGalleryItem(src, category.location, index, category.name));
+                });
+            });
             galleryGrid.appendChild(fragment);
 
-            const activeCategory = document.querySelector('.gallery-tab.bg-mocha-800')?.id?.replace('tab-', '') || 'all';
+            const activeCategory = document.querySelector('.gallery-tab.bg-mocha-800, .gallery-tab.bg-accentRose')?.id?.replace('tab-', '') || 'all';
             document.querySelectorAll('#gallery-grid .gallery-item').forEach((item, index) => {
                 observer.observe(item);
                 setTimeout(() => item.classList.remove('deck-enter'), 250 + (index * 90));
@@ -1454,7 +1566,8 @@
             const heroImages = byLocation.hero || [];
             await preloadImages(heroImages.slice(0, 3));
             renderHeroImages(heroImages);
-            renderGalleryImages(byLocation.gallery_newborn || [], byLocation.gallery_outdoor || []);
+            window.galleryImageRowsByLocation = byLocation;
+            renderGalleryImages(byLocation);
             const collectionImageSets = Object.keys(byLocation).reduce((sets, location) => {
                 if (['hero', 'gallery_newborn', 'gallery_outdoor'].includes(location)) return sets;
                 const key = location.replace(/^onestyle_/, '');
@@ -1647,11 +1760,12 @@
 
         // חישוב מחירון אינטראקטיבי
         function calculateEstimate() {
-            const baseValue = parseInt(document.getElementById('estimator-type').value) || 0;
-            const addAlbum = document.getElementById('add-album').checked ? parseInt(document.getElementById('add-album').value) : 0;
-            const addPrints = document.getElementById('add-prints').checked ? parseInt(document.getElementById('add-prints').value) : 0;
+            const baseValue = parseInt(document.getElementById('estimator-type')?.value) || 0;
+            const extraEditUnits = parseInt(document.getElementById('add-extra-edits')?.value) || 0;
+            const addExtraEdits = extraEditUnits * 100;
+            const addPrints = document.getElementById('add-prints')?.checked ? parseInt(document.getElementById('add-prints').value) : 0;
 
-            const total = baseValue + addAlbum + addPrints;
+            const total = baseValue + addExtraEdits + addPrints;
             document.getElementById('estimated-total').innerText = total.toLocaleString() + " ₪";
         }
 
@@ -1775,8 +1889,9 @@
             const selectedIndex = Math.max(0, estimator?.selectedIndex ?? 0);
             const selectedPackage = (window.availablePackages || [])[selectedIndex];
             const selectedLabel = estimator?.selectedOptions[0]?.textContent.trim() || selectedPackage?.name || 'התייעצות כללית';
+            const extraEditUnits = parseInt(document.getElementById('add-extra-edits')?.value) || 0;
             const addOns = [
-                document.getElementById('add-album')?.checked ? 'אלבום דיגיטלי יוקרתי ומעוצב' : '',
+                extraEditUnits > 0 ? `הוספת עיבוד של ${extraEditUnits * 5} תמונות (${extraEditUnits} יחידות של 5)` : '',
                 document.getElementById('add-prints')?.checked ? 'הדפסות פיין-ארט אמנותיות' : ''
             ].filter(Boolean);
 
@@ -1804,6 +1919,90 @@
 תוספות: ${addOnsText}
 הערכת מחיר כוללת: ${details.budget}`;
             }
+        }
+
+        function getRecommendationRows(data) {
+            if (Array.isArray(data)) return data;
+            return data?.recommendations || data?.Recommendations || data?.recommendation || data?.Recommendation || [];
+        }
+
+        function normalizeRecommendation(row) {
+            return {
+                id: row.id || row.rowId || '',
+                name: (row.name || row.Name || row.client || row.Client || row.author || row.Author || '').toString().trim(),
+                title: (row.title || row.Title || row.subject || row.Subject || '').toString().trim(),
+                text: (row.text || row.Text || row.content || row.Content || row.recommendation || row.Recommendation || '').toString().trim(),
+                date: (row.date || row.Date || '').toString().trim()
+            };
+        }
+
+        function renderRecommendations(recommendations = window.recommendations) {
+            const list = document.getElementById('recommendations-list');
+            if (!list) return;
+            if (!recommendations.length) {
+                list.innerHTML = '<div class="text-center text-xs text-mocha-500 bg-white/70 border border-mocha-100 rounded-2xl p-5">עדיין אין המלצות להצגה.</div>';
+                return;
+            }
+            list.innerHTML = recommendations.map(item => `
+                <article class="bg-white/85 border border-mocha-100 rounded-2xl p-5 shadow-sm text-right">
+                    <div class="flex items-start justify-between gap-3 mb-3">
+                        <div>
+                            <h4 class="font-bold text-mocha-900">${escapeHtml(item.name || 'לקוחה יקרה')}</h4>
+                            ${item.title ? `<p class="text-[11px] text-accentRose font-bold mt-1">${escapeHtml(item.title)}</p>` : ''}
+                        </div>
+                        ${item.date ? `<span class="text-[10px] text-mocha-500 bg-cream-200 px-3 py-1 rounded-full">${escapeHtml(item.date)}</span>` : ''}
+                    </div>
+                    <p class="text-xs sm:text-sm text-mocha-700 leading-relaxed whitespace-pre-line">${escapeHtml(item.text)}</p>
+                </article>
+            `).join('');
+        }
+
+        async function loadRecommendations() {
+            const initialRecommendations = getInitialDataValue('recommendations');
+            if (initialRecommendations != null) {
+                window.recommendations = getRecommendationRows(initialRecommendations).map(normalizeRecommendation).filter(item => item.text);
+                renderRecommendations();
+                return;
+            }
+            try {
+                const response = await fetch(SHEETY_RECOMMENDATIONS_API_URL);
+                if (!response.ok) throw new Error(`Recommendations returned ${response.status}`);
+                const data = await response.json();
+                window.recommendations = getRecommendationRows(data).map(normalizeRecommendation).filter(item => item.text);
+                renderRecommendations();
+            } catch (error) {
+                console.error('Failed to load recommendations from Sheety:', error);
+                renderRecommendations([]);
+            }
+        }
+
+        function openRecommendationsModal() {
+            const modal = document.getElementById('recommendations-modal');
+            if (!modal) return;
+            modal.classList.add('is-open');
+            modal.setAttribute('aria-hidden', 'false');
+            document.body.classList.add('lightbox-locked');
+        }
+
+        function closeRecommendationsModal() {
+            const modal = document.getElementById('recommendations-modal');
+            if (!modal) return;
+            modal.classList.remove('is-open');
+            modal.setAttribute('aria-hidden', 'true');
+            document.body.classList.remove('lightbox-locked');
+        }
+
+        function initializeRecommendationsModal() {
+            document.getElementById('recommendations-open')?.addEventListener('click', openRecommendationsModal);
+            document.getElementById('recommendations-close')?.addEventListener('click', closeRecommendationsModal);
+            document.getElementById('recommendations-modal')?.addEventListener('click', (event) => {
+                if (event.target.id === 'recommendations-modal') closeRecommendationsModal();
+            });
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && document.getElementById('recommendations-modal')?.classList.contains('is-open')) {
+                    closeRecommendationsModal();
+                }
+            });
         }
 
         function getSelectedPackageName() {
@@ -2073,10 +2272,11 @@
 
             initializeSiteSounds();
             initializeImageLightbox();
+            initializeRecommendationsModal();
             initializeTurnstile();
             window.addEventListener('turnstile-ready', initializeTurnstile, { once: true });
             document.getElementById('lead-form')?.addEventListener('submit', handleFormSubmit);
-            Promise.allSettled([loadSiteImages(), loadPackages()]).finally(() => hideLoadingScreen());
+            Promise.allSettled([loadGalleryCategories().then(loadSiteImages), loadPackages(), loadRecommendations()]).finally(() => hideLoadingScreen());
         });
 
         window.onload = function() {
