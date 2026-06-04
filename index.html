@@ -1265,6 +1265,186 @@
             });
         }
 
+        const siteAudio = {
+            click: new Audio('CLICK.mp3'),
+            shutter: new Audio('shutter.mp3')
+        };
+        Object.values(siteAudio).forEach(audio => {
+            audio.preload = 'auto';
+            audio.volume = 0.38;
+        });
+        let isSiteMuted = localStorage.getItem('tamarSiteMuted') === 'true';
+
+        function updateSoundToggle() {
+            const button = document.getElementById('sound-toggle');
+            if (!button) return;
+            button.classList.toggle('is-muted', isSiteMuted);
+            button.setAttribute('aria-pressed', isSiteMuted ? 'true' : 'false');
+            button.setAttribute('aria-label', isSiteMuted ? 'הפעל צלילי אתר' : 'השתק צלילי אתר');
+            button.title = isSiteMuted ? 'הפעל צלילים' : 'השתק צלילים';
+            button.innerHTML = `<i class="fa-solid ${isSiteMuted ? 'fa-volume-xmark' : 'fa-volume-high'}" aria-hidden="true"></i>`;
+        }
+
+        function toggleSiteMute() {
+            isSiteMuted = !isSiteMuted;
+            localStorage.setItem('tamarSiteMuted', isSiteMuted ? 'true' : 'false');
+            Object.values(siteAudio).forEach(audio => { audio.muted = isSiteMuted; });
+            updateSoundToggle();
+        }
+
+        function playSiteSound(type = 'click') {
+            if (isSiteMuted) return;
+            const audio = siteAudio[type] || siteAudio.click;
+            if (!audio) return;
+            audio.currentTime = 0;
+            const playback = audio.play();
+            if (playback?.catch) playback.catch(() => {});
+        }
+
+        function isMeaningfulClickTarget(target) {
+            return Boolean(target.closest('nav a, #mobile-menu a, .collection-tab, #packages-grid a, [data-sound="shutter"]'));
+        }
+
+        function initializeSiteSounds() {
+            Object.values(siteAudio).forEach(audio => { audio.muted = isSiteMuted; });
+            updateSoundToggle();
+            document.getElementById('sound-toggle')?.addEventListener('click', toggleSiteMute);
+            document.addEventListener('click', (event) => {
+                const target = event.target;
+                if (target.closest('#sound-toggle')) return;
+                if (target.closest('#lead-form button[type="submit"]')) return;
+                if (!target.closest('a, button, input[type="checkbox"], select, .gallery-container .box, .onestyle-visual.has-lightbox, [role="button"]')) return;
+                playSiteSound(isMeaningfulClickTarget(target) ? 'shutter' : 'click');
+            }, true);
+        }
+
+        const lightboxState = {
+            images: [],
+            labels: [],
+            context: 'הגלריה',
+            index: 0
+        };
+
+        function getLightboxElements() {
+            return {
+                modal: document.getElementById('image-lightbox'),
+                image: document.getElementById('lightbox-image'),
+                counter: document.getElementById('lightbox-counter'),
+                caption: document.getElementById('lightbox-caption'),
+                dots: document.getElementById('lightbox-dots'),
+                thumbs: document.getElementById('lightbox-thumbs'),
+                close: document.getElementById('lightbox-close')
+            };
+        }
+
+        function normalizeLightboxItems(images) {
+            const seen = new Set();
+            return (images || []).map((item, index) => {
+                const src = typeof item === 'string' ? item : item?.src;
+                const label = typeof item === 'string' ? `תמונה ${index + 1}` : (item?.label || `תמונה ${index + 1}`);
+                return src ? { src, label } : null;
+            }).filter(item => {
+                if (!item || seen.has(item.src)) return false;
+                seen.add(item.src);
+                return true;
+            });
+        }
+
+        function renderLightboxNavigation() {
+            const { dots, thumbs } = getLightboxElements();
+            if (!dots || !thumbs) return;
+            dots.innerHTML = lightboxState.images.map((_, index) => `
+                <button type="button" class="image-lightbox__dot${index === lightboxState.index ? ' is-active' : ''}" aria-label="עבור לתמונה ${index + 1}" onclick="setLightboxImage(${index})"></button>
+            `).join('');
+            thumbs.innerHTML = lightboxState.images.map((src, index) => `
+                <button type="button" class="image-lightbox__thumb${index === lightboxState.index ? ' is-active' : ''}" aria-label="פתח תמונה ${index + 1}" onclick="setLightboxImage(${index})">
+                    <img src="${escapeHtml(src)}" alt="תמונה ממוזערת ${index + 1}" loading="lazy">
+                </button>
+            `).join('');
+        }
+
+        function syncLightboxActiveControls() {
+            const { counter, caption, dots, thumbs } = getLightboxElements();
+            const positionText = `תמונה ${lightboxState.index + 1} מתוך ${lightboxState.images.length}`;
+            if (counter) counter.textContent = `${positionText} · ${lightboxState.context}`;
+            if (caption) caption.textContent = `${positionText} — ${lightboxState.labels[lightboxState.index] || lightboxState.context}`;
+            dots?.querySelectorAll('.image-lightbox__dot').forEach((dot, index) => dot.classList.toggle('is-active', index === lightboxState.index));
+            thumbs?.querySelectorAll('.image-lightbox__thumb').forEach((thumb, index) => {
+                thumb.classList.toggle('is-active', index === lightboxState.index);
+                if (index === lightboxState.index) thumb.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', inline: 'center', block: 'nearest' });
+            });
+        }
+
+        function setLightboxImage(index) {
+            if (!lightboxState.images.length) return;
+            const { image } = getLightboxElements();
+            lightboxState.index = (index + lightboxState.images.length) % lightboxState.images.length;
+            if (!image) return;
+            image.classList.add('is-switching');
+            window.setTimeout(() => {
+                image.src = lightboxState.images[lightboxState.index];
+                image.alt = lightboxState.labels[lightboxState.index] || `תמונה מוגדלת ${lightboxState.index + 1}`;
+                image.classList.remove('is-switching');
+                syncLightboxActiveControls();
+            }, prefersReducedMotion ? 0 : 150);
+        }
+
+        function moveLightbox(step) {
+            setLightboxImage(lightboxState.index + step);
+        }
+
+        function openLightboxForSources(images, startIndex = 0, context = 'הגלריה') {
+            const { modal, image, close } = getLightboxElements();
+            const items = normalizeLightboxItems(images);
+            if (!modal || !image || !items.length) return;
+            lightboxState.images = items.map(item => item.src);
+            lightboxState.labels = items.map(item => item.label);
+            lightboxState.context = context;
+            lightboxState.index = Math.max(0, Math.min(startIndex, items.length - 1));
+            image.src = lightboxState.images[lightboxState.index];
+            image.alt = lightboxState.labels[lightboxState.index] || `תמונה מוגדלת ${lightboxState.index + 1}`;
+            renderLightboxNavigation();
+            syncLightboxActiveControls();
+            modal.classList.add('is-open');
+            modal.setAttribute('aria-hidden', 'false');
+            document.body.classList.add('lightbox-locked');
+            close?.focus({ preventScroll: true });
+        }
+
+        function closeLightbox() {
+            const { modal } = getLightboxElements();
+            if (!modal?.classList.contains('is-open')) return;
+            modal.classList.remove('is-open');
+            modal.setAttribute('aria-hidden', 'true');
+            document.body.classList.remove('lightbox-locked');
+        }
+
+        function getVisibleGalleryImages() {
+            return [...document.querySelectorAll('#gallery-grid .gallery-item')]
+                .filter(item => item.style.display !== 'none')
+                .map(item => {
+                    const image = item.querySelector('img');
+                    return image?.src ? { src: image.src, label: item.dataset.lightboxLabel || image.alt } : null;
+                })
+                .filter(Boolean);
+        }
+
+        function initializeImageLightbox() {
+            document.getElementById('lightbox-close')?.addEventListener('click', closeLightbox);
+            document.getElementById('lightbox-prev')?.addEventListener('click', () => moveLightbox(-1));
+            document.getElementById('lightbox-next')?.addEventListener('click', () => moveLightbox(1));
+            document.getElementById('image-lightbox')?.addEventListener('click', (event) => {
+                if (event.target.id === 'image-lightbox') closeLightbox();
+            });
+            document.addEventListener('keydown', (event) => {
+                const modal = document.getElementById('image-lightbox');
+                if (!modal?.classList.contains('is-open')) return;
+                if (event.key === 'Escape') closeLightbox();
+                if (event.key === 'ArrowLeft') moveLightbox(-1);
+                if (event.key === 'ArrowRight') moveLightbox(1);
+            });
+        }
+
         function startManagedInterval(name, callback, delay) {
             stopManagedInterval(name);
             if (prefersReducedMotion || document.hidden) return;
