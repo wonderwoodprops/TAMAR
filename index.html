@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TAMAR ELYASHIV | צילום אמנותי - רגעים אמיתיים</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         window.turnstileApiReady = false;
@@ -15,11 +14,9 @@
         };
     </script>
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onTurnstileApiReady" async defer></script>
-    <!-- פונטים מבית גוגל עבור טיפוגרפיה עברית ולטינית יוקרתית -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Alef:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
-    <!-- אייקונים אלגנטיים של FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="CLOSE.png">
 
@@ -622,6 +619,30 @@
             opacity: 0;
             transform: translate(var(--entry-x, 0), var(--entry-y, 42px)) rotate(var(--entry-r,0deg)) scale(0.92);
         }
+
+        @keyframes recommendationPulse {
+            0%, 100% { transform: translateY(0); box-shadow: 0 12px 28px rgba(61,42,33,.08); }
+            50% { transform: translateY(-3px); box-shadow: 0 18px 36px rgba(61,42,33,.14); }
+        }
+        .recommendations-link {
+            animation: recommendationPulse 3.8s ease-in-out infinite;
+        }
+        .recommendations-modal {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .28s ease;
+        }
+        .recommendations-modal.is-open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .recommendations-modal__panel {
+            transform: translateY(18px) scale(.98);
+            transition: transform .28s ease;
+        }
+        .recommendations-modal.is-open .recommendations-modal__panel {
+            transform: translateY(0) scale(1);
+        }
     </style>
 </head>
 <body class="overflow-x-hidden antialiased is-loading">
@@ -648,10 +669,8 @@
     </button>
 
 
-    <!-- סרגל ניווט עליון -->
     <nav class="sticky top-0 z-50 bg-cream-100/40 backdrop-blur-xl border-b border-mocha-100/80 py-0.9 px-3 md:py-0 md:px-4 transition-all duration-300">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <!-- לוגו האתר -->
             <a href="#" class="flex items-center gap-3 group">
             <div class="scale-[0.34] origin-center -my-11 -mx-10 flex-shrink-0">
     <div class="aperture-logo-wrapper aperture-nav">
@@ -674,7 +693,6 @@
                 </span>
             </a>
 
-            <!-- קישורים למסכים גדולים -->
             <div class="hidden md:flex items-center space-x-reverse space-x-8 text-sm font-medium text-mocha-800">
                 <a href="#about" class="hover:text-accentRose transition-colors duration-200">קצת עלי</a>
                 <a href="#gallery" class="hover:text-accentRose transition-colors duration-200">גלריה</a>
@@ -683,18 +701,15 @@
                 <a href="#contact" class="hover:text-accentRose transition-colors duration-200">צור קשר</a>
             </div>
 
-            <!-- כפתור הנעה לפעולה -->
             <a href="#gallery" class="hidden sm:inline-block bg-mocha-800 hover:bg-mocha-700 text-cream-100 text-xs tracking-wider uppercase px-6 py-3 rounded-full transition-all duration-300 shadow-sm hover:shadow-md">
                 צפה בגלריה
             </a>
 
-            <!-- כפתור תפריט מובייל -->
             <button id="mobile-menu-btn" class="md:hidden text-mocha-900 focus:outline-none" aria-label="פתח תפריט">
                 <i class="fa-solid fa-bars text-xl"></i>
             </button>
         </div>
 
-        <!-- תפריט מובייל נפתח -->
         <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-cream-100 border-b border-mocha-200 shadow-lg p-6 transition-all duration-300">
             <div class="flex flex-col space-y-4 text-center font-medium">
                 <a href="#about" class="mobile-link text-mocha-800 hover:text-accentRose py-2 border-b border-mocha-50">קצת עלי</a>
@@ -706,7 +721,6 @@
         </div>
     </nav>
 
-    <!-- מסך פתיחה ראשי - הירו -->
     <header class="relative min-h-[88vh] flex items-center justify-center overflow-hidden px-6 package-touch">
         <div id="hero-slides" aria-hidden="true" class="absolute inset-0 pointer-events-none"></div>
         <div class="absolute inset-0 bg-mocha-950/45"></div>
@@ -731,7 +745,6 @@
         </div>
     </header>
 
-    <!-- סעיף אודות - קצת עלי -->
     <section id="about" class="divider-line py-24 bg-white border-y border-mocha-100/50">
         <div class="max-w-6xl mx-auto px-6">
             <div class="max-w-4xl mx-auto">
@@ -748,16 +761,13 @@
         </div>
     </section>
 
-    <!-- סעיף גלריה - תיק עבודות מהיר -->
     <section id="gallery" class="divider-line py-24 bg-mocha-800">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center max-w-2xl mx-auto mb-10 text-cream-100">
                 <span class="text-xs uppercase tracking-[0.25em] text-accentRose font-bold block mb-2">גלריה</span>
                 <h2 class="text-3xl sm:text-4xl font-serif font-light text-cream-100">צפו בתוצרים שלי</h2>
-                <div class="flex justify-center flex-wrap gap-2 mt-6">
-                    <button onclick="filterGallery('all')" id="tab-all" class="gallery-tab active-tab px-6 py-2.5 rounded-full text-xs font-semibold transition-all duration-300 bg-accentRose text-mocha-950 shadow-sm">הכל</button>
-                    <button onclick="filterGallery('newborn')" id="tab-newborn" class="gallery-tab px-6 py-2.5 rounded-full text-xs font-medium transition-all duration-300 bg-white text-mocha-800 hover:bg-mocha-50 border border-mocha-200">ניו בורן</button>
-                    <button onclick="filterGallery('outdoor')" id="tab-outdoor" class="gallery-tab px-6 py-2.5 rounded-full text-xs font-medium transition-all duration-300 bg-white text-mocha-800 hover:bg-mocha-50 border border-mocha-200">צילומי חוץ</button>
+                <div id="gallery-tabs" class="flex justify-center flex-wrap gap-2 mt-6">
+                    <div class="text-xs text-mocha-200/80">טוען קטגוריות גלריה...</div>
                 </div>
             </div>
 
@@ -769,7 +779,6 @@
         </div>
     </section>
 
-    <!-- סעיף ONE STYLE - קונספט צילום ייחודי -->
     <section id="onestyle" class="divider-line py-24 bg-white border-b border-mocha-100 relative">
         <div class="absolute top-0 right-0 w-64 h-64 bg-mocha-100/30 rounded-full blur-2xl pointer-events-none"></div>
         <div class="max-w-6xl mx-auto px-6 relative z-10">
@@ -821,7 +830,14 @@
         </div>
     </section>
 
-    <!-- סעיף מחירון וחבילות -->
+    <div class="bg-white py-8 border-b border-mocha-100">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <button type="button" id="recommendations-open" class="recommendations-link inline-flex items-center justify-center gap-2 bg-cream-200 hover:bg-accentRose text-mocha-900 font-bold text-xs sm:text-sm px-7 py-3 rounded-full border border-mocha-200 transition-colors">
+                <i class="fa-solid fa-heart text-accentRose"></i> קראו מה משפחות מספרות אחרי החוויה
+            </button>
+        </div>
+    </div>
+
     <section id="pricing" class="divider-line py-24 bg-cream-200">
         <div class="max-w-6xl mx-auto px-6">
 
@@ -835,7 +851,6 @@
                 <p class="text-sm text-mocha-700">כל החבילות נבנו מתוך מחשבה להעניק לכם את המקסימום - ליווי סטיילינג מקדים, עיבוד מקצועי וגלריה דיגיטלית יפהפייה.</p>
             </div>
 
-            <!-- מחשבון אינטראקטיבי חכם להערכת מחיר בהתאמה אישית -->
             <div class="bg-white p-6 sm:p-8 rounded-3xl border border-mocha-200 shadow-sm max-w-4xl mx-auto mb-16">
                 <h4 class="text-center font-bold text-mocha-900 text-base mb-6">
                     <i class="fa-solid fa-calculator text-accentRose ml-2 icon-spin-appear icon-hover-effect inline-block"></i>מחשבון הערכת מחיר אינטראקטיבי
@@ -850,13 +865,20 @@
                     <div>
                         <label class="block text-xs font-bold text-mocha-800 mb-2">תוספות ושדרוגים:</label>
                         <div class="space-y-3">
-                            <label class="flex items-center text-xs text-mocha-800 cursor-pointer">
-                                <input type="checkbox" id="add-album" value="450" onchange="calculateEstimate()" class="ml-2 accent-accentRose">
-                                אלבום דיגיטלי יוקרתי ומעוצב (+450 ₪)
+                            <label class="block text-xs text-mocha-800 cursor-pointer">
+                                <span class="block mb-1">הוספת עיבוד של 5 תמונות בנוסף לכמות שכלולה בחבילה (+100 ₪ לכל יחידה)</span>
+                                <select id="add-extra-edits" onchange="calculateEstimate()" class="w-full bg-cream-100 border border-mocha-200 p-2 rounded-xl focus:outline-none focus:border-accentRose">
+                                    <option value="0" selected>ללא תוספת</option>
+                                    <option value="1">יחידה אחת — 5 תמונות (+100 ₪)</option>
+                                    <option value="2">2 יחידות — 10 תמונות (+200 ₪)</option>
+                                    <option value="3">3 יחידות — 15 תמונות (+300 ₪)</option>
+                                    <option value="4">4 יחידות — 20 תמונות (+400 ₪)</option>
+                                    <option value="5">5 יחידות — 25 תמונות (+500 ₪)</option>
+                                </select>
                             </label>
                             <label class="flex items-center text-xs text-mocha-800 cursor-pointer">
-                                <input type="checkbox" id="add-prints" value="150" onchange="calculateEstimate()" class="ml-2 accent-accentRose">
-                                הדפסות פיין-ארט אמנותיות (+150 ₪)
+                                <input type="checkbox" id="add-prints" value="70" onchange="calculateEstimate()" class="ml-2 accent-accentRose">
+                                הדפסת תמונה נבחרת על לוח עץ בגודל 20 על 30 ס"מ (+70 ₪)
                             </label>
                         </div>
                     </div>
@@ -868,7 +890,6 @@
                 </div>
             </div>
 
-            <!-- כרטיסי חבילות דינמיות משיטס -->
             <div id="packages-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
                 <div class="md:col-span-3 bg-white/70 border border-mocha-100 rounded-3xl p-8 text-center text-sm text-mocha-600">טוען חבילות ...</div>
             </div>
@@ -878,7 +899,6 @@
         </div>
     </section>
 
-    <!-- סעיף צור קשר והשארת פרטים -->
     <section id="contact" class="divider-line py-24 bg-white">
         <div class="max-w-4xl mx-auto px-6">
             <div class="text-center max-w-xl mx-auto mb-12">
@@ -892,7 +912,6 @@
             </div>
 
             <div class="bg-mocha-50 p-8 sm:p-12 rounded-3xl border border-mocha-100 shadow-sm">
-                <!-- טופס השארת פרטים -->
                 <form id="lead-form" class="space-y-6">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div>
@@ -923,7 +942,6 @@
                         <textarea id="message" rows="4" class="w-full bg-white border border-mocha-200 px-4 py-3 rounded-xl focus:outline-none focus:border-accentRose text-xs text-mocha-900" placeholder="למשל: נשמח לצילומי חוץ ביער, יש לנו 3 ילדים קטנים ואנו מתחברים לגווני שמנת..."></textarea>
                     </div>
 
-                    <!-- אזור משוב במקום חלונית אלרט מעצבנת -->
                     <div id="form-feedback" class="hidden text-center p-4 rounded-xl text-xs font-semibold"></div>
                     <div id="turnstile-widget" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden;"></div>
 
@@ -937,10 +955,8 @@
         </div>
     </section>
 
-    <!-- כותרת תחתונה של האתר -->
     <footer class="bg-mocha-900 text-cream-100/90 py-16 border-t border-mocha-950">
         <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
-            <!-- עמודה 1 -->
             <div class="space-y-4 text-right">
                 <span class="font-serif text-xl tracking-widest text-white flex items-center gap-2"><div class="scale-[0.18] origin-center -my-20 -mx-20"><div class="aperture-logo-wrapper aperture-trigger"><div class="aperture-logo-container"><svg version="1.1" class="aperture-animated-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" aria-hidden="true" focusable="false">
                     <g class="aperture-blades">
@@ -960,7 +976,6 @@
                 </div>
             </div>
 
-            <!-- עמודה 2 -->
             <div class="space-y-4 text-right md:self-center">
                 <h5 class="text-xs uppercase tracking-wider font-bold text-accentRose">ניווט מהיר</h5>
                 <ul class="space-y-2.5 text-xs text-mocha-300">
@@ -971,7 +986,6 @@
                 </ul>
             </div>
 
-            <!-- עמודה 3 -->
             <div class="space-y-4 text-right md:self-center">
                 <h5 class="text-xs uppercase tracking-wider font-bold text-accentRose">פרטים ויצירת קשר</h5>
                 <ul class="space-y-2.5 text-xs text-mocha-300">
@@ -987,9 +1001,6 @@
         </div>
     </footer>
 
-    <!-- קוד JS אינטראקטיבי ודינמי לחוויית משתמש חלקה -->
-
-    <!-- מודל צפייה מוגדל בתמונות -->
     <div id="image-lightbox" class="image-lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="צפייה מוגדלת בתמונה">
         <div class="image-lightbox__panel" role="document">
             <div class="image-lightbox__topbar">
@@ -1015,6 +1026,21 @@
         </div>
     </div>
 
+    <div id="recommendations-modal" class="recommendations-modal fixed inset-0 z-[70] bg-mocha-950/70 backdrop-blur-sm flex items-center justify-center p-4" aria-hidden="true" role="dialog" aria-labelledby="recommendations-title">
+        <div class="recommendations-modal__panel bg-cream-100 rounded-3xl shadow-2xl max-w-3xl w-full max-h-[82vh] overflow-hidden border border-mocha-200">
+            <div class="flex items-center justify-between gap-4 p-5 border-b border-mocha-200 bg-white/75">
+                <div>
+                    <h3 id="recommendations-title" class="font-serif text-2xl text-mocha-900">המלצות וחוויות לקוחות</h3>
+                    <p class="text-xs text-mocha-600 mt-1">נטען דינמית מתוך גליון recommendations</p>
+                </div>
+                <button type="button" id="recommendations-close" class="w-10 h-10 rounded-full bg-mocha-900 text-cream-100 hover:bg-accentRose hover:text-mocha-950 transition-colors" aria-label="סגירת המלצות"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="recommendations-list" class="p-5 sm:p-7 space-y-4 overflow-y-auto max-h-[64vh]">
+                <div class="text-center text-xs text-mocha-500 bg-white/70 border border-mocha-100 rounded-2xl p-5">טוען המלצות...</div>
+            </div>
+        </div>
+    </div>
+
     <script>
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const timers = new Map();
@@ -1023,9 +1049,14 @@
         
         const SHEETY_IMAGES_API_URL = 'https://plain-frost-bb26.l055673085.workers.dev/siteImages';
         const SHEETY_PACKAGES_API_URL = 'https://plain-frost-bb26.l055673085.workers.dev/packages';
+        const SHEETY_GALLERY_CATEGORIES_API_URL = 'https://plain-frost-bb26.l055673085.workers.dev/gallerycategories';
+        const SHEETY_RECOMMENDATIONS_API_URL = 'https://plain-frost-bb26.l055673085.workers.dev/recommendations';
         window.collectionImageSets = {};
         window.inspirationCollections = [];
         window.availablePackages = [];
+        window.galleryCategories = [];
+        window.galleryImageRowsByLocation = {};
+        window.recommendations = [];
 
         const siteAudio = {
             click: new Audio('CLICK.mp3'),
@@ -1119,7 +1150,7 @@
                 <button type="button" class="image-lightbox__dot${index === lightboxState.index ? ' is-active' : ''}" aria-label="עבור לתמונה ${index + 1}" onclick="setLightboxImage(${index})"></button>
             `).join('');
             thumbs.innerHTML = lightboxState.images.map((src, index) => `
-                <button type="button" class="image-lightbox__thumb${index === lightboxState.index ? ' is-active' : ''}" style="--thumb-index: ${index}" aria-label="פתח תמונה ${index + 1}" onclick="setLightboxImage(${index})">
+                <button type="button" class="image-lightbox__thumb${index === lightboxState.index ? ' is-active' : ''}" aria-label="פתח תמונה ${index + 1}" onclick="setLightboxImage(${index})">
                     <img src="${escapeHtml(src)}" alt="תמונה ממוזערת ${index + 1}" loading="lazy">
                 </button>
             `).join('');
@@ -1193,8 +1224,8 @@
 
         function initializeImageLightbox() {
             document.getElementById('lightbox-close')?.addEventListener('click', closeLightbox);
-            document.getElementById('lightbox-prev')?.addEventListener('click', () => moveLightbox(1));
-            document.getElementById('lightbox-next')?.addEventListener('click', () => moveLightbox(-1));
+            document.getElementById('lightbox-prev')?.addEventListener('click', () => moveLightbox(-1));
+            document.getElementById('lightbox-next')?.addEventListener('click', () => moveLightbox(1));
             document.getElementById('image-lightbox')?.addEventListener('click', (event) => {
                 if (event.target.id === 'image-lightbox') closeLightbox();
             });
@@ -1202,8 +1233,8 @@
                 const modal = document.getElementById('image-lightbox');
                 if (!modal?.classList.contains('is-open')) return;
                 if (event.key === 'Escape') closeLightbox();
-                if (event.key === 'ArrowLeft') moveLightbox(1);
-                if (event.key === 'ArrowRight') moveLightbox(-1);
+                if (event.key === 'ArrowLeft') moveLightbox(-1);
+                if (event.key === 'ArrowRight') moveLightbox(1);
             });
         }
 
@@ -1280,11 +1311,11 @@
 
             // עדכון מחלקות העיצוב של הכפתור הפעיל
             tabs.forEach(tab => {
-                tab.classList.remove('bg-mocha-800', 'text-cream-100', 'shadow-sm');
+                tab.classList.remove('bg-mocha-800', 'bg-accentRose', 'text-cream-100', 'text-mocha-950', 'shadow-sm');
                 tab.classList.add('bg-white', 'text-mocha-800', 'hover:bg-mocha-50', 'border', 'border-mocha-200');
             });
 
-            const activeTab = document.getElementById(`tab-${category}`);
+            const activeTab = document.getElementById(galleryTabId(category));
             if (activeTab) {
                 activeTab.classList.remove('bg-white', 'text-mocha-800', 'hover:bg-mocha-50', 'border', 'border-mocha-200');
                 activeTab.classList.add('bg-mocha-800', 'text-cream-100', 'shadow-sm');
@@ -1296,7 +1327,7 @@
                 item.style.setProperty('--entry-x', `${(Math.random()*120-60).toFixed(0)}px`);
                 item.style.setProperty('--entry-y', `${(Math.random()*120-60).toFixed(0)}px`);
                 item.style.setProperty('--entry-r', `${(Math.random()*24-12).toFixed(1)}deg`);
-                if (category === 'all' || item.classList.contains(category)) {
+                if (category === 'all' || item.dataset.category === category) {
                     item.style.display = 'block';
                     item.classList.remove('in-view');
                     item.classList.add('deck-enter');
@@ -1334,14 +1365,15 @@
             return optimizeCloudinaryUrl(getSheetImageUrl(row).toString().trim());
         }
 
-        function createGalleryItem(src, category, index) {
+        function createGalleryItem(src, category, index, categoryLabel = '') {
             const item = document.createElement('div');
             const content = document.createElement('div');
             const image = document.createElement('img');
-            item.className = `box gallery-item ${category} deck-enter`;
+            item.className = 'box gallery-item deck-enter';
+            item.dataset.category = category;
             content.className = 'content';
             image.src = src;
-            image.alt = `${category === 'newborn' ? 'צילום ניו בורן' : 'צילום חוץ'} ${index + 1}`;
+            image.alt = `${categoryLabel || category} ${index + 1}`;
             item.dataset.lightboxLabel = image.alt;
             image.loading = 'lazy';
             image.decoding = 'async';
@@ -1382,17 +1414,88 @@
             updateHeroRotation();
         }
 
-        function renderGalleryImages(newbornImages, outdoorImages) {
+        function getObjectFieldValue(item, ...keys) {
+            if (!item) return '';
+            const lowerKeyMap = Object.keys(item).reduce((map, key) => {
+                map[key.toLowerCase()] = key;
+                return map;
+            }, {});
+            for (const key of keys) {
+                if (Object.prototype.hasOwnProperty.call(item, key) && item[key] != null) return item[key];
+                const actualKey = lowerKeyMap[key.toLowerCase()];
+                if (actualKey && item[actualKey] != null) return item[actualKey];
+            }
+            return '';
+        }
+
+        function getCategoryRows(data) {
+            if (Array.isArray(data)) return data;
+            return data?.gallerycategories || data?.galleryCategories || data?.Gallerycategories || data?.GalleryCategories || data?.gallerycategory || data?.galleryCategory || data?.categories || [];
+        }
+
+        function normalizeGalleryCategory(row) {
+            const name = getObjectFieldValue(row, 'Displayname', 'displayname').toString().trim();
+            const location = getObjectFieldValue(row, 'ImageIDname', 'imageidname').toString().trim().toLowerCase();
+            return { id: getObjectFieldValue(row, 'id', 'rowId'), name, location };
+        }
+
+        function galleryTabId(location) {
+            return `tab-${encodeURIComponent(location)}`;
+        }
+
+        function renderGalleryTabs(categories = window.galleryCategories) {
+            const tabsContainer = document.getElementById('gallery-tabs');
+            if (!tabsContainer) return;
+            if (!categories.length) {
+                tabsContainer.innerHTML = '<div class="text-xs text-mocha-200/80">לא נמצאו קטגוריות בגליון gallerycategories.</div>';
+                return;
+            }
+            const categoryButtons = categories.map(category => `
+                <button onclick="filterGallery('${escapeJsString(category.location)}')" id="${galleryTabId(category.location)}" class="gallery-tab px-6 py-2.5 rounded-full text-xs font-medium transition-all duration-300 bg-white text-mocha-800 hover:bg-mocha-50 border border-mocha-200">${escapeHtml(category.name)}</button>
+            `).join('');
+            tabsContainer.innerHTML = `<button onclick="filterGallery('all')" id="tab-all" class="gallery-tab active-tab px-6 py-2.5 rounded-full text-xs font-semibold transition-all duration-300 bg-accentRose text-mocha-950 shadow-sm">הכל</button>${categoryButtons}`;
+        }
+
+        async function loadGalleryCategories() {
+            const initialCategories = getInitialDataValue('gallerycategories') ?? getInitialDataValue('galleryCategories');
+            if (initialCategories != null) {
+                window.galleryCategories = getCategoryRows(initialCategories).map(normalizeGalleryCategory).filter(item => item.location && item.name);
+                renderGalleryTabs();
+                return;
+            }
+            try {
+                const response = await fetch(SHEETY_GALLERY_CATEGORIES_API_URL);
+                if (!response.ok) throw new Error(`Gallery categories returned ${response.status}`);
+                const data = await response.json();
+                window.galleryCategories = getCategoryRows(data).map(normalizeGalleryCategory).filter(item => item.location && item.name);
+                renderGalleryTabs();
+            } catch (error) {
+                console.error('Failed to load gallery categories from Sheety:', error);
+                window.galleryCategories = [];
+                renderGalleryTabs();
+            }
+        }
+
+        function renderGalleryImages(imagesByLocation = window.galleryImageRowsByLocation) {
             const galleryGrid = document.getElementById('gallery-grid');
             if (!galleryGrid) return;
 
+            const categories = window.galleryCategories;
+
             galleryGrid.innerHTML = '';
+            if (!categories.length) {
+                galleryGrid.innerHTML = '<div class="col-span-full text-center text-xs text-cream-100/80 bg-white/10 border border-white/10 rounded-2xl p-5">הגלריה תוצג לאחר הגדרת קטגוריות בגליון gallerycategories.</div>';
+                return;
+            }
             const fragment = document.createDocumentFragment();
-            newbornImages.forEach((src, index) => fragment.appendChild(createGalleryItem(src, 'newborn', index)));
-            outdoorImages.forEach((src, index) => fragment.appendChild(createGalleryItem(src, 'outdoor', index)));
+            categories.forEach(category => {
+                (imagesByLocation[category.location] || []).forEach((src, index) => {
+                    fragment.appendChild(createGalleryItem(src, category.location, index, category.name));
+                });
+            });
             galleryGrid.appendChild(fragment);
 
-            const activeCategory = document.querySelector('.gallery-tab.bg-mocha-800')?.id?.replace('tab-', '') || 'all';
+            const activeCategory = document.querySelector('.gallery-tab.bg-mocha-800, .gallery-tab.bg-accentRose')?.id?.replace('tab-', '') || 'all';
             document.querySelectorAll('#gallery-grid .gallery-item').forEach((item, index) => {
                 observer.observe(item);
                 setTimeout(() => item.classList.remove('deck-enter'), 250 + (index * 90));
@@ -1454,9 +1557,11 @@
             const heroImages = byLocation.hero || [];
             await preloadImages(heroImages.slice(0, 3));
             renderHeroImages(heroImages);
-            renderGalleryImages(byLocation.gallery_newborn || [], byLocation.gallery_outdoor || []);
+            window.galleryImageRowsByLocation = byLocation;
+            renderGalleryImages(byLocation);
+            const galleryLocationSet = new Set((window.galleryCategories || []).map(category => category.location));
             const collectionImageSets = Object.keys(byLocation).reduce((sets, location) => {
-                if (['hero', 'gallery_newborn', 'gallery_outdoor'].includes(location)) return sets;
+                if (location === 'hero' || galleryLocationSet.has(location)) return sets;
                 const key = location.replace(/^onestyle_/, '');
                 sets[key] = [...(sets[key] || []), ...byLocation[location]];
                 return sets;
@@ -1647,11 +1752,12 @@
 
         // חישוב מחירון אינטראקטיבי
         function calculateEstimate() {
-            const baseValue = parseInt(document.getElementById('estimator-type').value) || 0;
-            const addAlbum = document.getElementById('add-album').checked ? parseInt(document.getElementById('add-album').value) : 0;
-            const addPrints = document.getElementById('add-prints').checked ? parseInt(document.getElementById('add-prints').value) : 0;
+            const baseValue = parseInt(document.getElementById('estimator-type')?.value) || 0;
+            const extraEditUnits = parseInt(document.getElementById('add-extra-edits')?.value) || 0;
+            const addExtraEdits = extraEditUnits * 100;
+            const addPrints = document.getElementById('add-prints')?.checked ? parseInt(document.getElementById('add-prints').value) : 0;
 
-            const total = baseValue + addAlbum + addPrints;
+            const total = baseValue + addExtraEdits + addPrints;
             document.getElementById('estimated-total').innerText = total.toLocaleString() + " ₪";
         }
 
@@ -1775,8 +1881,9 @@
             const selectedIndex = Math.max(0, estimator?.selectedIndex ?? 0);
             const selectedPackage = (window.availablePackages || [])[selectedIndex];
             const selectedLabel = estimator?.selectedOptions[0]?.textContent.trim() || selectedPackage?.name || 'התייעצות כללית';
+            const extraEditUnits = parseInt(document.getElementById('add-extra-edits')?.value) || 0;
             const addOns = [
-                document.getElementById('add-album')?.checked ? 'אלבום דיגיטלי יוקרתי ומעוצב' : '',
+                extraEditUnits > 0 ? `הוספת עיבוד של ${extraEditUnits * 5} תמונות (${extraEditUnits} יחידות של 5)` : '',
                 document.getElementById('add-prints')?.checked ? 'הדפסות פיין-ארט אמנותיות' : ''
             ].filter(Boolean);
 
@@ -1804,6 +1911,90 @@
 תוספות: ${addOnsText}
 הערכת מחיר כוללת: ${details.budget}`;
             }
+        }
+
+        function getRecommendationRows(data) {
+            if (Array.isArray(data)) return data;
+            return data?.recommendations || data?.Recommendations || data?.recommendation || data?.Recommendation || [];
+        }
+
+        function normalizeRecommendation(row) {
+            return {
+                id: row.id || row.rowId || '',
+                name: getObjectFieldValue(row, 'name').toString().trim(),
+                title: getObjectFieldValue(row, 'title').toString().trim(),
+                text: getObjectFieldValue(row, 'content').toString().trim(),
+                period: getObjectFieldValue(row, 'period').toString().trim()
+            };
+        }
+
+        function renderRecommendations(recommendations = window.recommendations) {
+            const list = document.getElementById('recommendations-list');
+            if (!list) return;
+            if (!recommendations.length) {
+                list.innerHTML = '<div class="text-center text-xs text-mocha-500 bg-white/70 border border-mocha-100 rounded-2xl p-5">עדיין אין המלצות להצגה.</div>';
+                return;
+            }
+            list.innerHTML = recommendations.map(item => `
+                <article class="bg-white/85 border border-mocha-100 rounded-2xl p-5 shadow-sm text-right">
+                    <div class="flex items-start justify-between gap-3 mb-3">
+                        <div>
+                            <h4 class="font-bold text-mocha-900">${escapeHtml(item.name || 'לקוחה יקרה')}</h4>
+                            ${item.title ? `<p class="text-[11px] text-accentRose font-bold mt-1">${escapeHtml(item.title)}</p>` : ''}
+                        </div>
+                        ${item.period ? `<span class="text-[10px] text-mocha-500 bg-cream-200 px-3 py-1 rounded-full">${escapeHtml(item.period)}</span>` : ''}
+                    </div>
+                    <p class="text-xs sm:text-sm text-mocha-700 leading-relaxed whitespace-pre-line">${escapeHtml(item.text)}</p>
+                </article>
+            `).join('');
+        }
+
+        async function loadRecommendations() {
+            const initialRecommendations = getInitialDataValue('recommendations');
+            if (initialRecommendations != null) {
+                window.recommendations = getRecommendationRows(initialRecommendations).map(normalizeRecommendation).filter(item => item.text);
+                renderRecommendations();
+                return;
+            }
+            try {
+                const response = await fetch(SHEETY_RECOMMENDATIONS_API_URL);
+                if (!response.ok) throw new Error(`Recommendations returned ${response.status}`);
+                const data = await response.json();
+                window.recommendations = getRecommendationRows(data).map(normalizeRecommendation).filter(item => item.text);
+                renderRecommendations();
+            } catch (error) {
+                console.error('Failed to load recommendations from Sheety:', error);
+                renderRecommendations([]);
+            }
+        }
+
+        function openRecommendationsModal() {
+            const modal = document.getElementById('recommendations-modal');
+            if (!modal) return;
+            modal.classList.add('is-open');
+            modal.setAttribute('aria-hidden', 'false');
+            document.body.classList.add('lightbox-locked');
+        }
+
+        function closeRecommendationsModal() {
+            const modal = document.getElementById('recommendations-modal');
+            if (!modal) return;
+            modal.classList.remove('is-open');
+            modal.setAttribute('aria-hidden', 'true');
+            document.body.classList.remove('lightbox-locked');
+        }
+
+        function initializeRecommendationsModal() {
+            document.getElementById('recommendations-open')?.addEventListener('click', openRecommendationsModal);
+            document.getElementById('recommendations-close')?.addEventListener('click', closeRecommendationsModal);
+            document.getElementById('recommendations-modal')?.addEventListener('click', (event) => {
+                if (event.target.id === 'recommendations-modal') closeRecommendationsModal();
+            });
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && document.getElementById('recommendations-modal')?.classList.contains('is-open')) {
+                    closeRecommendationsModal();
+                }
+            });
         }
 
         function getSelectedPackageName() {
@@ -1904,7 +2095,7 @@
                 name,
                 email: document.getElementById('email').value.trim(),
                 phone: document.getElementById('phone').value.trim(),
-                package: getSelectedPackageName(),
+                package: document.getElementById('package-choice').value,
                 budget: getCalculatedBudget(),
                 notes: document.getElementById('message').value.trim()
             };
@@ -2073,10 +2264,11 @@
 
             initializeSiteSounds();
             initializeImageLightbox();
+            initializeRecommendationsModal();
             initializeTurnstile();
             window.addEventListener('turnstile-ready', initializeTurnstile, { once: true });
             document.getElementById('lead-form')?.addEventListener('submit', handleFormSubmit);
-            Promise.allSettled([loadSiteImages(), loadPackages()]).finally(() => hideLoadingScreen());
+            Promise.allSettled([loadGalleryCategories().then(loadSiteImages), loadPackages(), loadRecommendations()]).finally(() => hideLoadingScreen());
         });
 
         window.onload = function() {

@@ -45,10 +45,11 @@
 
         <section class="mb-8 bg-amber-50 border border-amber-200 p-5 rounded-2xl shadow-sm" aria-labelledby="admin-guide-title">
             <h2 id="admin-guide-title" class="text-lg font-bold text-stone-800 mb-3"><i class="fa-solid fa-circle-info text-amber-600 ml-2"></i>איך עובדים בדף הניהול?</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm text-stone-700">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-3 text-sm text-stone-700">
                 <div class="bg-white/80 border border-amber-100 rounded-xl p-3"><strong>תמונות:</strong> לחצו על תמונה קיימת כדי להחליף אותה, או השתמשו בכפתור ״הסר״ למחיקה מהגיליון. כפתור הוספה יוצר שורה חדשה במיקום המתאים.</div>
                 <div class="bg-white/80 border border-amber-100 rounded-xl p-3"><strong>קולקציות ONE STYLE:</strong> ״ערוך קולקציה״ טוען לטופס הסגול, ״הסר״ מוחק את שורת הקולקציה. לאחר שינוי לחצו ״שמור״.</div>
                 <div class="bg-white/80 border border-amber-100 rounded-xl p-3"><strong>חבילות מכירה:</strong> ״ערוך חבילה״ טוען לטופס הירוק, ״הסר״ מוחק חבילה קיימת. ״חבילה חדשה״ מנקה את מצב העריכה.</div>
+                <div class="bg-white/80 border border-amber-100 rounded-xl p-3"><strong>קטגוריות והמלצות:</strong> הקטגוריות וההמלצות נטענות מגליונות ייעודיים ואפשר לערוך, להוסיף ולמחוק אותן מכאן.</div>
             </div>
         </section>
 
@@ -64,26 +65,63 @@
                 </div>
         </section>
 
-        <section class="mb-12 bg-white p-6 rounded-2xl shadow-sm border border-stone-200" aria-labelledby="gallery-admin-title">
+        <section class="mb-12 bg-white p-6 rounded-2xl shadow-sm border border-stone-200" aria-labelledby="categories-admin-title">
             <div class="flex justify-between items-center mb-4 border-b pb-2">
-                <h2 id="gallery-admin-title" class="text-xl font-bold text-stone-700"><i class="fa-solid fa-images ml-2"></i> גלריית עבודות ראשית (ניו-בורן וחוץ)</h2>
-                <div class="flex gap-2">
-                    <button type="button" onclick="triggerAddNew('gallery_newborn')" class="bg-stone-800 text-white px-4 py-2 rounded-xl text-sm hover:bg-stone-700 transition cursor-pointer"><i class="fa-solid fa-plus ml-1"></i> הוסף לניו-בורן</button>
-                    <button type="button" onclick="triggerAddNew('gallery_outdoor')" class="bg-stone-800 text-white px-4 py-2 rounded-xl text-sm hover:bg-stone-700 transition cursor-pointer"><i class="fa-solid fa-plus ml-1"></i> הוסף לצילומי חוץ</button>
+                <div>
+                    <h2 id="categories-admin-title" class="text-xl font-bold text-stone-700"><i class="fa-solid fa-tags ml-2"></i> ניהול קטגוריות גלריה</h2>
+                    <p class="text-sm text-stone-500 mt-1">השמות נטענים מגליון <code class="bg-stone-100 px-1 rounded">gallerycategories</code>. שינוי <code class="bg-stone-100 px-1 rounded">Image ID name</code> יעדכן גם את עמודת <code class="bg-stone-100 px-1 rounded">location</code> בתמונות הרלוונטיות בגיליון SiteImages.</p>
                 </div>
             </div>
-            
-            <div class="mb-6">
-                <h3 class="text-md font-semibold text-stone-600 mb-3">👶 צילומי סטודיו וניו-בורן (gallery_newborn)</h3>
-                <div id="admin-gallery-newborn" class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    </div>
-            </div>
+            <form id="gallery-category-form" class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6 bg-sky-50/70 border border-sky-100 rounded-2xl p-4">
+                <input type="hidden" id="gallery-category-row-id">
+                <input type="hidden" id="gallery-category-original-location">
+                <div class="md:col-span-2">
+                    <label for="gallery-category-name" class="block text-xs font-bold text-stone-600 mb-1">Display name — שם תצוגה</label>
+                    <input id="gallery-category-name" required class="w-full border border-stone-200 rounded-xl px-3 py-2 text-sm" placeholder="ניו בורן / משפחה / חוץ">
+                </div>
+                <div>
+                    <label for="gallery-category-location" class="block text-xs font-bold text-stone-600 mb-1">Image ID name — מזהה לשיוך תמונות</label>
+                    <input id="gallery-category-location" required class="w-full border border-stone-200 rounded-xl px-3 py-2 text-sm ltr:text-left" placeholder="למשל newborn_family או outdoor">
+                </div>
+                <div class="flex items-end gap-2">
+                    <button type="submit" class="flex-1 bg-sky-700 text-white px-4 py-3 rounded-xl text-sm hover:bg-sky-800 transition"><i class="fa-solid fa-floppy-disk ml-1"></i> שמור</button>
+                    <button type="button" onclick="resetGalleryCategoryForm()" class="bg-white border border-sky-200 text-sky-800 px-4 py-3 rounded-xl text-sm hover:bg-sky-50 transition">חדש</button>
+                </div>
+            </form>
+            <div id="admin-gallery-categories" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+        </section>
 
-            <div>
-                <h3 class="text-md font-semibold text-stone-600 mb-3">🌳 צילומי חוץ וטבע (gallery_outdoor)</h3>
-                <div id="admin-gallery-outdoor" class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    </div>
+        <section class="mb-12 bg-white p-6 rounded-2xl shadow-sm border border-stone-200" aria-labelledby="recommendations-admin-title">
+            <div class="flex justify-between items-center mb-4 border-b pb-2">
+                <div>
+                    <h2 id="recommendations-admin-title" class="text-xl font-bold text-stone-700"><i class="fa-solid fa-heart ml-2"></i> ניהול המלצות</h2>
+                    <p class="text-sm text-stone-500 mt-1">המלצות נטענות מגליון <code class="bg-stone-100 px-1 rounded">recommendations</code> ומוצגות באתר במודל ייעודי.</p>
+                </div>
+                <button type="button" onclick="resetRecommendationForm()" class="bg-rose-700 text-white px-4 py-2 rounded-xl text-sm hover:bg-rose-800 transition"><i class="fa-solid fa-plus ml-1"></i> המלצה חדשה</button>
             </div>
+            <form id="recommendation-form" class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6 bg-rose-50/70 border border-rose-100 rounded-2xl p-4">
+                <input type="hidden" id="recommendation-row-id">
+                <div>
+                    <label for="recommendation-name" class="block text-xs font-bold text-stone-600 mb-1">שם ממליצה</label>
+                    <input id="recommendation-name" class="w-full border border-stone-200 rounded-xl px-3 py-2 text-sm" placeholder="משפחת כהן">
+                </div>
+                <div>
+                    <label for="recommendation-title" class="block text-xs font-bold text-stone-600 mb-1">כותרת קצרה</label>
+                    <input id="recommendation-title" class="w-full border border-stone-200 rounded-xl px-3 py-2 text-sm" placeholder="חוויה רגועה ומרגשת">
+                </div>
+                <div>
+                    <label for="recommendation-period" class="block text-xs font-bold text-stone-600 mb-1">period — תקופה</label>
+                    <input id="recommendation-period" class="w-full border border-stone-200 rounded-xl px-3 py-2 text-sm" placeholder="2026">
+                </div>
+                <div class="flex items-end">
+                    <button type="submit" class="w-full bg-rose-700 text-white px-4 py-3 rounded-xl text-sm hover:bg-rose-800 transition"><i class="fa-solid fa-floppy-disk ml-1"></i> שמור המלצה</button>
+                </div>
+                <div class="md:col-span-4">
+                    <label for="recommendation-content" class="block text-xs font-bold text-stone-600 mb-1">content — טקסט ההמלצה</label>
+                    <textarea id="recommendation-content" rows="4" required class="w-full border border-stone-200 rounded-xl px-3 py-2 text-sm" placeholder="כתבו כאן את תוכן ההמלצה"></textarea>
+                </div>
+            </form>
+            <div id="admin-recommendations-list" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
         </section>
 
         <section class="mb-12 bg-white p-6 rounded-2xl shadow-sm border border-stone-200" aria-labelledby="inspiration-admin-title">
@@ -202,23 +240,30 @@
         const CLOUDINARY_PRESET = "ml_default";
         const SHEETY_API_URL = "https://plain-frost-bb26.l055673085.workers.dev/siteImages";
         const SHEETY_PACKAGES_API_URL = "https://plain-frost-bb26.l055673085.workers.dev/packages";
+        const SHEETY_GALLERY_CATEGORIES_API_URL = "https://plain-frost-bb26.l055673085.workers.dev/gallerycategories";
+        const SHEETY_RECOMMENDATIONS_API_URL = "https://plain-frost-bb26.l055673085.workers.dev/recommendations";
 
         let currentTargetId = null;
         let currentTargetLocation = null;
         let isUpdateMode = true;
 
         const heroGrid = document.getElementById('admin-hero-grid');
-        const galleryNewborn = document.getElementById('admin-gallery-newborn');
-        const galleryOutdoor = document.getElementById('admin-gallery-outdoor');
         const onestyleCollections = document.getElementById('admin-onestyle-collections');
         const packagesList = document.getElementById('admin-packages-list');
+        const galleryCategoriesList = document.getElementById('admin-gallery-categories');
+        const recommendationsList = document.getElementById('admin-recommendations-list');
         const inspirationForm = document.getElementById('inspiration-form');
         const salePackageForm = document.getElementById('sale-package-form');
+        const galleryCategoryForm = document.getElementById('gallery-category-form');
+        const recommendationForm = document.getElementById('recommendation-form');
         const inspirationColorInput = document.getElementById('inspiration-color');
         const inspirationColorPicker = document.getElementById('inspiration-color-picker');
         const fileInput = document.getElementById('admin-file-input');
         let adminImagesByLocation = {};
         let adminPackageRows = [];
+        let adminImageRows = [];
+        let adminGalleryCategories = [];
+        let adminRecommendations = [];
         let editingInspirationRowId = '';
         let editingSalePackageRowId = '';
 
@@ -376,16 +421,268 @@
             }).join('');
         }
 
+        function getCategoryRows(data) {
+            if (Array.isArray(data)) return data;
+            const rows = getFieldValue(data, 'gallerycategories', 'galleryCategories', 'Gallerycategories', 'GalleryCategories');
+            if (Array.isArray(rows)) return rows;
+            return rows ? [rows] : [];
+        }
+
+        function normalizeGalleryCategory(row) {
+            const name = getFieldValue(row, 'Displayname', 'displayname').toString().trim();
+            const location = getFieldValue(row, 'ImageIDname', 'imageidname').toString().trim();
+            return { row, id: getRowId(row), name, location };
+        }
+
+        function findCategoryById(id) {
+            return adminGalleryCategories.find(item => (item.id || '').toString() === (id || '').toString());
+        }
+
+        function resetGalleryCategoryForm() {
+            setInputValue('gallery-category-row-id', '');
+            setInputValue('gallery-category-original-location', '');
+            setInputValue('gallery-category-name', '');
+            setInputValue('gallery-category-location', '');
+        }
+
+        function editGalleryCategory(id) {
+            const category = findCategoryById(id);
+            if (!category) return showStatus('לא נמצאה קטגוריה לעריכה.', true);
+            setInputValue('gallery-category-row-id', category.id);
+            setInputValue('gallery-category-original-location', category.location);
+            setInputValue('gallery-category-name', category.name);
+            setInputValue('gallery-category-location', '');
+            galleryCategoryForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            document.getElementById('gallery-category-name')?.focus();
+        }
+
+        async function saveCategoryRow(rowId, payload) {
+    // 1. נקה את הנתונים: וודא שהמפתחות הם בדיוק מה שהסקריפט מצפה (אותיות קטנות בלבד)
+    const cleanPayload = {
+        displayname: payload['Display name'] || payload.displayname,
+        imageidname: payload['Image ID name'] || payload.imageidname
+    };
+
+    const normalizedRowId = (rowId || '').toString().trim();
+    const method = normalizedRowId ? 'PUT' : 'POST';
+    const url = normalizedRowId ? `${SHEETY_GALLERY_CATEGORIES_API_URL}/${normalizedRowId}` : SHEETY_GALLERY_CATEGORIES_API_URL;
+
+    // 2. שלח רק את המבנה שאתה יודע שעובד (עטוף בשם הגיליון באותיות קטנות)
+    const body = { gallerycategories: cleanPayload };
+
+    const response = await fetch(url, { 
+        method, 
+        headers: getAdminHeaders(), 
+        body: JSON.stringify(body) 
+    });
+
+    ensureAuthorizedResponse(response);
+    if (response.ok) return response;
+
+    throw new Error(`Gallery category ${method} failed: ${await response.text()}`);
+}
+
+        async function updateImageLocation(rowId, newLocation) {
+            const bodyOptions = [
+                { siteImage: { location: newLocation } },
+                { siteimage: { location: newLocation } },
+                { siteImages: { location: newLocation } },
+                { location: newLocation }
+            ];
+            let response = null;
+            for (const bodyOption of bodyOptions) {
+                response = await fetch(`${SHEETY_API_URL}/${rowId}`, { method: 'PUT', headers: getAdminHeaders(), body: JSON.stringify(bodyOption) });
+                ensureAuthorizedResponse(response);
+                if (response.ok) return response;
+            }
+            throw new Error(`Image location update failed for ${rowId}`);
+        }
+
+        async function renameCategoryImageLocations(oldLocation, newLocation) {
+            const oldNorm = (oldLocation || '').toString().trim().toLowerCase();
+            const newValue = (newLocation || '').toString().trim();
+            if (!oldNorm || !newValue || oldNorm === newValue.toLowerCase()) return 0;
+            const matchingImages = adminImageRows.filter(img => getFieldValue(img, 'location').toString().trim().toLowerCase() === oldNorm);
+            for (const img of matchingImages) {
+                await updateImageLocation(getRowId(img), newValue);
+            }
+            return matchingImages.length;
+        }
+
+        async function deleteGalleryCategory(id, label) {
+            if (!id) return showStatus('לא נמצא מזהה קטגוריה למחיקה.', true);
+            if (!confirm(`האם למחוק את קטגוריית ״${label || id}״? התמונות עצמן לא יימחקו.`)) return;
+            showStatus('מוחק קטגוריה...');
+            try {
+                const response = await fetch(`${SHEETY_GALLERY_CATEGORIES_API_URL}/${id}`, { method: 'DELETE', headers: getAdminHeaders() });
+                ensureAuthorizedResponse(response);
+                if (!response.ok) throw new Error(`Category DELETE failed: ${response.status}`);
+                await fetchAndRenderGalleryCategories();
+                showStatus('הקטגוריה נמחקה בהצלחה.', false);
+            } catch (error) {
+                if (error instanceof UnauthorizedAdminError) return handleUnauthorizedAdmin();
+                console.error('Error deleting category:', error);
+                showStatus('שגיאה במחיקת קטגוריה.', true);
+            }
+        }
+
+        function renderGalleryCategories() {
+            if (!galleryCategoriesList) return;
+            galleryCategoriesList.innerHTML = adminGalleryCategories.map(category => {
+                const images = adminImageRows.filter(img => getFieldValue(img, 'location').toString().trim().toLowerCase() === category.location.toLowerCase());
+                return `
+                    <article class="border border-sky-100 bg-sky-50/60 rounded-2xl p-4">
+                        <div class="flex justify-between items-start gap-3 mb-3">
+                            <div>
+                                <div class="font-mono text-[11px] text-stone-500">location: ${escapeHtml(category.location)} · ID: ${escapeHtml(category.id || '')}</div>
+                                <h3 class="font-bold text-stone-800">${escapeHtml(category.name)}</h3>
+                                <p class="text-xs text-stone-500 mt-1">${images.length} תמונות משויכות</p>
+                            </div>
+                            <div class="flex flex-wrap gap-2 justify-end">
+                                <button type="button" onclick="editGalleryCategory('${escapeJsAttrString(category.id)}')" class="text-xs bg-white border border-sky-200 text-sky-800 px-3 py-1 rounded-lg hover:bg-sky-100">ערוך שם</button>
+                                <button type="button" onclick="triggerAddNew('${escapeJsAttrString(category.location)}')" class="text-xs bg-stone-800 text-white px-3 py-1 rounded-lg hover:bg-stone-700"><i class="fa-solid fa-plus ml-1"></i> הוסף תמונה</button>
+                                <button type="button" onclick="deleteGalleryCategory('${escapeJsAttrString(category.id)}', '${escapeJsAttrString(category.name)}')" class="text-xs bg-red-50 border border-red-200 text-red-700 px-3 py-1 rounded-lg hover:bg-red-100">מחק</button>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                            ${images.map(img => createImageItemHtml(img, getFieldValue(img, 'url'), getFieldValue(img, 'location'))).join('') || '<div class="col-span-3 text-xs text-stone-400 bg-white/80 border border-dashed border-sky-100 rounded-xl p-4 text-center">אין עדיין תמונות בקטגוריה זו.</div>'}
+                        </div>
+                    </article>
+                `;
+            }).join('') || '<div class="md:col-span-2 text-center text-stone-500 bg-stone-50 border border-stone-200 rounded-2xl p-6">אין עדיין קטגוריות בגליון gallerycategories.</div>';
+        }
+
+        async function fetchAndRenderGalleryCategories() {
+            showStatus('טוען קטגוריות גלריה...');
+            try {
+                const response = await fetch(SHEETY_GALLERY_CATEGORIES_API_URL);
+                const data = await response.json();
+                adminGalleryCategories = getCategoryRows(data).map(normalizeGalleryCategory).filter(item => item.name && item.location);
+                renderGalleryCategories();
+                showStatus('קטגוריות הגלריה נטענו בהצלחה.', false);
+            } catch (error) {
+                console.error('Error loading gallery categories:', error);
+                showStatus('שגיאה בטעינת קטגוריות הגלריה.', true);
+            }
+        }
+
+        function getRecommendationRows(data) {
+            if (Array.isArray(data)) return data;
+            const rows = getFieldValue(data, 'recommendations', 'recommendation', 'Recommendations', 'Recommendation');
+            if (Array.isArray(rows)) return rows;
+            return rows ? [rows] : [];
+        }
+
+        function normalizeRecommendation(row) {
+            return {
+                row,
+                id: getRowId(row),
+                name: getFieldValue(row, 'name'),
+                title: getFieldValue(row, 'title'),
+                period: getFieldValue(row, 'period'),
+                content: getFieldValue(row, 'content')
+            };
+        }
+
+        function resetRecommendationForm() {
+            setInputValue('recommendation-row-id', '');
+            setInputValue('recommendation-name', '');
+            setInputValue('recommendation-title', '');
+            setInputValue('recommendation-period', '');
+            setInputValue('recommendation-content', '');
+        }
+
+        function findRecommendationById(id) {
+            return adminRecommendations.find(item => (item.id || '').toString() === (id || '').toString());
+        }
+
+        function editRecommendation(id) {
+            const item = findRecommendationById(id);
+            if (!item) return showStatus('לא נמצאה המלצה לעריכה.', true);
+            setInputValue('recommendation-row-id', item.id);
+            setInputValue('recommendation-name', item.name);
+            setInputValue('recommendation-title', item.title);
+            setInputValue('recommendation-period', item.period);
+            setInputValue('recommendation-content', item.content);
+            recommendationForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            document.getElementById('recommendation-name')?.focus();
+        }
+
+        async function saveRecommendationRow(rowId, payload) {
+            const normalizedRowId = (rowId || '').toString().trim();
+            const method = normalizedRowId ? 'PUT' : 'POST';
+            const url = normalizedRowId ? `${SHEETY_RECOMMENDATIONS_API_URL}/${normalizedRowId}` : SHEETY_RECOMMENDATIONS_API_URL;
+            const bodyOptions = [{ recommendation: payload }, { recommendations: payload }, { Recommendation: payload }, payload];
+            let response = null;
+            for (const bodyOption of bodyOptions) {
+                response = await fetch(url, { method, headers: getAdminHeaders(), body: JSON.stringify(bodyOption) });
+                ensureAuthorizedResponse(response);
+                if (response.ok) return response;
+            }
+            throw new Error(`Recommendation ${method} failed`);
+        }
+
+        async function deleteRecommendation(id, label) {
+            if (!id) return showStatus('לא נמצא מזהה המלצה למחיקה.', true);
+            if (!confirm(`האם למחוק את ההמלצה של ״${label || id}״?`)) return;
+            showStatus('מוחק המלצה...');
+            try {
+                const response = await fetch(`${SHEETY_RECOMMENDATIONS_API_URL}/${id}`, { method: 'DELETE', headers: getAdminHeaders() });
+                ensureAuthorizedResponse(response);
+                if (!response.ok) throw new Error(`Recommendation DELETE failed: ${response.status}`);
+                await fetchAndRenderRecommendations();
+                showStatus('ההמלצה נמחקה בהצלחה.', false);
+            } catch (error) {
+                if (error instanceof UnauthorizedAdminError) return handleUnauthorizedAdmin();
+                console.error('Error deleting recommendation:', error);
+                showStatus('שגיאה במחיקת המלצה.', true);
+            }
+        }
+
+        function renderRecommendationsAdmin() {
+            if (!recommendationsList) return;
+            recommendationsList.innerHTML = adminRecommendations.map(item => `
+                <article class="border border-rose-100 bg-rose-50/60 rounded-2xl p-4">
+                    <div class="flex justify-between items-start gap-3 mb-2">
+                        <div>
+                            <div class="font-mono text-[11px] text-stone-500">ID: ${escapeHtml(item.id || '')}</div>
+                            <h3 class="font-bold text-stone-800">${escapeHtml(item.name || 'ללא שם')}</h3>
+                            ${item.title ? `<p class="text-xs font-bold text-rose-700">${escapeHtml(item.title)}</p>` : ''}
+                            ${item.period ? `<p class="text-[11px] text-stone-500">${escapeHtml(item.period)}</p>` : ''}
+                        </div>
+                        <div class="flex gap-2">
+                            <button type="button" onclick="editRecommendation('${escapeJsAttrString(item.id)}')" class="text-xs bg-white border border-rose-200 text-rose-800 px-3 py-1 rounded-lg hover:bg-rose-100">ערוך</button>
+                            <button type="button" onclick="deleteRecommendation('${escapeJsAttrString(item.id)}', '${escapeJsAttrString(item.name)}')" class="text-xs bg-red-50 border border-red-200 text-red-700 px-3 py-1 rounded-lg hover:bg-red-100">מחק</button>
+                        </div>
+                    </div>
+                    <p class="text-xs text-stone-600 whitespace-pre-line">${escapeHtml(item.content || '')}</p>
+                </article>
+            `).join('') || '<div class="md:col-span-2 text-center text-stone-500 bg-stone-50 border border-stone-200 rounded-2xl p-6">אין עדיין המלצות בגיליון.</div>';
+        }
+
+        async function fetchAndRenderRecommendations() {
+            showStatus('טוען המלצות...');
+            try {
+                const response = await fetch(SHEETY_RECOMMENDATIONS_API_URL);
+                const data = await response.json();
+                adminRecommendations = getRecommendationRows(data).map(normalizeRecommendation);
+                renderRecommendationsAdmin();
+                showStatus('ההמלצות נטענו בהצלחה.', false);
+            } catch (error) {
+                console.error('Error loading recommendations:', error);
+                showStatus('שגיאה בטעינת המלצות.', true);
+            }
+        }
+
         async function fetchAndRenderData() {
             showStatus("טוען תמונות מתוך גוגל שיטס...");
             try {
                 const response = await fetch(SHEETY_API_URL);
                 const data = await response.json();
                 const rows = data.siteImages || data.siteimages || data["siteImages"] || data["siteimages"] || [];
+                adminImageRows = rows;
 
                 heroGrid.innerHTML = '';
-                galleryNewborn.innerHTML = '';
-                galleryOutdoor.innerHTML = '';
                 adminImagesByLocation = {};
 
                 rows.forEach(img => {
@@ -395,13 +692,10 @@
                     if (!finalUrl || !normalizedLocation) return;
 
                     const itemHtml = createImageItemHtml(img, finalUrl, finalLocation);
+                    const dynamicGalleryLocations = new Set(adminGalleryCategories.map(category => category.location.toLowerCase()));
                     if (normalizedLocation === 'hero') {
                         heroGrid.insertAdjacentHTML('beforeend', itemHtml);
-                    } else if (normalizedLocation === 'gallery_newborn') {
-                        galleryNewborn.insertAdjacentHTML('beforeend', itemHtml);
-                    } else if (normalizedLocation === 'gallery_outdoor') {
-                        galleryOutdoor.insertAdjacentHTML('beforeend', itemHtml);
-                    } else {
+                    } else if (!dynamicGalleryLocations.has(normalizedLocation)) {
                         const key = normalizedLocation.replace(/^onestyle_/, '');
                         if (!adminImagesByLocation[key]) adminImagesByLocation[key] = [];
                         if (!adminImagesByLocation[normalizedLocation]) adminImagesByLocation[normalizedLocation] = [];
@@ -412,6 +706,7 @@
                 });
 
                 renderAdminCollectionImageSections();
+                renderGalleryCategories();
                 showStatus("הנתונים נטענו בהצלחה!", false);
             } catch (error) {
                 console.error("Error loading data:", error);
@@ -432,14 +727,80 @@
             fileInput.click();
         }
 
+        function findImageRowById(rowId) {
+            return adminImageRows.find(img => getRowId(img).toString() === (rowId || '').toString());
+        }
+
+        function getCloudinaryPublicIdFromUrl(url) {
+            if (!url || !url.includes('res.cloudinary.com') || !url.includes('/image/upload/')) return '';
+            try {
+                const path = new URL(url).pathname;
+                const uploadIndex = path.indexOf('/image/upload/');
+                if (uploadIndex === -1) return '';
+                let parts = path.slice(uploadIndex + '/image/upload/'.length).split('/').filter(Boolean);
+                while (parts.length && (parts[0].includes(',') || /^(?:c|w|h|q|f|g|e|dpr|ar|x|y|r|a|b|co|l|u|fl)_/.test(parts[0]))) {
+                    parts.shift();
+                }
+                if (parts.length && /^v\d+$/.test(parts[0])) parts.shift();
+                const publicPath = parts.join('/');
+                return decodeURIComponent(publicPath.replace(/\.[^.\/]+$/, ''));
+            } catch (error) {
+                return '';
+            }
+        }
+
+        function getCloudinaryPublicIdForImage(img) {
+            return getFieldValue(img, 'publicId', 'public_id', 'cloudinaryPublicId', 'Cloudinary Public ID') || getCloudinaryPublicIdFromUrl(getFieldValue(img, 'url'));
+        }
+
+        async function deleteCloudinaryAssetForImage(img) {
+            const url = getFieldValue(img, 'url');
+            if (!url || !url.includes('res.cloudinary.com')) return false;
+
+            const deleteToken = getFieldValue(img, 'deleteToken', 'delete_token', 'cloudinaryDeleteToken');
+            if (deleteToken) {
+                const tokenResponse = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/delete_by_token`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: new URLSearchParams({ token: deleteToken })
+                });
+                if (tokenResponse.ok) return true;
+            }
+
+            const workerBaseUrl = SHEETY_API_URL.replace(/\/siteImages\/?$/, '');
+            const publicId = getCloudinaryPublicIdForImage(img);
+            const payload = { publicId, url };
+            const endpointOptions = [
+                `${workerBaseUrl}/cloudinary/delete`,
+                `${workerBaseUrl}/cloudinaryDelete`,
+                `${SHEETY_API_URL}/${getRowId(img)}/cloudinary`
+            ];
+            for (const endpoint of endpointOptions) {
+                try {
+                    const response = await fetch(endpoint, {
+                        method: 'POST',
+                        headers: getAdminHeaders(),
+                        body: JSON.stringify(payload)
+                    });
+                    ensureAuthorizedResponse(response);
+                    if (response.ok) return true;
+                } catch (error) {
+                    if (error instanceof UnauthorizedAdminError) throw error;
+                }
+            }
+            throw new Error('Cloudinary deletion failed. Ensure the worker exposes a signed Cloudinary delete endpoint or rows include deleteToken.');
+        }
+
         async function deleteImageRow(rowId) {
             if (!rowId) {
                 showStatus('לא נמצא מזהה תמונה למחיקה.', true);
                 return;
             }
-            if (!confirm('האם להסיר את התמונה מהאתר ומהגיליון? הפעולה לא מוחקת את הקובץ מ-Cloudinary.')) return;
-            showStatus('מסיר תמונה מהגיליון...');
+            if (!confirm('האם להסיר את התמונה מהאתר, מהגיליון ומ-Cloudinary?')) return;
+            showStatus('מסיר תמונה מ-Cloudinary ומהגיליון...');
             try {
+                const imageRow = findImageRowById(rowId);
+                if (imageRow) await deleteCloudinaryAssetForImage(imageRow);
                 const response = await fetch(`${SHEETY_API_URL}/${rowId}`, {
                     method: 'DELETE',
                     headers: getAdminHeaders()
@@ -448,14 +809,14 @@
                 if (!response.ok) throw new Error(`Image DELETE failed: ${response.status}`);
                 if (currentTargetId?.toString() === rowId.toString()) currentTargetId = null;
                 await fetchAndRenderData();
-                showStatus('התמונה הוסרה בהצלחה מהאתר.', false);
+                showStatus('התמונה הוסרה בהצלחה מהאתר ומ-Cloudinary.', false);
             } catch (error) {
                 if (error instanceof UnauthorizedAdminError) {
                     handleUnauthorizedAdmin();
                     return;
                 }
                 console.error('Error deleting image row:', error);
-                showStatus('שגיאה במחיקת התמונה. נסו שוב או בדקו הרשאות.', true);
+                showStatus('שגיאה במחיקת התמונה מ-Cloudinary או מהגיליון. בדקו הרשאות Worker/Cloudinary.', true);
             }
         }
 
@@ -499,6 +860,7 @@
                 const formData = new FormData();
                 formData.append('file', file);
                 formData.append('upload_preset', CLOUDINARY_PRESET);
+                formData.append('return_delete_token', 'true');
 
                 const cloudinaryResponse = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`, {
                     method: 'POST',
@@ -525,9 +887,10 @@
                     showStatus("מעדכן את שורת הנתונים בגוגל שיטס...");
                     
                     // מנגנון הגנה דינמי ל-PUT: שולח את כל הוריאציות של המפתח העטיפתי
-                    const putBody1 = { siteImage: { "url": optimizedUrl } };
-                    const putBody2 = { siteimage: { "url": optimizedUrl } };
-                    const putBody3 = { siteImages: { "url": optimizedUrl } };
+                    const imagePayload = { "url": optimizedUrl, "publicId": cloudinaryData.public_id || '', "deleteToken": cloudinaryData.delete_token || '' };
+                    const putBody1 = { siteImage: imagePayload };
+                    const putBody2 = { siteimage: imagePayload };
+                    const putBody3 = { siteImages: imagePayload };
 
                     let res = await fetch(`${SHEETY_API_URL}/${currentTargetId}`, {
                         method: 'PUT',
@@ -552,9 +915,9 @@
                     
                     // הגנה חכמה ל-POST: אנחנו מכינים 3 גרסאות שונות של מבנה ה-JSON
                     const bodyOptions = [
-                        { siteImage: { "location": currentTargetLocation, "url": optimizedUrl, "description": `תמונה חדשה` } },
-                        { siteimage: { "location": currentTargetLocation, "url": optimizedUrl, "description": `תמונה חדשה` } },
-                        { siteImages: { "location": currentTargetLocation, "url": optimizedUrl, "description": `תמונה חדשה` } }
+                        { siteImage: { "location": currentTargetLocation, "url": optimizedUrl, "description": `תמונה חדשה`, "publicId": cloudinaryData.public_id || '', "deleteToken": cloudinaryData.delete_token || '' } },
+                        { siteimage: { "location": currentTargetLocation, "url": optimizedUrl, "description": `תמונה חדשה`, "publicId": cloudinaryData.public_id || '', "deleteToken": cloudinaryData.delete_token || '' } },
+                        { siteImages: { "location": currentTargetLocation, "url": optimizedUrl, "description": `תמונה חדשה`, "publicId": cloudinaryData.public_id || '', "deleteToken": cloudinaryData.delete_token || '' } }
                     ];
 
                     let success = false;
@@ -842,6 +1205,50 @@
             }
         }
 
+        galleryCategoryForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const rowId = getInputValue('gallery-category-row-id');
+            const oldLocation = getInputValue('gallery-category-original-location');
+            const name = getInputValue('gallery-category-name');
+            const location = getInputValue('gallery-category-location');
+            if (!name || !location) return showStatus('יש להזין Display name ו-Image ID name לקטגוריה.', true);
+            showStatus(rowId ? 'מעדכן קטגוריה ותמונות משויכות...' : 'מוסיף קטגוריה חדשה...');
+            try {
+                await saveCategoryRow(rowId, { 'Display name': name, 'Image ID name': location });
+                const updatedImages = await renameCategoryImageLocations(oldLocation, location);
+                resetGalleryCategoryForm();
+                await fetchAndRenderData();
+                await fetchAndRenderGalleryCategories();
+                showStatus(rowId ? `הקטגוריה עודכנה בהצלחה. ${updatedImages} תמונות עודכנו ל-location החדש.` : 'הקטגוריה נוספה בהצלחה.', false);
+            } catch (error) {
+                if (error instanceof UnauthorizedAdminError) return handleUnauthorizedAdmin();
+                console.error('Error saving gallery category:', error);
+                showStatus('שגיאה בשמירת קטגוריה או בעדכון התמונות המשויכות.', true);
+            }
+        });
+
+        recommendationForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const rowId = getInputValue('recommendation-row-id');
+            const payload = {
+                name: getInputValue('recommendation-name'),
+                title: getInputValue('recommendation-title'),
+                period: getInputValue('recommendation-period'),
+                content: getInputValue('recommendation-content')
+            };
+            showStatus(rowId ? 'מעדכן המלצה...' : 'מוסיף המלצה חדשה...');
+            try {
+                await saveRecommendationRow(rowId, payload);
+                resetRecommendationForm();
+                await fetchAndRenderRecommendations();
+                showStatus(rowId ? 'ההמלצה עודכנה בהצלחה.' : 'ההמלצה נוספה בהצלחה.', false);
+            } catch (error) {
+                if (error instanceof UnauthorizedAdminError) return handleUnauthorizedAdmin();
+                console.error('Error saving recommendation:', error);
+                showStatus('שגיאה בשמירת המלצה.', true);
+            }
+        });
+
         inspirationForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const rowId = getActiveEditRowId('inspiration-row-id', editingInspirationRowId || inspirationForm.dataset.editingRowId);
@@ -856,9 +1263,11 @@
             await savePackageRow(rowId, payload, rowId ? "חבילת המכירה עודכנה בהצלחה!" : "חבילת המכירה נשמרה בהצלחה!", resetSalePackageForm);
         });
 
-        document.addEventListener('DOMContentLoaded', () => {
-            fetchAndRenderData();
+        document.addEventListener('DOMContentLoaded', async () => {
+            await fetchAndRenderGalleryCategories();
+            await fetchAndRenderData();
             fetchAndRenderPackages();
+            fetchAndRenderRecommendations();
         });
     </script>
 </body>
