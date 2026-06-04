@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TAMAR ELYASHIV | צילום אמנותי - רגעים אמיתיים</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         window.turnstileApiReady = false;
@@ -15,11 +14,9 @@
         };
     </script>
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onTurnstileApiReady" async defer></script>
-    <!-- פונטים מבית גוגל עבור טיפוגרפיה עברית ולטינית יוקרתית -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Alef:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
-    <!-- אייקונים אלגנטיים של FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="CLOSE.png">
 
@@ -672,10 +669,8 @@
     </button>
 
 
-    <!-- סרגל ניווט עליון -->
     <nav class="sticky top-0 z-50 bg-cream-100/40 backdrop-blur-xl border-b border-mocha-100/80 py-0.9 px-3 md:py-0 md:px-4 transition-all duration-300">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <!-- לוגו האתר -->
             <a href="#" class="flex items-center gap-3 group">
             <div class="scale-[0.34] origin-center -my-11 -mx-10 flex-shrink-0">
     <div class="aperture-logo-wrapper aperture-nav">
@@ -698,7 +693,6 @@
                 </span>
             </a>
 
-            <!-- קישורים למסכים גדולים -->
             <div class="hidden md:flex items-center space-x-reverse space-x-8 text-sm font-medium text-mocha-800">
                 <a href="#about" class="hover:text-accentRose transition-colors duration-200">קצת עלי</a>
                 <a href="#gallery" class="hover:text-accentRose transition-colors duration-200">גלריה</a>
@@ -707,18 +701,15 @@
                 <a href="#contact" class="hover:text-accentRose transition-colors duration-200">צור קשר</a>
             </div>
 
-            <!-- כפתור הנעה לפעולה -->
             <a href="#gallery" class="hidden sm:inline-block bg-mocha-800 hover:bg-mocha-700 text-cream-100 text-xs tracking-wider uppercase px-6 py-3 rounded-full transition-all duration-300 shadow-sm hover:shadow-md">
                 צפה בגלריה
             </a>
 
-            <!-- כפתור תפריט מובייל -->
             <button id="mobile-menu-btn" class="md:hidden text-mocha-900 focus:outline-none" aria-label="פתח תפריט">
                 <i class="fa-solid fa-bars text-xl"></i>
             </button>
         </div>
 
-        <!-- תפריט מובייל נפתח -->
         <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-cream-100 border-b border-mocha-200 shadow-lg p-6 transition-all duration-300">
             <div class="flex flex-col space-y-4 text-center font-medium">
                 <a href="#about" class="mobile-link text-mocha-800 hover:text-accentRose py-2 border-b border-mocha-50">קצת עלי</a>
@@ -730,7 +721,6 @@
         </div>
     </nav>
 
-    <!-- מסך פתיחה ראשי - הירו -->
     <header class="relative min-h-[88vh] flex items-center justify-center overflow-hidden px-6 package-touch">
         <div id="hero-slides" aria-hidden="true" class="absolute inset-0 pointer-events-none"></div>
         <div class="absolute inset-0 bg-mocha-950/45"></div>
@@ -755,7 +745,6 @@
         </div>
     </header>
 
-    <!-- סעיף אודות - קצת עלי -->
     <section id="about" class="divider-line py-24 bg-white border-y border-mocha-100/50">
         <div class="max-w-6xl mx-auto px-6">
             <div class="max-w-4xl mx-auto">
@@ -772,7 +761,6 @@
         </div>
     </section>
 
-    <!-- סעיף גלריה - תיק עבודות מהיר -->
     <section id="gallery" class="divider-line py-24 bg-mocha-800">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center max-w-2xl mx-auto mb-10 text-cream-100">
@@ -791,7 +779,6 @@
         </div>
     </section>
 
-    <!-- סעיף ONE STYLE - קונספט צילום ייחודי -->
     <section id="onestyle" class="divider-line py-24 bg-white border-b border-mocha-100 relative">
         <div class="absolute top-0 right-0 w-64 h-64 bg-mocha-100/30 rounded-full blur-2xl pointer-events-none"></div>
         <div class="max-w-6xl mx-auto px-6 relative z-10">
@@ -843,7 +830,6 @@
         </div>
     </section>
 
-    <!-- המלצות לקוחות דינמיות -->
     <div class="bg-white py-8 border-b border-mocha-100">
         <div class="max-w-4xl mx-auto px-6 text-center">
             <button type="button" id="recommendations-open" class="recommendations-link inline-flex items-center justify-center gap-2 bg-cream-200 hover:bg-accentRose text-mocha-900 font-bold text-xs sm:text-sm px-7 py-3 rounded-full border border-mocha-200 transition-colors">
@@ -852,7 +838,6 @@
         </div>
     </div>
 
-    <!-- סעיף מחירון וחבילות -->
     <section id="pricing" class="divider-line py-24 bg-cream-200">
         <div class="max-w-6xl mx-auto px-6">
 
@@ -866,7 +851,6 @@
                 <p class="text-sm text-mocha-700">כל החבילות נבנו מתוך מחשבה להעניק לכם את המקסימום - ליווי סטיילינג מקדים, עיבוד מקצועי וגלריה דיגיטלית יפהפייה.</p>
             </div>
 
-            <!-- מחשבון אינטראקטיבי חכם להערכת מחיר בהתאמה אישית -->
             <div class="bg-white p-6 sm:p-8 rounded-3xl border border-mocha-200 shadow-sm max-w-4xl mx-auto mb-16">
                 <h4 class="text-center font-bold text-mocha-900 text-base mb-6">
                     <i class="fa-solid fa-calculator text-accentRose ml-2 icon-spin-appear icon-hover-effect inline-block"></i>מחשבון הערכת מחיר אינטראקטיבי
@@ -906,7 +890,6 @@
                 </div>
             </div>
 
-            <!-- כרטיסי חבילות דינמיות משיטס -->
             <div id="packages-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
                 <div class="md:col-span-3 bg-white/70 border border-mocha-100 rounded-3xl p-8 text-center text-sm text-mocha-600">טוען חבילות ...</div>
             </div>
@@ -916,7 +899,6 @@
         </div>
     </section>
 
-    <!-- סעיף צור קשר והשארת פרטים -->
     <section id="contact" class="divider-line py-24 bg-white">
         <div class="max-w-4xl mx-auto px-6">
             <div class="text-center max-w-xl mx-auto mb-12">
@@ -930,7 +912,6 @@
             </div>
 
             <div class="bg-mocha-50 p-8 sm:p-12 rounded-3xl border border-mocha-100 shadow-sm">
-                <!-- טופס השארת פרטים -->
                 <form id="lead-form" class="space-y-6">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div>
@@ -961,7 +942,6 @@
                         <textarea id="message" rows="4" class="w-full bg-white border border-mocha-200 px-4 py-3 rounded-xl focus:outline-none focus:border-accentRose text-xs text-mocha-900" placeholder="למשל: נשמח לצילומי חוץ ביער, יש לנו 3 ילדים קטנים ואנו מתחברים לגווני שמנת..."></textarea>
                     </div>
 
-                    <!-- אזור משוב במקום חלונית אלרט מעצבנת -->
                     <div id="form-feedback" class="hidden text-center p-4 rounded-xl text-xs font-semibold"></div>
                     <div id="turnstile-widget" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden;"></div>
 
@@ -975,10 +955,8 @@
         </div>
     </section>
 
-    <!-- כותרת תחתונה של האתר -->
     <footer class="bg-mocha-900 text-cream-100/90 py-16 border-t border-mocha-950">
         <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
-            <!-- עמודה 1 -->
             <div class="space-y-4 text-right">
                 <span class="font-serif text-xl tracking-widest text-white flex items-center gap-2"><div class="scale-[0.18] origin-center -my-20 -mx-20"><div class="aperture-logo-wrapper aperture-trigger"><div class="aperture-logo-container"><svg version="1.1" class="aperture-animated-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" aria-hidden="true" focusable="false">
                     <g class="aperture-blades">
@@ -998,7 +976,6 @@
                 </div>
             </div>
 
-            <!-- עמודה 2 -->
             <div class="space-y-4 text-right md:self-center">
                 <h5 class="text-xs uppercase tracking-wider font-bold text-accentRose">ניווט מהיר</h5>
                 <ul class="space-y-2.5 text-xs text-mocha-300">
@@ -1009,7 +986,6 @@
                 </ul>
             </div>
 
-            <!-- עמודה 3 -->
             <div class="space-y-4 text-right md:self-center">
                 <h5 class="text-xs uppercase tracking-wider font-bold text-accentRose">פרטים ויצירת קשר</h5>
                 <ul class="space-y-2.5 text-xs text-mocha-300">
@@ -1025,9 +1001,6 @@
         </div>
     </footer>
 
-    <!-- קוד JS אינטראקטיבי ודינמי לחוויית משתמש חלקה -->
-
-    <!-- מודל צפייה מוגדל בתמונות -->
     <div id="image-lightbox" class="image-lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="צפייה מוגדלת בתמונה">
         <div class="image-lightbox__panel" role="document">
             <div class="image-lightbox__topbar">
@@ -1084,186 +1057,6 @@
         window.galleryCategories = [];
         window.galleryImageRowsByLocation = {};
         window.recommendations = [];
-
-        const siteAudio = {
-            click: new Audio('CLICK.mp3'),
-            shutter: new Audio('shutter.mp3')
-        };
-        Object.values(siteAudio).forEach(audio => {
-            audio.preload = 'auto';
-            audio.volume = 0.38;
-        });
-        let isSiteMuted = localStorage.getItem('tamarSiteMuted') === 'true';
-
-        function updateSoundToggle() {
-            const button = document.getElementById('sound-toggle');
-            if (!button) return;
-            button.classList.toggle('is-muted', isSiteMuted);
-            button.setAttribute('aria-pressed', isSiteMuted ? 'true' : 'false');
-            button.setAttribute('aria-label', isSiteMuted ? 'הפעל צלילי אתר' : 'השתק צלילי אתר');
-            button.title = isSiteMuted ? 'הפעל צלילים' : 'השתק צלילים';
-            button.innerHTML = `<i class="fa-solid ${isSiteMuted ? 'fa-volume-xmark' : 'fa-volume-high'}" aria-hidden="true"></i>`;
-        }
-
-        function toggleSiteMute() {
-            isSiteMuted = !isSiteMuted;
-            localStorage.setItem('tamarSiteMuted', isSiteMuted ? 'true' : 'false');
-            Object.values(siteAudio).forEach(audio => { audio.muted = isSiteMuted; });
-            updateSoundToggle();
-        }
-
-        function playSiteSound(type = 'click') {
-            if (isSiteMuted) return;
-            const audio = siteAudio[type] || siteAudio.click;
-            if (!audio) return;
-            audio.currentTime = 0;
-            const playback = audio.play();
-            if (playback?.catch) playback.catch(() => {});
-        }
-
-        function isMeaningfulClickTarget(target) {
-            return Boolean(target.closest('nav a, #mobile-menu a, .collection-tab, #packages-grid a, [data-sound="shutter"]'));
-        }
-
-        function initializeSiteSounds() {
-            Object.values(siteAudio).forEach(audio => { audio.muted = isSiteMuted; });
-            updateSoundToggle();
-            document.getElementById('sound-toggle')?.addEventListener('click', toggleSiteMute);
-            document.addEventListener('click', (event) => {
-                const target = event.target;
-                if (target.closest('#sound-toggle')) return;
-                if (target.closest('#lead-form button[type="submit"]')) return;
-                if (!target.closest('a, button, input[type="checkbox"], select, .gallery-container .box, .onestyle-visual.has-lightbox, [role="button"]')) return;
-                playSiteSound(isMeaningfulClickTarget(target) ? 'shutter' : 'click');
-            }, true);
-        }
-
-        const lightboxState = {
-            images: [],
-            labels: [],
-            context: 'הגלריה',
-            index: 0
-        };
-
-        function getLightboxElements() {
-            return {
-                modal: document.getElementById('image-lightbox'),
-                image: document.getElementById('lightbox-image'),
-                counter: document.getElementById('lightbox-counter'),
-                caption: document.getElementById('lightbox-caption'),
-                dots: document.getElementById('lightbox-dots'),
-                thumbs: document.getElementById('lightbox-thumbs'),
-                close: document.getElementById('lightbox-close')
-            };
-        }
-
-        function normalizeLightboxItems(images) {
-            const seen = new Set();
-            return (images || []).map((item, index) => {
-                const src = typeof item === 'string' ? item : item?.src;
-                const label = typeof item === 'string' ? `תמונה ${index + 1}` : (item?.label || `תמונה ${index + 1}`);
-                return src ? { src, label } : null;
-            }).filter(item => {
-                if (!item || seen.has(item.src)) return false;
-                seen.add(item.src);
-                return true;
-            });
-        }
-
-        function renderLightboxNavigation() {
-            const { dots, thumbs } = getLightboxElements();
-            if (!dots || !thumbs) return;
-            dots.innerHTML = lightboxState.images.map((_, index) => `
-                <button type="button" class="image-lightbox__dot${index === lightboxState.index ? ' is-active' : ''}" aria-label="עבור לתמונה ${index + 1}" onclick="setLightboxImage(${index})"></button>
-            `).join('');
-            thumbs.innerHTML = lightboxState.images.map((src, index) => `
-                <button type="button" class="image-lightbox__thumb${index === lightboxState.index ? ' is-active' : ''}" style="--thumb-index: ${index}" aria-label="פתח תמונה ${index + 1}" onclick="setLightboxImage(${index})">
-                    <img src="${escapeHtml(src)}" alt="תמונה ממוזערת ${index + 1}" loading="lazy">
-                </button>
-            `).join('');
-        }
-
-        function syncLightboxActiveControls() {
-            const { counter, caption, dots, thumbs } = getLightboxElements();
-            const positionText = `תמונה ${lightboxState.index + 1} מתוך ${lightboxState.images.length}`;
-            if (counter) counter.textContent = `${positionText} · ${lightboxState.context}`;
-            if (caption) caption.textContent = `${positionText} — ${lightboxState.labels[lightboxState.index] || lightboxState.context}`;
-            dots?.querySelectorAll('.image-lightbox__dot').forEach((dot, index) => dot.classList.toggle('is-active', index === lightboxState.index));
-            thumbs?.querySelectorAll('.image-lightbox__thumb').forEach((thumb, index) => {
-                thumb.classList.toggle('is-active', index === lightboxState.index);
-                if (index === lightboxState.index) thumb.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', inline: 'center', block: 'nearest' });
-            });
-        }
-
-        function setLightboxImage(index) {
-            if (!lightboxState.images.length) return;
-            const { image } = getLightboxElements();
-            lightboxState.index = (index + lightboxState.images.length) % lightboxState.images.length;
-            if (!image) return;
-            image.classList.add('is-switching');
-            window.setTimeout(() => {
-                image.src = lightboxState.images[lightboxState.index];
-                image.alt = lightboxState.labels[lightboxState.index] || `תמונה מוגדלת ${lightboxState.index + 1}`;
-                image.classList.remove('is-switching');
-                syncLightboxActiveControls();
-            }, prefersReducedMotion ? 0 : 150);
-        }
-
-        function moveLightbox(step) {
-            setLightboxImage(lightboxState.index + step);
-        }
-
-        function openLightboxForSources(images, startIndex = 0, context = 'הגלריה') {
-            const { modal, image, close } = getLightboxElements();
-            const items = normalizeLightboxItems(images);
-            if (!modal || !image || !items.length) return;
-            lightboxState.images = items.map(item => item.src);
-            lightboxState.labels = items.map(item => item.label);
-            lightboxState.context = context;
-            lightboxState.index = Math.max(0, Math.min(startIndex, items.length - 1));
-            image.src = lightboxState.images[lightboxState.index];
-            image.alt = lightboxState.labels[lightboxState.index] || `תמונה מוגדלת ${lightboxState.index + 1}`;
-            renderLightboxNavigation();
-            syncLightboxActiveControls();
-            modal.classList.add('is-open');
-            modal.setAttribute('aria-hidden', 'false');
-            document.body.classList.add('lightbox-locked');
-            close?.focus({ preventScroll: true });
-        }
-
-        function closeLightbox() {
-            const { modal } = getLightboxElements();
-            if (!modal?.classList.contains('is-open')) return;
-            modal.classList.remove('is-open');
-            modal.setAttribute('aria-hidden', 'true');
-            document.body.classList.remove('lightbox-locked');
-        }
-
-        function getVisibleGalleryImages() {
-            return [...document.querySelectorAll('#gallery-grid .gallery-item')]
-                .filter(item => item.style.display !== 'none')
-                .map(item => {
-                    const image = item.querySelector('img');
-                    return image?.src ? { src: image.src, label: item.dataset.lightboxLabel || image.alt } : null;
-                })
-                .filter(Boolean);
-        }
-
-        function initializeImageLightbox() {
-            document.getElementById('lightbox-close')?.addEventListener('click', closeLightbox);
-            document.getElementById('lightbox-prev')?.addEventListener('click', () => moveLightbox(1));
-            document.getElementById('lightbox-next')?.addEventListener('click', () => moveLightbox(-1));
-            document.getElementById('image-lightbox')?.addEventListener('click', (event) => {
-                if (event.target.id === 'image-lightbox') closeLightbox();
-            });
-            document.addEventListener('keydown', (event) => {
-                const modal = document.getElementById('image-lightbox');
-                if (!modal?.classList.contains('is-open')) return;
-                if (event.key === 'Escape') closeLightbox();
-                if (event.key === 'ArrowLeft') moveLightbox(1);
-                if (event.key === 'ArrowRight') moveLightbox(-1);
-            });
-        }
 
         const siteAudio = {
             click: new Audio('CLICK.mp3'),
