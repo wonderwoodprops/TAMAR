@@ -457,18 +457,30 @@
         }
 
         async function saveCategoryRow(rowId, payload) {
-            const normalizedRowId = (rowId || '').toString().trim();
-            const method = normalizedRowId ? 'PUT' : 'POST';
-            const url = normalizedRowId ? `${SHEETY_GALLERY_CATEGORIES_API_URL}/${normalizedRowId}` : SHEETY_GALLERY_CATEGORIES_API_URL;
-            const bodyOptions = [{ gallerycategory: payload }, { galleryCategory: payload }, { gallerycategories: payload }, payload];
-            let response = null;
-            for (const bodyOption of bodyOptions) {
-                response = await fetch(url, { method, headers: getAdminHeaders(), body: JSON.stringify(bodyOption) });
-                ensureAuthorizedResponse(response);
-                if (response.ok) return response;
-            }
-            throw new Error(`Gallery category ${method} failed`);
-        }
+    // 1. נקה את הנתונים: וודא שהמפתחות הם בדיוק מה שהסקריפט מצפה (אותיות קטנות בלבד)
+    const cleanPayload = {
+        displayname: payload['Display name'] || payload.displayname,
+        imageidname: payload['Image ID name'] || payload.imageidname
+    };
+
+    const normalizedRowId = (rowId || '').toString().trim();
+    const method = normalizedRowId ? 'PUT' : 'POST';
+    const url = normalizedRowId ? `${SHEETY_GALLERY_CATEGORIES_API_URL}/${normalizedRowId}` : SHEETY_GALLERY_CATEGORIES_API_URL;
+
+    // 2. שלח רק את המבנה שאתה יודע שעובד (עטוף בשם הגיליון באותיות קטנות)
+    const body = { gallerycategories: cleanPayload };
+
+    const response = await fetch(url, { 
+        method, 
+        headers: getAdminHeaders(), 
+        body: JSON.stringify(body) 
+    });
+
+    ensureAuthorizedResponse(response);
+    if (response.ok) return response;
+
+    throw new Error(`Gallery category ${method} failed: ${await response.text()}`);
+}
 
         async function updateImageLocation(rowId, newLocation) {
             const bodyOptions = [
