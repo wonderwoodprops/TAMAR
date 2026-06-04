@@ -1461,8 +1461,8 @@
         }
 
         function normalizeGalleryCategory(row) {
-            const name = getObjectFieldValue(row, 'Display name', 'display name').toString().trim();
-            const location = getObjectFieldValue(row, 'Image ID name', 'image id name').toString().trim().toLowerCase();
+            const name = getObjectFieldValue(row, 'Displayname', 'displayname').toString().trim();
+            const location = getObjectFieldValue(row, 'ImageIDname', 'imageidname').toString().trim().toLowerCase();
             return { id: getObjectFieldValue(row, 'id', 'rowId'), name, location };
         }
 
