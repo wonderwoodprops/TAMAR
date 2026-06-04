@@ -1736,7 +1736,7 @@
                 name,
                 email: document.getElementById('email').value.trim(),
                 phone: document.getElementById('phone').value.trim(),
-                package: getSelectedPackageName(),
+                package: document.getElementById('package-choice').value,
                 budget: getCalculatedBudget(),
                 notes: document.getElementById('message').value.trim()
             };
